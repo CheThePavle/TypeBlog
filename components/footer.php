@@ -1,13 +1,5 @@
-<?php 
-	// Разбираем url
-	$url = (isset($_GET['q'])) ? $_GET['q'] : '';
-	$url = rtrim($url, '/'); // Удаляет "/" из конца строки
-	$urls = explode('/', $url); // Разбивает строку с помощью разделителя "/"
-
-	// Определяем роутер
-	if ($urls[0] === ''){
-	    include_once 'pages/main.php';
-	    exit();
-	}
-
-	echo "404 page"; //добавить код 404
+<script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+<script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
+<script src="https://bootstraptema.ru/snippets/menu/2016/slidemenu/slidemenu.js"></script>
+</body>
+</html>
