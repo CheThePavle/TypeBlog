@@ -7,7 +7,7 @@
         <div class="col-lg-8 col-lg-offset-2">
             <h1 class="text-center">Вход</h1>
 
-            <form method="post" action="" role="form">
+            <form id="formAuth" role="form">
                 <div class="controls">
                     <div class="row">
                         <div class="col-md-6">
@@ -33,12 +33,42 @@
                         </div>
                     </div>
                 </div>
+                <br>
+                <div class="msg"></div>
             </form>
 
         </div><!-- /.col-lg-8 col-lg-offset-2 -->
     </div> <!-- /.row-->
 </div> <!-- /.container-->
 
+<script type="text/javascript">
+    $('#formAuth').submit(function (e) {
+        e.preventDefault();
+        let th = $(this);
+        let msg = $('.msg');
+
+        $.ajax({
+            url: '../api/user/auth.php',
+            type: 'POST',
+            data: th.serialize(),
+            success: function (data) {
+                console.log('das')
+                if (data?.error) {
+                    msg.html(`<div class="alert alert-warning">${data?.error}</div>`)
+                } else {
+                    msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
+                    setTimeout(function(){
+                        window.location.href = '/';
+                    }, 2000);
+                }
+
+            },
+            error: function () {
+                msg.html('<div class="alert alert-danger">Что-то пошло не так :(</div>');
+            }
+        })
+    });
+</script>
 <?php
     require_once "components/footer.php";
 ?>

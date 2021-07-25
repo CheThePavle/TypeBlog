@@ -21,8 +21,17 @@
 
             <ul class="nav navbar-nav">
                 <li <?=$urls[0] === '' ? 'class="active"' : ''?>><a href="/">Главная</a></li>
-                <li <?=$urls[0] === 'authorization' ? 'class="active"' : ''?>><a href="/authorization">Вход</a></li>
-                <li <?=$urls[0] === 'register' ? 'class="active"' : ''?>><a href="/register">Регистрация</a></li>
+                <?php
+                    if ($_SESSION) {
+                        echo '<li><a href="/lk">Привет, '.$_SESSION['login'].'</a></li>';
+                        echo '<li><a href="../api/user/out.php">Выход</a></li>';
+                    } else {
+                ?>
+                        <li <?=$urls[0] === 'authorization' ? 'class="active"' : ''?>><a href="/authorization">Вход</a></li>
+                        <li <?=$urls[0] === 'register' ? 'class="active"' : ''?>><a href="/register">Регистрация</a></li>
+                <?php
+                    }
+                ?>
                 <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ещё <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="https://bootstraptema.ru/stuff/0-0-0-0-1">Заработать</a></li>
