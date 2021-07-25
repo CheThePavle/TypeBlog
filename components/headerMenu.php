@@ -1,4 +1,3 @@
-<?php require_once "src/getUrl.php"; ?>
 <div class="navbar navbar-default navbar" role="navigation" id="slide-nav" style="z-index: 999">
     <div class="container">
         <div class="navbar-header">
