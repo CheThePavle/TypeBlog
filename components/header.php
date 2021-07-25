@@ -7,6 +7,7 @@
     <title>CheThePavle - Blog</title>
     <link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
     <link rel="stylesheet" href="https://bootstraptema.ru/snippets/menu/2016/slidemenu/slidemenu.css" />
+    <script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 <?php require_once "headerMenu.php" ?>
