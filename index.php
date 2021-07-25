@@ -1,4 +1,6 @@
 <?php 
+//header("Access-Control-Allow-Origin: http://diplom/");
+//header("Access-Control-Allow-Methods: POST");
     require_once "src/getUrl.php";
 	// Определяем роутер
 	if ($urls[0] === '' && sizeof($urls) == 1){
