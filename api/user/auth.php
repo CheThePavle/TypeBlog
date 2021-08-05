@@ -1,8 +1,10 @@
 <?php
     require_once "../../src/db.php";
+    require_once "../../src/fieldValidation.php"; //validate()
+
     session_start();
-    $login = $_POST['login'];
-    $password = $_POST['password'];
+    $login = validate($_POST['login']);
+    $password = validate($_POST['password']);
 
     if ($login && $password) {
         $res = $db->query("SELECT * FROM `user` WHERE `login` = ?", [$login]);
@@ -14,7 +16,7 @@
             ]);
         } else {
             $db->response([
-                "error"=>"Неправельный логин или пароль!"
+                "error"=>"Неверный логин или пароль!"
             ]);
         }
     } else {$db->response(["error"=>"Введите логин и пароль!"]);}

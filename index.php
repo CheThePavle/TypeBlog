@@ -6,6 +6,11 @@
 //    if ($urls[0] === 'api' && $urls[1] === 'user' && $urls[2] === 'create'){include_once 'api/user/create.php';exit();}
     session_start();
 
+//    define('MyConst', TRUE);
+//    if(!defined('MyConst')) {
+//        die('Direct access not permitted');
+//    }
+
     // Разбираем url
     $url = (isset($_GET['q'])) ? $_GET['q'] : '';
     $url = rtrim($url, '/'); // Удаляет "/" из конца строки
@@ -30,6 +35,40 @@
         include_once 'pages/authorization.php'; // Вход страница
         exit();
     }
+
+    if ($urls[0] === 'lk' && sizeof($urls) == 1){
+        if (!$_SESSION) {header("Location: /");};
+        include_once 'pages/lk.php'; // ЛК страница
+        exit();
+    }
+
+    if ($urls[0] === 'post' && $urls[1] === 'create' && sizeof($urls) == 2){
+        if (!$_SESSION) {header("Location: /");};
+        include_once 'pages/post/create.php'; // Создание поста страница
+        exit();
+    }
+
+    if ($urls[0] === 'post' && $urls[1] === 'change' && sizeof($urls) == 2){
+        if (!$_SESSION) {header("Location: /");};
+        include_once 'pages/post/change.php'; // Изменение поста страница
+        exit();
+    }
+
+    if ($urls[0] === 'post' && sizeof($urls) == 2){
+        include_once 'pages/post.php'; // Пост страница
+        exit();
+    }
+
+    if ($urls[0] === 'posts' && sizeof($urls) == 1){
+        include_once 'pages/posts.php'; // Посты страница
+        exit();
+    }
+
+    if ($urls[0] === 'profile' && sizeof($urls) == 2){
+        include_once 'pages/profile.php'; // Профиль пользователей страница
+        exit();
+    }
+
 
     http_response_code(404);
 	echo "404 page"; //добавить код 404
