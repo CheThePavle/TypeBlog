@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 05 2021 г., 17:14
+-- Время создания: Авг 05 2021 г., 22:16
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.14
 
@@ -43,7 +43,7 @@ CREATE TABLE `message` (
   `id_sender` int NOT NULL,
   `id_recipient` int NOT NULL,
   `body` text NOT NULL,
-  `created_at` date NOT NULL
+  `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -57,8 +57,8 @@ CREATE TABLE `post` (
   `id_creator` int NOT NULL,
   `heading` varchar(30) NOT NULL,
   `body` json NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -103,13 +103,24 @@ CREATE TABLE `tag` (
 CREATE TABLE `user` (
   `id` int NOT NULL,
   `email` varchar(100) NOT NULL,
-  `verify_email` bit(1) NOT NULL,
+  `verify_email` bit(1) NOT NULL DEFAULT b'0',
   `login` varchar(20) NOT NULL,
-  `password` varchar(60) NOT NULL,
+  `password` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `about` text NOT NULL,
-  `id_role` int NOT NULL,
-  `created_at` date NOT NULL
+  `id_role` int NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `verify_email`, `login`, `password`, `about`, `id_role`, `created_at`) VALUES
+(8, 'admin@das.ru', b'0', 'admin', '$2y$10$IiXSs0..CQ.l.aATusZHzecj2JbQVx5xV/Eix4HOXRLyxugjT1eem', 'dasss', 1, '2021-08-05 21:17:27'),
+(9, '2@dfs', b'0', '1231234224324242', '$2y$10$qW4ZW4pd0URquCeLjNlb/eUHOO5ahf90YDlro3JYFpTmzylXKsWeW', '234', 1, '2021-08-05 21:53:48'),
+(10, '123242342', b'0', '123123', '$2y$10$bFQ/AN5RLN65VFeKmB.Qb.x9rTb60KOOETXDXumGjckPlI3hK7tge', '123', 1, '2021-08-05 21:54:05'),
+(11, '42343222@dfs', b'0', 'ffffffffff', '$2y$10$O/tWN9AeMEGqn28zGeRb8OD1n8FNz74ovd7QIIAs39EpDm6JeccQq', 'sdf', 1, '2021-08-05 21:56:47'),
+(12, 'admin@das.ru12', b'0', '12321423242342342423', '$2y$10$6VDjCBfxtzIluUUEuaeYU.SAUUqhWTrc1.gzZmkS3DN6hgVDm4i9i', '123', 1, '2021-08-05 21:59:01');
 
 -- --------------------------------------------------------
 
@@ -121,6 +132,15 @@ CREATE TABLE `user_role` (
   `id` int NOT NULL,
   `name` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `user_role`
+--
+
+INSERT INTO `user_role` (`id`, `name`) VALUES
+(1, 'user'),
+(2, 'moderator'),
+(3, 'admin');
 
 --
 -- Индексы сохранённых таблиц
@@ -212,13 +232,13 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

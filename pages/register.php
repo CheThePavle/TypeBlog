@@ -1,5 +1,5 @@
 <?php
-	require_once "components/header.php";
+require_once "components/header.php";
 ?>
 
 <div class="container">
@@ -63,34 +63,61 @@
 </div> <!-- /.container-->
 
 <script type="text/javascript">
+    const activeBtn = (bool) => {
+        $('.btn-send').prop('disabled', bool);
+    }
+
     $("#password").keyup(function () {
         let p = $(this).val();
         let p2 = $("#password2").val();
+
+        $(".errorPassword").html('');
+        activeBtn(false);
+
         if (p !== p2) {
+            activeBtn(true);
             $(".errorPassword").html('<div class="alert alert-warning">Пароли не совпадают(</div>')
-        } else {$(".errorPassword").html('')}
+        }
+
+        if (p.length  < 6) {
+            $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть < 6 символов!</div>')
+            activeBtn(true);
+        }
+        if (p.length  > 20) {
+            $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть > 20 символов!</div>')
+            activeBtn(true);
+        }
     })
 
     $("#password2").keyup(function () {
         let p = $("#password").val();
         let p2 = $(this).val();
+
+        $(".errorPassword").html('');
+        activeBtn(false);
+
         if (p !== p2) {
+            activeBtn(true);
             $(".errorPassword").html('<div class="alert alert-warning">Пароли не совпадают(</div>')
-        } else {$(".errorPassword").html('')}
+        }
     })
 
     $("#login").keyup(function() {
         let th = $(this);
         let msg = $('.errorLogin');
 
+        $(".errorLogin").html('');
+        activeBtn(false);
+
         $.ajax({
             url: '../api/user/findLogin.php',
             type: 'POST',
             data: th.serialize(),
             success: function (data) {
-                data?.error
-                    ? msg.html(`<div class="alert alert-warning">${data.error}</div>`)
-                    : msg.html('');
+                if (data?.error) {
+                    activeBtn(true);
+                    msg.html(`<div class="alert alert-warning">${data.error}</div>`);
+                }
             }
         })
     });
@@ -99,20 +126,26 @@
         let th = $(this);
         let msg = $('.errorEmail');
 
+        $(".errorEmail").html('');
+        activeBtn(false);
+
         $.ajax({
             url: '../api/user/findEmail.php',
             type: 'POST',
             data: th.serialize(),
             success: function (data) {
-                data?.error
-                    ? msg.html(`<div class="alert alert-warning">${data.error}</div>`)
-                    : msg.html('');
+                if (data?.error) {
+                    activeBtn(true);
+                    msg.html(`<div class="alert alert-warning">${data.error}</div>`);
+                }
             }
         })
     });
 
     $('#formReg').submit(function (e) {
         e.preventDefault();
+        activeBtn(true);
+
         let th = $(this);
         let msg = $('.msg');
 
@@ -122,8 +155,10 @@
             data: th.serialize(),
             success: function (data) {
                 if (data?.error) {
+                    activeBtn(false);
                     msg.html(`<div class="alert alert-warning">${data?.error}</div>`)
                 } else {
+                    activeBtn(true);
                     msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
                     setTimeout(function(){
                         window.location.href = '/authorization';
@@ -131,6 +166,7 @@
                 }
             },
             error: function () {
+                activeBtn(true);
                 msg.html('<div class="alert alert-danger">Что-то пошло не так :((</div>');
             }
         })
@@ -138,5 +174,5 @@
 </script>
 
 <?php
-    require_once "components/footer.php";
+require_once "components/footer.php";
 ?>

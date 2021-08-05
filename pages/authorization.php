@@ -1,7 +1,6 @@
 <?php
 	require_once "components/header.php";
 ?>
-
 <div class="container">
     <div class="row" >
         <div class="col-lg-8 col-lg-offset-2">
@@ -14,6 +13,7 @@
                             <div class="form-group">
                                 <label for="login">Логин *</label>
                                 <input id="login" type="text" name="login" class="form-control" placeholder="Ваш логин *" required="required">
+                                <div class="errorLogin"></div>
                             </div>
                         </div>
                     </div>
@@ -23,13 +23,14 @@
                             <div class="form-group">
                                 <label for="password">Пароль *</label>
                                 <input id="password" type="password" name="password" class="form-control" placeholder="Ваш пароль *" required="required">
+                                <div class="errorPassword"></div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-success btn-send" value="Войти">
+                            <input id="btn-auth" type="submit" class="btn btn-success btn-send" value="Войти">
                         </div>
                     </div>
                 </div>
@@ -42,8 +43,46 @@
 </div> <!-- /.container-->
 
 <script type="text/javascript">
+    const activeBtn = (bool) => {
+        $('.btn-send').prop('disabled', bool);
+    }
+
+    $("#login").keyup(function () {
+        let l = $(this).val();
+
+        $(".errorLogin").html('');
+        activeBtn(false);
+
+        if (l.length  < 5) {
+            $(".errorLogin").html('<div class="alert alert-warning">Логин не может быть < 5 символов!</div>')
+            activeBtn(true);
+        }
+        if (l.length  > 20) {
+            $(".errorLogin").html('<div class="alert alert-warning">Логин не может быть > 20 символов!</div>')
+            activeBtn(true);
+        }
+    })
+
+    $("#password").keyup(function () {
+        let l = $(this).val();
+
+        $(".errorPassword").html('');
+        activeBtn(false);
+
+        if (l.length  < 5) {
+            $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть < 6 символов!</div>')
+            activeBtn(true);
+        }
+        if (l.length  > 20) {
+            $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть > 20 символов!</div>')
+            activeBtn(true);
+        }
+    })
+
     $('#formAuth').submit(function (e) {
         e.preventDefault();
+        activeBtn(true);
+
         let th = $(this);
         let msg = $('.msg');
 
@@ -52,10 +91,14 @@
             type: 'POST',
             data: th.serialize(),
             success: function (data) {
-                console.log('das')
                 if (data?.error) {
+                    activeBtn(false);
                     msg.html(`<div class="alert alert-warning">${data?.error}</div>`)
+                    setTimeout(function(){
+                        msg.html(``)
+                    }, 2000);
                 } else {
+                    activeBtn(true);
                     msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
                     setTimeout(function(){
                         window.location.href = '/';
@@ -64,9 +107,14 @@
 
             },
             error: function () {
+                activeBtn(true);
                 msg.html('<div class="alert alert-danger">Что-то пошло не так :(</div>');
+                setTimeout(function(){
+                    window.location.href = '/';
+                }, 2000);
             }
         })
+
     });
 </script>
 <?php

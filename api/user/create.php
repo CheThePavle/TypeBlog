@@ -1,12 +1,13 @@
 <?php
     require_once "../../src/db.php";
+    require_once "../../src/fieldValidation.php"; //validate()
 
     require_once "findLogin.php";
 
     require_once "findEmail.php";
 
-    $password = $_POST['password'];
-    $password2 = $_POST['password2'];
+    $password = validate($_POST['password']);
+    $password2 = validate($_POST['password2']);
     if ($password === $password2) {
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     } else {
@@ -16,11 +17,15 @@
     }
 
     $about = $_POST['about'];
-    $db->make('INSERT INTO `user` (`id`, `email`, `login`, `password`, `about`) VALUES (NULL, ?, ?, ?, ?);', [
+    $created_at = date("Y-m-d H:i:s");
+    $db->make('INSERT INTO `user` (`email`, `login`, `password`, `about`, `created_at`) 
+                    VALUES (?, ?, ?, ?, ?)',
+    [
         $email,
         $login,
         $password,
-        $about
+        $about,
+        $created_at
     ]);
 
     $db->response([
