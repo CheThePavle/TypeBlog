@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 05 2021 г., 16:41
+-- Время создания: Авг 05 2021 г., 17:14
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.14
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `diplom`
+-- База данных: `diplom_blog`
 --
 
 -- --------------------------------------------------------
@@ -29,18 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `category` (
   `id` int NOT NULL,
-  `name` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `category_post`
---
-
-CREATE TABLE `category_post` (
-  `id_post` int NOT NULL,
-  `id_category` int NOT NULL
+  `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -53,8 +42,8 @@ CREATE TABLE `message` (
   `id` int NOT NULL,
   `id_sender` int NOT NULL,
   `id_recipient` int NOT NULL,
-  `body` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `created_at` date DEFAULT NULL
+  `body` text NOT NULL,
+  `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -75,23 +64,34 @@ CREATE TABLE `post` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tag`
+-- Структура таблицы `post_category`
 --
 
-CREATE TABLE `tag` (
-  `id` int NOT NULL,
-  `name` varchar(25) NOT NULL
+CREATE TABLE `post_category` (
+  `id_post` int NOT NULL,
+  `id_category` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `tag_post`
+-- Структура таблицы `post_tag`
 --
 
-CREATE TABLE `tag_post` (
+CREATE TABLE `post_tag` (
   `id_post` int NOT NULL,
   `id_tag` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `tag`
+--
+
+CREATE TABLE `tag` (
+  `id` int NOT NULL,
+  `name` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -103,22 +103,24 @@ CREATE TABLE `tag_post` (
 CREATE TABLE `user` (
   `id` int NOT NULL,
   `email` varchar(100) NOT NULL,
-  `verify_email` bit(1) NOT NULL DEFAULT b'0',
-  `login` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `about` text CHARACTER SET utf8 COLLATE utf8_general_ci,
-  `created_at` date DEFAULT NULL
+  `verify_email` bit(1) NOT NULL,
+  `login` varchar(20) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `about` text NOT NULL,
+  `id_role` int NOT NULL,
+  `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Дамп данных таблицы `user`
+-- Структура таблицы `user_role`
 --
 
-INSERT INTO `user` (`id`, `email`, `verify_email`, `login`, `password`, `about`, `created_at`) VALUES
-(87, 'asdfad', b'1', '123afd', '$2y$10$mxjgXJFEKO4ODIJji/82OeAn9IxQN6DBVI07/XT5dFBHxHpRMMhYO', '', NULL),
-(88, 'выапвыа', b'0', 'вапрывап', '$2y$10$VP0pW1Mv6VII.7nlSe3Op.d/27ZOC5YpRJCDitVBZYz4W5nNt0Sw6', 'выапывапыва', NULL),
-(89, 'admin@das.ru', b'1', 'admin', '$2y$10$855qkULhaHuEpwUIzEqHL.GJ2HhdFaNhzNovz8S072dKZXEggjdTe', 'dasb', NULL),
-(90, 'sdfsd', b'0', 'adminsdf', '$2y$10$l5SX0hhWNyzVnk.JkdNVZeYGE1rzXeeDN/YuMh4b2uBYgkJabiIOG', '', NULL);
+CREATE TABLE `user_role` (
+  `id` int NOT NULL,
+  `name` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Индексы сохранённых таблиц
@@ -131,18 +133,11 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `category_post`
---
-ALTER TABLE `category_post`
-  ADD KEY `id_category` (`id_post`),
-  ADD KEY `id_category_2` (`id_category`);
-
---
 -- Индексы таблицы `message`
 --
 ALTER TABLE `message`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_sender` (`id_sender`),
+  ADD KEY `id_sender` (`id_sender`,`id_recipient`),
   ADD KEY `id_recipient` (`id_recipient`);
 
 --
@@ -153,22 +148,36 @@ ALTER TABLE `post`
   ADD KEY `id_creator` (`id_creator`);
 
 --
+-- Индексы таблицы `post_category`
+--
+ALTER TABLE `post_category`
+  ADD KEY `id_post` (`id_post`,`id_category`),
+  ADD KEY `id_category` (`id_category`);
+
+--
+-- Индексы таблицы `post_tag`
+--
+ALTER TABLE `post_tag`
+  ADD KEY `id_post` (`id_post`,`id_tag`),
+  ADD KEY `id_tag` (`id_tag`);
+
+--
 -- Индексы таблицы `tag`
 --
 ALTER TABLE `tag`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `tag_post`
---
-ALTER TABLE `tag_post`
-  ADD KEY `id_post` (`id_post`,`id_tag`),
-  ADD KEY `id_tag` (`id_tag`);
-
---
 -- Индексы таблицы `user`
 --
 ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_role` (`id_role`);
+
+--
+-- Индексы таблицы `user_role`
+--
+ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -203,18 +212,17 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `user_role`
+--
+ALTER TABLE `user_role`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
-
---
--- Ограничения внешнего ключа таблицы `category_post`
---
-ALTER TABLE `category_post`
-  ADD CONSTRAINT `category_post_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `post` (`id`),
-  ADD CONSTRAINT `category_post_ibfk_2` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `message`
@@ -224,17 +232,24 @@ ALTER TABLE `message`
   ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`id_recipient`) REFERENCES `user` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `post`
+-- Ограничения внешнего ключа таблицы `post_category`
 --
-ALTER TABLE `post`
-  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`id_creator`) REFERENCES `user` (`id`);
+ALTER TABLE `post_category`
+  ADD CONSTRAINT `post_category_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`),
+  ADD CONSTRAINT `post_category_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `post` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `tag_post`
+-- Ограничения внешнего ключа таблицы `post_tag`
 --
-ALTER TABLE `tag_post`
-  ADD CONSTRAINT `tag_post_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `post` (`id`),
-  ADD CONSTRAINT `tag_post_ibfk_2` FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id`);
+ALTER TABLE `post_tag`
+  ADD CONSTRAINT `post_tag_ibfk_1` FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id`),
+  ADD CONSTRAINT `post_tag_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `post` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `user_role` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
