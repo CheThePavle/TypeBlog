@@ -1,4 +1,8 @@
-<div class="navbar navbar-default navbar" role="navigation" id="slide-nav" style="z-index: 999">
+<?php
+    $lk = $urls[0] === 'lk' ? 'class="active"' : '';
+    $pc = $urls[0] === 'post' && $urls[1] === 'create' ? 'class="active"' : '';
+?>
+<div class="navbar navbar-default" role="navigation" id="slide-nav" style="z-index: 999">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-toggle">
@@ -23,7 +27,8 @@
                 <li <?=$urls[0] === '' ? 'class="active"' : ''?>><a href="/">Главная</a></li>
                 <?php
                     if ($_SESSION) {
-                        echo '<li><a href="/lk">Привет, '.$_SESSION['login'].'</a></li>';
+                        echo '<li '.$lk.'><a href="/lk">Привет, '.$_SESSION['login'].'</a></li>';
+                        echo '<li '.$pc.'><a href="/post/create">Создать пост</a></li>';
                         echo '<li><a href="../api/user/out.php">Выход</a></li>';
                     } else {
                 ?>
@@ -32,6 +37,7 @@
                 <?php
                     }
                 ?>
+                <li <?=$urls[0] === 'posts' ? 'class="active"' : ''?>><a href="/posts">Все посты</a></li>
                 <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ещё <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="https://bootstraptema.ru/stuff/0-0-0-0-1">Заработать</a></li>

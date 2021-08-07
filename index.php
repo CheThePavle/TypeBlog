@@ -71,4 +71,4 @@
 
 
     http_response_code(404);
-	echo "404 page"; //добавить код 404
+    include_once 'pages/404.php'; // 404 страница

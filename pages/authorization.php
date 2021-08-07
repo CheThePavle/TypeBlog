@@ -28,6 +28,13 @@
                         </div>
                     </div>
 
+                    <div class="form-check">
+                        <input class="form-check-input" name="checkbox" type="checkbox" value="true" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Запомнить меня
+                        </label>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <input id="btn-auth" type="submit" class="btn btn-success btn-send" value="Войти">

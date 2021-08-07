@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 05 2021 г., 22:16
+-- Время создания: Авг 07 2021 г., 21:20
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.14
 
@@ -56,10 +56,23 @@ CREATE TABLE `post` (
   `id` int NOT NULL,
   `id_creator` int NOT NULL,
   `heading` varchar(30) NOT NULL,
-  `body` json NOT NULL,
+  `body` text NOT NULL,
+  `id_status` int NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `post`
+--
+
+INSERT INTO `post` (`id`, `id_creator`, `heading`, `body`, `id_status`, `created_at`, `updated_at`) VALUES
+(1, 8, 'tetssetsdf', 'jsonData/posts/610ec6ebe76d21628358379.json', 1, '2021-08-07 20:46:19', '2021-08-07 20:46:19'),
+(2, 8, 'tetssetsdfsdf', 'jsonData/posts/610ec6f0cff9d1628358384.json', 1, '2021-08-07 20:46:24', '2021-08-07 20:46:24'),
+(3, 8, 'sdfsdfsdgsdg', 'jsonData/posts/610ec6f40bc441628358388.json', 1, '2021-08-07 20:46:28', '2021-08-07 20:46:28'),
+(4, 8, 'dsfgdsgdsg', 'jsonData/posts/610ec6f6d73dc1628358390.json', 1, '2021-08-07 20:46:30', '2021-08-07 20:46:30'),
+(5, 8, 'dsfg dsfg ds', 'jsonData/posts/610ec6f9cc26f1628358393.json', 1, '2021-08-07 20:46:33', '2021-08-07 20:46:33'),
+(6, 8, 'f 324 4f3 3f dz   sd fs f sd', 'jsonData/posts/610ec703398231628358403.json', 1, '2021-08-07 20:46:43', '2021-08-07 20:46:43');
 
 -- --------------------------------------------------------
 
@@ -71,6 +84,24 @@ CREATE TABLE `post_category` (
   `id_post` int NOT NULL,
   `id_category` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `post_status`
+--
+
+CREATE TABLE `post_status` (
+  `id` int NOT NULL,
+  `name` varchar(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `post_status`
+--
+
+INSERT INTO `post_status` (`id`, `name`) VALUES
+(1, 'Создан');
 
 -- --------------------------------------------------------
 
@@ -120,7 +151,11 @@ INSERT INTO `user` (`id`, `email`, `verify_email`, `login`, `password`, `about`,
 (9, '2@dfs', b'0', '1231234224324242', '$2y$10$qW4ZW4pd0URquCeLjNlb/eUHOO5ahf90YDlro3JYFpTmzylXKsWeW', '234', 1, '2021-08-05 21:53:48'),
 (10, '123242342', b'0', '123123', '$2y$10$bFQ/AN5RLN65VFeKmB.Qb.x9rTb60KOOETXDXumGjckPlI3hK7tge', '123', 1, '2021-08-05 21:54:05'),
 (11, '42343222@dfs', b'0', 'ffffffffff', '$2y$10$O/tWN9AeMEGqn28zGeRb8OD1n8FNz74ovd7QIIAs39EpDm6JeccQq', 'sdf', 1, '2021-08-05 21:56:47'),
-(12, 'admin@das.ru12', b'0', '12321423242342342423', '$2y$10$6VDjCBfxtzIluUUEuaeYU.SAUUqhWTrc1.gzZmkS3DN6hgVDm4i9i', '123', 1, '2021-08-05 21:59:01');
+(12, 'admin@das.ru12', b'0', '12321423242342342423', '$2y$10$6VDjCBfxtzIluUUEuaeYU.SAUUqhWTrc1.gzZmkS3DN6hgVDm4i9i', '123', 1, '2021-08-05 21:59:01'),
+(13, '2342342', b'0', '123124234', '$2y$10$eRnWNn6wMNqXSREYHPG.KOQptm4spOM7xQyZRoFgqA/atwwvyiFJK', '2342', 1, '2021-08-07 13:12:46'),
+(14, 'проапро', b'0', 'рпвпорапро', '$2y$10$ICPmZU81LFsSNyOiJva5Uu361/iNlpgLbDcamLymQ/PJoBzr6JvUm', 'пропао', 1, '2021-08-07 13:14:50'),
+(15, 'testwset', b'0', 'testestset', '$2y$10$Qk24.vGRME981PxR1O2gpeduv/IFSaGcOkujnIpTrUMxBboBNb9fa', 'sf', 1, '2021-08-07 13:16:13'),
+(16, 'testest', b'0', 'testset', '$2y$10$FjJwB/hG.COpJAC7ZjMEouRmqQhBLVOzB/CcgQvYhs38GU.GyU7FK', 'sdf', 1, '2021-08-07 13:17:22');
 
 -- --------------------------------------------------------
 
@@ -165,7 +200,8 @@ ALTER TABLE `message`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_creator` (`id_creator`);
+  ADD KEY `id_creator` (`id_creator`),
+  ADD KEY `id_status` (`id_status`);
 
 --
 -- Индексы таблицы `post_category`
@@ -173,6 +209,12 @@ ALTER TABLE `post`
 ALTER TABLE `post_category`
   ADD KEY `id_post` (`id_post`,`id_category`),
   ADD KEY `id_category` (`id_category`);
+
+--
+-- Индексы таблицы `post_status`
+--
+ALTER TABLE `post_status`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `post_tag`
@@ -220,7 +262,13 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT для таблицы `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `post_status`
+--
+ALTER TABLE `post_status`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `tag`
@@ -232,7 +280,7 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `user_role`
@@ -250,6 +298,12 @@ ALTER TABLE `user_role`
 ALTER TABLE `message`
   ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`id_sender`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`id_recipient`) REFERENCES `user` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `post`
+--
+ALTER TABLE `post`
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`id_status`) REFERENCES `post_status` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `post_category`

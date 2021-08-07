@@ -49,6 +49,14 @@ require_once "components/header.php";
                                 <textarea id="about" name="about" class="form-control" placeholder="Не обязательное поле" rows="4"></textarea>
                             </div>
                         </div>
+
+                        <div class="form-check" style="margin-left: 15px">
+                            <input class="form-check-input" name="checkbox" type="checkbox" value="true" required="required" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Принять <a>пользовательское соглашение</a>
+                            </label>
+                        </div>
+
                         <div class="col-md-12">
                             <input type="submit" class="btn btn-success btn-send" value="Зарегистрироваться">
                         </div>
@@ -99,6 +107,15 @@ require_once "components/header.php";
         if (p !== p2) {
             activeBtn(true);
             $(".errorPassword").html('<div class="alert alert-warning">Пароли не совпадают(</div>')
+        }
+
+        if (p2.length  < 6) {
+            $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть < 6 символов!</div>')
+            activeBtn(true);
+        }
+        if (p2.length  > 20) {
+            $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть > 20 символов!</div>')
+            activeBtn(true);
         }
     })
 
