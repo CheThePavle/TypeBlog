@@ -12,12 +12,19 @@
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     } else {
         $db->response([
+            "status"=>http_response_code(409),
             "error"=>"Пароли не совпадают!"
         ]);
     }
 
     $about = $_POST['about'];
     $created_at = date("Y-m-d H:i:s");
+    if (!$_POST['checkbox']) {
+        $db->response([
+            "status"=>http_response_code(409),
+            "msg"=>"Вы не согласились с пользовательским соглашением."
+        ]);
+    }
     $db->make('INSERT INTO `user` (`email`, `login`, `password`, `about`, `created_at`) 
                     VALUES (?, ?, ?, ?, ?)',
     [
@@ -29,5 +36,6 @@
     ]);
 
     $db->response([
+        "status"=>http_response_code(200),
         "msg"=>"Успешная регистрация!"
     ]);

@@ -7,7 +7,10 @@
     <title>CheThePavle - Blog</title>
     <link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
     <link rel="stylesheet" href="https://bootstraptema.ru/snippets/menu/2016/slidemenu/slidemenu.css" />
-    <script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="../public/styles/index.css">
+    <link rel="shortcut icon" href="https://img.icons8.com/fluency/48/000000/edit.png" type="image/x-icon">
 </head>
 <body>
+<script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+<div class="content">
 <?php require_once "headerMenu.php" ?>
