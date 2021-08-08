@@ -7,34 +7,51 @@
     //];
     //file_put_contents('jsonData/posts/id.json', json_encode($data));
 ?>
+<h1>Создание поста</h1>
+<form id="forCreatePost" role="form" enctype="multipart/form-data">
+    <div class="controls">
+        <div class="row">
+            <h2>Превью поста</h2>
 
-<div>
-    <h1>Создание поста</h1>
-    <form id="forCreatePost" role="form">
-        <div class="controls">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="about">Название</label>
-                        <input id="heading" type="text" name="heading" class="form-control" placeholder="Введите заголовок поста *" required="required">
-                        <div class="errorHeading"></div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div id="editorjs" style="max-width: 1000px; margin: 0 auto"></div>
-                </div>
-
-                <div class="col-md-12">
-                    <input type="submit" class="btn btn-success btn-send" value="Создать">
-                    <pre id="output"></pre>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="about">Название *</label>
+                    <input id="heading" type="text" name="heading" class="form-control" placeholder="Введите заголовок поста *" required="required">
+                    <div class="errorHeading"></div>
                 </div>
             </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="exampleFormControlFile">Загрузить главное изображение *</label>
+                    <input type="file" name="image" class="form-control-file" id="exampleFormControlFile" required="required">
+                    <span>или перетащите его сюда</span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="about">Кратко о чем данный пост *</label>
+                    <textarea rows="10" id="description" type="text" name="description" class="form-control" placeholder="Опишите о чем будет пост *" required="required"></textarea>
+                    <div class="errorDescription"></div>
+                </div>
+            </div>
+
+            <h2>Содержание поста</h2>
+
+            <div class="col-md-12">
+                <div id="editorjs" style="max-width: 1000px; margin: 0 auto"></div>
+            </div>
+
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-success btn-send" value="Создать">
+<!--                    <pre id="output"></pre>-->
+            </div>
         </div>
-        <br>
-        <div class="msg"></div>
-    </form>
-</div>
+    </div>
+    <br>
+    <div class="msg"></div>
+</form>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
@@ -152,6 +169,10 @@
         $('.btn-send').prop('disabled', bool);
     }
 
+    // $("#exampleFormControlFile").click(function () {
+    //     console.log($(this))
+    // }) добавить вывод выбранного изображения
+
     $("#heading").keyup(function () {
         let h = $(this).val();
 
@@ -169,37 +190,58 @@
         }
     })
 
+    $("#description").keyup(function () {
+        let d = $(this).val();
+
+        $(".errorDescription").html('');
+        activeBtn(false);
+
+        if (d.length  > 777) {
+            $(".errorDescription").html('<div class="alert alert-warning">Заголовок не может быть > 777 символов!</div>')
+            activeBtn(true);
+        }
+
+        if (d.length  < 20) {
+            $(".errorDescription").html('<div class="alert alert-warning">Описание не может быть < 20 символов!</div>')
+            activeBtn(true);
+        }
+    })
+
     $('#forCreatePost').submit(function (e) {
         e.preventDefault();
-
-        let th = $(this);
+        var formData = new FormData(this);
         let msg = $('.msg');
 
-        const output = document.getElementById('output');
+        // const output = document.getElementById('output');
         editor.save().then(savedData => {
+            formData.append('body', JSON.stringify(savedData));
             $.ajax({
                 url: '../../api/post/create.php',
                 type: 'POST',
-                data: `${th.serialize()}&body=${JSON.stringify(savedData)}`,
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
                 success: function (data) {
                     activeBtn(false);
                     if (data?.error) {
+                        activeBtn(true);
                         msg.html(`<div class="alert alert-warning">${data?.error}</div>`);
                     } else {
                         activeBtn(true);
                         msg.html(`<div class="alert alert-success">Пост создан.</div>`);
+                        setTimeout(function(){
+                            window.location.href = '/';
+                        }, 2000);
                     }
                 },
-                error: function () {
+                error: function (data) {
                     activeBtn(true);
-                    alert('error');
-                    msg.html('<div class="alert alert-danger">Что-то пошло не так :(</div>');
+                    msg.html(`<div class="alert alert-danger">${data.responseJSON.error}</div>`);
                 }
             })
-            output.innerHTML = JSON.stringify(savedData, null, 4);
+            // output.innerHTML = JSON.stringify(savedData, null, 4);
         })
-        //console.log(`${th.serialize()}body=${data}`)
-
     });
 </script>
 
