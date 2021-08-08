@@ -98,24 +98,15 @@
             type: 'POST',
             data: th.serialize(),
             success: function (data) {
-                if (data?.error) {
-                    activeBtn(false);
-                    msg.html(`<div class="alert alert-warning">${data?.error}</div>`)
-                    setTimeout(function(){
-                        msg.html(``)
-                    }, 2000);
-                } else {
-                    activeBtn(true);
-                    msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
-                    setTimeout(function(){
-                        window.location.href = '/';
-                    }, 2000);
-                }
-
-            },
-            error: function () {
                 activeBtn(true);
-                msg.html('<div class="alert alert-danger">Что-то пошло не так :(</div>');
+                msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
+                setTimeout(function(){
+                    window.location.href = '/';
+                }, 2000);
+            },
+            error: function (data) {
+                activeBtn(true);
+                msg.html(`<div class="alert alert-danger">${data.responseJSON.error}</div>`);
                 setTimeout(function(){
                     window.location.href = '/';
                 }, 2000);

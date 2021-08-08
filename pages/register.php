@@ -125,16 +125,14 @@ require_once "components/header.php";
 
         $(".errorLogin").html('');
         activeBtn(false);
-
+// добавить условия, что статусы не спамили в консоль
         $.ajax({
             url: '../api/user/findLogin.php',
             type: 'POST',
             data: th.serialize(),
-            success: function (data) {
-                if (data?.error) {
-                    activeBtn(true);
-                    msg.html(`<div class="alert alert-warning">${data.error}</div>`);
-                }
+            error: function (data) {
+                activeBtn(true);
+                msg.html(`<div class="alert alert-warning">${data.responseJSON.error}</div>`);
             }
         })
     });
@@ -145,16 +143,14 @@ require_once "components/header.php";
 
         $(".errorEmail").html('');
         activeBtn(false);
-
+// добавить условия, что статусы не спамили в консоль
         $.ajax({
             url: '../api/user/findEmail.php',
             type: 'POST',
             data: th.serialize(),
-            success: function (data) {
-                if (data?.error) {
-                    activeBtn(true);
-                    msg.html(`<div class="alert alert-warning">${data.error}</div>`);
-                }
+            error: function (data) {
+                activeBtn(true);
+                msg.html(`<div class="alert alert-warning">${data.responseJSON.error}</div>`);
             }
         })
     });
@@ -171,20 +167,18 @@ require_once "components/header.php";
             type: 'POST',
             data: th.serialize(),
             success: function (data) {
-                if (data?.error) {
-                    activeBtn(false);
-                    msg.html(`<div class="alert alert-warning">${data?.error}</div>`)
-                } else {
-                    activeBtn(true);
-                    msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
-                    setTimeout(function(){
-                        window.location.href = '/authorization';
-                    }, 2000);
-                }
-            },
-            error: function () {
                 activeBtn(true);
-                msg.html('<div class="alert alert-danger">Что-то пошло не так :((</div>');
+                msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
+                setTimeout(function(){
+                    window.location.href = '/authorization';
+                }, 2000);
+            },
+            error: function (data) {
+                activeBtn(true);
+                msg.html(`<div class="alert alert-danger">${data.responseJSON.error}</div>`);
+                setTimeout(function(){
+                    window.location.href = '/';
+                }, 2000);
             }
         })
     });
