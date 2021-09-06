@@ -6,6 +6,7 @@
 //        // вечная сессия реализовать
 //    }
     session_start();
+    $_SESSION['verifyEmail'] = [];
 
     $login = validate($_POST['login']);
     $password = validate($_POST['password']);
