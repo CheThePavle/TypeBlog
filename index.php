@@ -4,8 +4,8 @@
 //    $db = new db();
 //    //для api ответов
 //    if ($urls[0] === 'api' && $urls[1] === 'user' && $urls[2] === 'create'){include_once 'api/user/create.php';exit();}
-    session_start();
 
+    session_start(); // создается сессия всегда на страницах, посмотреть пофиксить
 //    define('MyConst', TRUE);
 //    if(!defined('MyConst')) {
 //        die('Direct access not permitted');
@@ -25,31 +25,31 @@
     }
 
     if ($urls[0] === 'register' && sizeof($urls) == 1){
-        if ($_SESSION) {header("Location: /");};
+        if ($_SESSION['id']) {header("Location: /");};
         include_once 'pages/register.php'; // Регистрация страница
         exit();
     }
 
     if ($urls[0] === 'authorization' && sizeof($urls) == 1){
-        if ($_SESSION) {header("Location: /");};
+        if ($_SESSION['id']) {header("Location: /");};
         include_once 'pages/authorization.php'; // Вход страница
         exit();
     }
 
     if ($urls[0] === 'lk' && sizeof($urls) == 1){
-        if (!$_SESSION) {header("Location: /");};
+        if (!$_SESSION['id']) {header("Location: /");};
         include_once 'pages/lk.php'; // ЛК страница
         exit();
     }
 
     if ($urls[0] === 'post' && $urls[1] === 'create' && sizeof($urls) == 2){
-        if (!$_SESSION) {header("Location: /");};
+        if (!$_SESSION['id']) {header("Location: /");};
         include_once 'pages/post/create.php'; // Создание поста страница
         exit();
     }
 
     if ($urls[0] === 'post' && $urls[1] === 'change' && sizeof($urls) == 2){
-        if (!$_SESSION) {header("Location: /");};
+        if (!$_SESSION['id']) {header("Location: /");};
         include_once 'pages/post/change.php'; // Изменение поста страница
         exit();
     }

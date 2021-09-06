@@ -57,6 +57,8 @@ require_once "components/header.php";
                             </label>
                         </div>
 
+                        <div class="verifyEmail"></div>
+
                         <div class="col-md-12">
                             <input type="submit" class="btn btn-success btn-send" value="Зарегистрироваться">
                         </div>
@@ -167,17 +169,35 @@ require_once "components/header.php";
             type: 'POST',
             data: th.serialize(),
             success: function (data) {
-                activeBtn(true);
-                msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
-                setTimeout(function(){
-                    window.location.href = '/authorization';
-                }, 2000);
+                if (data?.verifyEmail) {
+                    activeBtn(false);
+                    $('.verifyEmail').html(`
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <br><br>
+                                <label for="code">Код подтверждения из письма *</label>
+                                <input id="code" type="text" name="code" class="form-control" placeholder="Введите код *" required="required">
+                                <div class="errorCode"></div>
+                            </div>
+                        </div>
+                    `);
+                    msg.html(`<div class="alert alert-success">${data?.verifyEmail}</div>`);
+                    setTimeout(function(){
+                        msg.html(``);
+                    }, 3000);
+                } else {
+                    activeBtn(true);
+                    msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
+                    setTimeout(function(){
+                        window.location.href = '/authorization';
+                    }, 3000);
+                }
             },
             error: function (data) {
                 activeBtn(true);
                 msg.html(`<div class="alert alert-danger">${data.responseJSON.error}</div>`);
                 setTimeout(function(){
-                    window.location.href = '/';
+                    window.location.href = '/register';
                 }, 2000);
             }
         })

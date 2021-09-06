@@ -26,7 +26,7 @@
             <ul class="nav navbar-nav">
                 <li <?=$urls[0] === '' ? 'class="active"' : ''?>><a href="/">Главная</a></li>
                 <?php
-                    if ($_SESSION) {
+                    if ($_SESSION['id']) {
                         echo '<li '.$lk.'><a href="/lk">Привет, '.$_SESSION['login'].'</a></li>';
                         echo '<li '.$pc.'><a href="/post/create">Создать пост</a></li>';
                         echo '<li><a href="../api/user/out.php">Выход</a></li>';

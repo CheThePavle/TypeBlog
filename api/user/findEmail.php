@@ -3,6 +3,7 @@
     require_once "../../src/fieldValidation.php"; //validate()
 
     $email = validate($_POST['email']);
+
     if ($email) {
         if (strlen($email) > 100) {
             $db->response([
