@@ -1,5 +1,6 @@
 <?php
     require_once "components/header.php";
+    // оптимизировать вкладки
 ?>
 
 <div class="tabbable"> <!-- Only required for left/right tabs -->
@@ -9,10 +10,10 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tab1">
-            <p>Вывод данных по пользователю</p>
+            <img src="https://freefrontend.com/assets/img/bootstrap-profiles/bootstrap-profile-page-with-widget.jpg" alt="">
         </div>
         <div class="tab-pane" id="tab2">
-            <p>Создание поста</p>
+            <?php require_once "post/create.php"; ?>
         </div>
     </div>
 </div>

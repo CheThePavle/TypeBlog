@@ -1,6 +1,5 @@
 <?php
     $lk = $urls[0] === 'lk' ? 'class="active"' : '';
-    $pc = $urls[0] === 'post' && $urls[1] === 'create' ? 'class="active"' : '';
 ?>
 <div class="navbar navbar-default" role="navigation" id="slide-nav" style="z-index: 999">
     <div class="container">
@@ -11,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="navbar-brand" href="https://bootstraptema.ru/">CheThePavle - Blog</a>
+            <a class="navbar-brand" href="/">CheThePavle - Blog</a>
         </div>
 
         <div id="slidemenu">
@@ -24,11 +23,10 @@
             </form>
 
             <ul class="nav navbar-nav">
-                <li <?=$urls[0] === '' ? 'class="active"' : ''?>><a href="/">Главная</a></li>
+                <li <?=$urls[0] === '' ? 'class="active"' : ''?>><a href="/">Все посты</a></li>
                 <?php
                     if ($_SESSION['id']) {
                         echo '<li '.$lk.'><a href="/lk">Привет, '.$_SESSION['login'].'</a></li>';
-                        echo '<li '.$pc.'><a href="/post/create">Создать пост</a></li>';
                         echo '<li><a href="../api/user/out.php">Выход</a></li>';
                     } else {
                 ?>
@@ -37,12 +35,11 @@
                 <?php
                     }
                 ?>
-                <li <?=$urls[0] === 'posts' ? 'class="active"' : ''?>><a href="/posts">Все посты</a></li>
                 <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ещё <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="https://bootstraptema.ru/stuff/0-0-0-0-1">Заработать</a></li>
-                        <li><a href="https://bootstraptema.ru/index/best_for_bootstrap/0-4">Топ 100</a></li>
-                        <li><a href="https://bootstraptema.ru/index/feedback/0-3">Связь</a></li>
+                        <li><a href="#">test1</a></li>
+                        <li><a href="#">test2</a></li>
+                        <li><a href="#">test3</a></li>
                     </ul>
                 </li>
             </ul>

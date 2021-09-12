@@ -12,5 +12,7 @@
 </head>
 <body>
 <script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
-<div class="content">
 <?php require_once "headerMenu.php" ?>
+<div class="container">
+    <div class="row" >
+        <div class="col-lg-12">

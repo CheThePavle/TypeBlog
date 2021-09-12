@@ -1,3 +1,7 @@
+        </div><!-- /.col-lg-8 col-lg-offset-2 -->
+    </div> <!-- /.row-->
+</div> <!-- /.container-->
+
 <footer id="footer" class="footer">
     <div class="footer-bottom">
         <div class="container">
@@ -8,7 +12,6 @@
         </div>
     </div>
 </footer>
-</div>
 
 <div class="preloader">
     <div class="preloader__row">
