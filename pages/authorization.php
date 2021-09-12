@@ -1,9 +1,6 @@
 <?php
 	require_once "components/header.php";
 ?>
-<div class="container">
-    <div class="row" >
-        <div class="col-lg-8 col-lg-offset-2">
             <h1 class="text-center">Вход</h1>
 
             <form id="formAuth" role="form">
@@ -44,10 +41,6 @@
                 <br>
                 <div class="msg"></div>
             </form>
-
-        </div><!-- /.col-lg-8 col-lg-offset-2 -->
-    </div> <!-- /.row-->
-</div> <!-- /.container-->
 
 <script type="text/javascript">
     const activeBtn = (bool) => {

@@ -5,15 +5,16 @@
 <h1 id="heading"></h1>
 <hr>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="msg"></div>
         <div class="prevPost"></div>
         <div id="editorjs" style="max-width: 1000px; margin: 0 auto"></div>
     </div>
-    <div class="col-md-4">
-        <div>sidebar</div>
-    </div>
 </div>
+
+<?php
+    require_once "components/comments.php";
+?>
 
 <!-- временно, потом убрать -->
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
