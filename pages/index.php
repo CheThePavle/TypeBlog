@@ -66,6 +66,12 @@ require_once "components/header.php";
 </div>
 
 <script>
+    if (window?.XMLHttpRequest) {
+        // Supports Ajax.
+    } else {
+        alert('Ваша версия браузера устарела, поддержки не будет)');
+    }
+
     let numberStart = 1;
     let numberEnd = 4;
 
