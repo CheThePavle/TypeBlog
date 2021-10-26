@@ -1,6 +1,14 @@
 <?php
 require_once "components/header.php";
+require_once "src/db.php";
 //    echo "<script>window.location.href='/posts?number=5'</script>";
+
+//function setGetParam($get, $par) {
+//    return http_build_query(array_merge([$get => $par], $_GET));
+//}
+// echo http_build_query($_GET);
+$getCategory = $db->query("SELECT * FROM `category`");
+$getTag = $db->query("SELECT * FROM `tag`");
 ?>
 
 <h1>
@@ -25,39 +33,50 @@ require_once "components/header.php";
     <div class="col-md-8">
         <div class="posts"></div>
         <div style="max-width: 250px; margin: 0 auto">
+            <div id="showmore-triger" data-page="1">
+                <img src="https://i2.wp.com/apptractor.ru/wp-content/uploads/2017/04/spinner-icon-0.gif?fit=1567%2C1561&ssl=1" style="max-width: 100%" alt="">
+            </div>
             <button type="button" class="btn btn-primary btn-lg btn-block" id="nextPosts">Загрузить еще</button>
             <br><br>
         </div>
     </div>
     <div class="col-md-4" style="position: sticky; top: 30px">
-        <div class="btn-group">
-            <div class="btn-group">
-                <button type="button" data-toggle="dropdown" class="btn btn-info dropdown-toggle">
-                    Сортировка:
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="?order=1">Сначала старые</a></li>
-                    <li><a href="/">Сначала новые</a></li>
-                    <li><a href="?order=2">По популярности</a></li>
-                    <li><a href="?order=3">По рейтингу</a></li>
-                </ul>
-            </div>
-        </div>
-        <br><br>
         <form action="">
+            <div class="btn-group">
+                <div class="btn-group">
+                    <select name="order" >
+                        <option value="1" <?php echo $_GET['order'] == 1 ? 'selected' : '' ?>>Сначала старые</option>
+                        <option value="0" <?php echo $_GET['order'] == 0 ? 'selected' : '' ?>>Сначала новые</option>
+                        <option value="2" <?php echo $_GET['order'] == 2 ? 'selected' : '' ?>>По популярности</option>
+                        <option value="3" <?php echo $_GET['order'] == 3 ? 'selected' : '' ?>>По рейтингу</option>
+                    </select>
+                </div>
+            </div>
+            <br><br>
             <p><b>Категория:</b></p>
-            <p><input name="category" type="radio" value="1" <?php echo $_GET['category'] == 1 ? 'checked' : '' ?>> Категория 1</p>
-            <p><input name="category" type="radio" value="2" <?php echo $_GET['category'] == 2 ? 'checked' : '' ?>> Категория 2</p>
-            <p><input name="category" type="radio" value="3" <?php echo $_GET['category'] == 3 ? 'checked' : '' ?>> Категория 3</p>
-
+            <?php
+                if ($getCategory) {
+                    foreach ($getCategory as $el) {
+                        $checked = $_GET['category'] === $el['id'] ? 'checked' : '';
+                        echo "<p><input ".$checked." name='category' type='radio' value='".$el['id']."'> ".$el['name']."</p>";
+                    }
+                }
+            ?>
             <p><b>Теги:</b></p>
             <p>
-                <input type="checkbox" name="tag1" value="a1" <?php echo $_GET['tag1'] ? 'checked' : '' ?>> Тег 1
-                <input type="checkbox" name="tag2" value="a2" <?php echo $_GET['tag2'] ? 'checked' : '' ?>> Тег 2
-                <input type="checkbox" name="tag3" value="a3" <?php echo $_GET['tag3'] ? 'checked' : '' ?>> Тег 3
-                <input type="checkbox" name="tag4" value="a4" <?php echo $_GET['tag4'] ? 'checked' : '' ?>> Тег 4
-                <input type="checkbox" name="tag5" value="a5" <?php echo $_GET['tag5'] ? 'checked' : '' ?>> Тег 5
+                <?php
+                    if ($getTag) {
+                        if ($_GET['tag']) {
+                            foreach ($_GET['tag'] as $item) {
+                                $getTag[$item - 1]['checked'] = true;
+                            }
+                        }
+                        foreach ($getTag as $el) {
+                            $checked = $el['checked'] ? 'checked' : '';
+                            echo "<input ".$checked." type='checkbox' name='tag[]'' value='".$el['id']."'> ".$el['name']." ";
+                        }
+                    }
+                ?>
             </p>
             <button type="submit" class="btn btn-default">Применить</button>
         </form>
@@ -66,22 +85,32 @@ require_once "components/header.php";
 </div>
 
 <script>
+    // function getRequests() {
+    //     var s1 = location.search.substring(1, location.search.length).split('&'),
+    //         r = {}, s2, i;
+    //     for (i = 0; i < s1.length; i += 1) {
+    //         s2 = s1[i].split('=');
+    //         r[decodeURIComponent(s2[0]).toLowerCase()] = decodeURIComponent(s2[1]);
+    //     }
+    //     return r;
+    // };
+    // let QueryString = getRequests();
+
     if (window?.XMLHttpRequest) {
         // Supports Ajax.
     } else {
         alert('Ваша версия браузера устарела, поддержки не будет)');
     }
 
-    let numberStart = 1;
-    let numberEnd = 4;
+    let start = 0;
+
+    let getUrlParams = window.location.search.replace( '?', '') + '&start=';
 
     $.ajax({
         url: '../api/post/search.php',
-        data: {
-            numberStart: numberStart,
-            numberEnd: numberEnd
-        },
+        data: getUrlParams  + start,
         success: function (data) {
+            console.log(data);
             data = JSON.parse(data);
             if (data.length === 0) {
                 $('#nextPosts').remove();
@@ -130,8 +159,7 @@ require_once "components/header.php";
     })
 
     $('#nextPosts').click(function (e) {
-        numberStart += 4;
-        numberEnd += 4;
+        start += 2;
 
         // let getParams = window
         //     .location
@@ -153,10 +181,7 @@ require_once "components/header.php";
 
         $.ajax({
             url: '../api/post/search.php',
-            data: {
-                numberStart: numberStart,
-                numberEnd: numberEnd
-            },
+            data: getUrlParams + start,
             success: function (data) {
                 data = JSON.parse(data);
                 if (data.length === 0) {

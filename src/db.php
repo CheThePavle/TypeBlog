@@ -46,7 +46,6 @@
     }
 //sleep(1); //задержка выполениня запроса к БД
 $db = new db();
-
 //if (stristr($_SERVER['REQUEST_URI'], '.php')) {header("Location: /");exit();}
 
 //$test = new db();
