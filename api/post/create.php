@@ -3,7 +3,6 @@
     require_once "../../src/fieldValidation.php"; //validate()
     require_once "../ajax.php"; //IS_AJAX
 
-    if(IS_AJAX) {
         $heading = validate($_POST['heading']);
         $description = validate($_POST['description']);
 
@@ -14,6 +13,7 @@
         $img_main = $_FILES['image'];
 
 
+        // добавить нормальные проверки, если пост не создан то вывести, если файлы не записаны вывести
         if ($heading && $description && $body && $img_main) {
             $id_creator = $_SESSION['id'];
             $created_at = date("Y-m-d H:i:s");
@@ -33,6 +33,7 @@
             ]);
             // добавить условие, если запрос не выполнился
             $body = str_replace('&quot;', '"', $body);
+            // временное сохранение
             file_put_contents('../../jsonData/posts/'.$nameFile.'.json', $body);
 
             // добавить проверка на размер и тд
@@ -69,10 +70,3 @@
             "error"=>"Данные получены не все!"
             ]);
         }
-    } else {
-        http_response_code(403);
-        $db->response([
-            "status"=>403,
-            "error"=>"Нет доступа!"
-        ]);
-    }

@@ -3,7 +3,7 @@
     require_once "../../src/fieldValidation.php"; //validate()
     require_once "../ajax.php"; //IS_AJAX
 
-    if(IS_AJAX) {
+
         $login = validate($_POST['login']);
 
         if ($login) {
@@ -14,6 +14,7 @@
                     "error"=>"Логин имеет длину от 5 до 20 символов"
                 ]);
             }
+            // брать только нужное!
             $res = $db->query("SELECT * FROM `user` WHERE `login` = ?", [$login]);
             if ($res) {
                 http_response_code(409);
@@ -29,10 +30,3 @@
             "error"=>"Заполните логин!"
             ]);
         }
-    } else {
-        http_response_code(403);
-        $db->response([
-            "status"=>403,
-            "error"=>"Нет доступа!"
-        ]);
-    }

@@ -192,8 +192,8 @@
         $(".errorHeading").html('');
         activeBtn(false);
 
-        if (h.length  > 30) {
-            $(".errorHeading").html('<div class="alert alert-warning">Заголовок не может быть > 30 символов!</div>')
+        if (h.length  > 50) {
+            $(".errorHeading").html('<div class="alert alert-warning">Заголовок не может быть > 50 символов!</div>')
             activeBtn(true);
         }
 

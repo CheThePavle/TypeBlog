@@ -3,7 +3,7 @@
     require_once "../../src/fieldValidation.php"; //validate()
     require_once "../ajax.php"; //IS_AJAX
 
-    if(IS_AJAX) {
+
         session_start(); // сессия для подтверждения почты
 
         require_once "findLogin.php";
@@ -97,10 +97,3 @@
             "status"=>200,
             "msg"=>"Успешная регистрация!"
         ]);
-    } else {
-        http_response_code(403);
-        $db->response([
-            "status"=>403,
-            "error"=>"Нет доступа!"
-        ]);
-    }

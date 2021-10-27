@@ -3,7 +3,7 @@
     require_once "../../src/fieldValidation.php"; //validate()
     require_once "../ajax.php"; //IS_AJAX
 
-    if(IS_AJAX) {
+
         $email = validate($_POST['email']);
 
         if ($email) {
@@ -14,6 +14,7 @@
                     "error"=>"Email не может быть больше 100 символов"
                 ]);
             }
+            // брать только нужное!
             $res = $db->query("SELECT * FROM `user` WHERE `email` = ?", [$email]);
             if ($res) {
                 http_response_code(409);
@@ -29,10 +30,4 @@
             "error"=>"Заполните email!"
             ]);
         }
-    } else {
-        http_response_code(403);
-        $db->response([
-            "status"=>403,
-            "error"=>"Нет доступа!"
-        ]);
-    }
+

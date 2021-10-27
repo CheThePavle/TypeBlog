@@ -2,10 +2,9 @@
     require_once "../../src/db.php";
     require_once "../ajax.php"; //IS_AJAX
 
-    if(IS_AJAX) {
         $id = $_GET['id'];
 
-        $res = $db->query("SELECT * FROM `post` WHERE id = ?", [$id]);
+        $res = $db->query("SELECT * FROM `post` WHERE id_post = ?", [$id]);
 
         $getJson = json_decode(file_get_contents('../../jsonData/posts/'.$res[0]["body"].'.json'.''));
 
@@ -25,10 +24,3 @@
 
         // $test = file_get_contents('../../jsonData/posts/610eaf42e0e901628352322.json');
         // echo $number;
-    } else {
-        http_response_code(403);
-        $db->response([
-            "status"=>403,
-            "error"=>"Нет доступа!"
-        ]);
-    }

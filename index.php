@@ -10,7 +10,12 @@
 //        die('Direct access not permitted');
 //    }
 
+    if ($_SERVER['REQUEST_URI'] === '/index.php') {
+        header("Location: /");
+    }
+
     // Разбираем url
+
     $url = (isset($_GET['q'])) ? $_GET['q'] : '';
     $url = rtrim($url, '/'); // Удаляет "/" из конца строки
     $urls = explode('/', $url); // Разбивает строку с помощью разделителя "/"

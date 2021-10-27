@@ -6,7 +6,7 @@
 //    if ($_POST['checkbox']) {
 //        // вечная сессия реализовать
 //    }
-    if(IS_AJAX) {
+
         session_start();
         $_SESSION['verifyEmail'] = [];
 
@@ -14,12 +14,13 @@
         $password = validate($_POST['password']);
 
         if ($login && $password) {
+            // брать только нужное!
             $res = $db->query("SELECT * FROM `user` WHERE `login` = ?", [$login]);
             if (password_verify($password, $res[0]['password'])) {
     //            ini_set('session.gc_maxlifetime', 2);
     //            ini_set('session.cookie_lifetime', 2);
 
-                $_SESSION['id'] = $res[0]['id'];
+                $_SESSION['id'] = $res[0]['id_user'];
                 $_SESSION['login'] = $res[0]['login'];
 
                 http_response_code(200);
@@ -41,10 +42,3 @@
             "error"=>"Введите логин и пароль!"
             ]);
         }
-    } else {
-        http_response_code(403);
-        $db->response([
-            "status"=>403,
-            "error"=>"Нет доступа!"
-        ]);
-    }
