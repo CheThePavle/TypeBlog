@@ -42,7 +42,9 @@
             id: id
         },
         success: function (data) {
+            // console.log(data)
             data = JSON.parse(data);
+            // console.log(data)
             const prevData = data.dbData[0];
             const jsonData = data.jsonData[0];
             if (data.jsonData.length === 0) {

@@ -4,7 +4,7 @@
 
 <footer id="footer" class="footer">
     <div class="footer-bottom">
-        <div class="container">
+        <div class="container" style="max-width: 100%">
             <div class="row" style="background-color: lightslategrey; border-radius: 4px; padding: 10px">
                 <p style="color: white" class="pull-left">Copyright ©2021</p>
                 <p style="color: white" class="pull-right">Чикуров Павел</p>

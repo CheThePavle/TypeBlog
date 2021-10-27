@@ -9,7 +9,7 @@
         private function connect(){
             $driver = 'mysql';
             $host = 'localhost';
-            $db_name = 'diplom_blog';
+            $db_name = 'diplom';
             $db_user = 'root';
             $db_password = 'root';
             $charset = 'utf8';
@@ -46,7 +46,6 @@
     }
 //sleep(1); //задержка выполениня запроса к БД
 $db = new db();
-
 //if (stristr($_SERVER['REQUEST_URI'], '.php')) {header("Location: /");exit();}
 
 //$test = new db();

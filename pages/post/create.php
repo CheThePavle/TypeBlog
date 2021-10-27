@@ -74,10 +74,30 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
 
+<!--<script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>-->
 <script>
     const editor = new EditorJS({
         autofocus: true,
         tools: {
+            // image: {
+            //     class: ImageTool,
+            //     inlineToolbar: true,
+            //     config: {
+            //         endpoints: {
+            //             byFile: 'http://localhost:8000/image', // Your backend file uploader endpoint
+            //             byUrl: 'http://localhost:8000/image-by-url', // Your endpoint that provides uploading by Url
+            //         },
+            //         field: 'image',
+            //         types: 'image/*'
+            //     }
+            // },
+            image: { // кастомный компонент image
+                class: SimpleImage,
+                inlineToolbar: true,
+                config: {
+                    placeholder: 'Paste image URL'
+                }
+            },
             checklist: { // ошибки валяться в консоль
                 class: Checklist,
                 inlineToolbar: true,
@@ -138,13 +158,6 @@
                 shortcut: 'SHIFT+H', //при нажатии клавиш будет создан заголовок
                 // levels: [2, 3, 4],
                 // defaultLevel: 3
-            },
-            image: { // кастомный компонент image
-                class: SimpleImage,
-                inlineToolbar: true,
-                config: {
-                    placeholder: 'Paste image URL'
-                }
             }
         },
         // data: {
@@ -179,8 +192,8 @@
         $(".errorHeading").html('');
         activeBtn(false);
 
-        if (h.length  > 30) {
-            $(".errorHeading").html('<div class="alert alert-warning">Заголовок не может быть > 30 символов!</div>')
+        if (h.length  > 50) {
+            $(".errorHeading").html('<div class="alert alert-warning">Заголовок не может быть > 50 символов!</div>')
             activeBtn(true);
         }
 

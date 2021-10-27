@@ -94,14 +94,14 @@
                 activeBtn(true);
                 msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
                 setTimeout(function(){
-                    window.location.href = '/';
+                    window.location.href = '/lk';
                 }, 2000);
             },
             error: function (data) {
                 activeBtn(true);
                 msg.html(`<div class="alert alert-danger">${data.responseJSON.error}</div>`);
                 setTimeout(function(){
-                    window.location.href = '/';
+                    window.location.href = '/authorization';
                 }, 2000);
             }
         })

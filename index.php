@@ -5,13 +5,17 @@
 //    //для api ответов
 //    if ($urls[0] === 'api' && $urls[1] === 'user' && $urls[2] === 'create'){include_once 'api/user/create.php';exit();}
 
-    session_start(); // создается сессия всегда на страницах, посмотреть пофиксить
 //    define('MyConst', TRUE);
 //    if(!defined('MyConst')) {
 //        die('Direct access not permitted');
 //    }
 
+    if ($_SERVER['REQUEST_URI'] === '/index.php') {
+        header("Location: /");
+    }
+
     // Разбираем url
+
     $url = (isset($_GET['q'])) ? $_GET['q'] : '';
     $url = rtrim($url, '/'); // Удаляет "/" из конца строки
     $urls = explode('/', $url); // Разбивает строку с помощью разделителя "/"
@@ -68,7 +72,6 @@
         include_once 'pages/profile.php'; // Профиль пользователей страница
         exit();
     }
-
 
     http_response_code(404);
     include_once 'pages/404.php'; // 404 страница
