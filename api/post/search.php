@@ -2,7 +2,7 @@
     require_once "../../src/db.php";
     require_once "../ajax.php"; //IS_AJAX
 
-// разделить на 2 файла для лк и для главной
+// разделить на 2 файла для лк и для главной и для профиля
 
 // добавить возможность выбирать только теги и искать фикс теги!
         $start = $_GET['start'];
@@ -12,6 +12,7 @@
         $leftScob = $tag ? '(' : '';
         $rightScob = $tag ? ')' : '';
         $lk = $_GET['lk'];
+        $id_user = $_GET['id_user'];
 
         $params = [];
         $selectParams = '*';
@@ -20,6 +21,11 @@
         if ($lk) {
             $getIdUser = $_SESSION['id'];
             array_push($params, $getIdUser);
+            $where = $where . " WHERE p.id_creator = ?";
+        }
+
+        if ($id_user) {
+            array_push($params, $id_user);
             $where = $where . " WHERE p.id_creator = ?";
         }
 
