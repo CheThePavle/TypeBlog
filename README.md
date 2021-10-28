@@ -1,2 +1,2 @@
 # STMIIT-diplom-Chikurov-2022
-Не обычный блог)
+Тестовый сайт - https://cu39918.tmweb.ru/
