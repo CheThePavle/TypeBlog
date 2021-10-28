@@ -2,97 +2,81 @@
     require_once "../../src/db.php";
     require_once "../ajax.php"; //IS_AJAX
 
-// разделить на 2 файла для лк и для главной и для профиля
+    $start = $_GET['start'];
+    $order = $_GET['order'];
+    $category = $_GET['category'];
+    $tag = $_GET['tag'];
+    $leftScob = $tag ? '(' : '';
+    $rightScob = $tag && $category ? ')' : '';
 
-// добавить возможность выбирать только теги и искать фикс теги!
-        $start = $_GET['start'];
-        $order = $_GET['order'];
-        $category = $_GET['category'];
-        $tag = $_GET['tag'];
-        $leftScob = $tag ? '(' : '';
-        $rightScob = $tag ? ')' : '';
-        $lk = $_GET['lk'];
-        $id_user = $_GET['id_user'];
+    // $params = []; // добавить для всех sql в будущем
+    $selectParams = '*';
+    $where = 'JOIN category as c ON p.id_category = c.id_category ';
 
-        $params = [];
-        $selectParams = '*';
-        $where = 'JOIN category as c ON p.id_category = c.id_category ';
-
-        if ($lk) {
-            $getIdUser = $_SESSION['id'];
-            array_push($params, $getIdUser);
-            $where = $where . " WHERE p.id_creator = ?";
-        }
-
-        if ($id_user) {
-            array_push($params, $id_user);
-            $where = $where . " WHERE p.id_creator = ?";
-        }
-
-        if ($tag) {
-            $selectParams = 'DISTINCT p.id_post, p.id_category, p.id_creator, p.id_status, p.heading, p.description, p.body, p.created_at, p.updated_at, c.name_category';
-            $where = $where . 'JOIN post_tag as pt ';
-            if ($category) {
-                $whereOrTags = 'AND '.$leftScob;
-            } else {
-                $whereOrTags = 'WHERE ';
-            }
-            foreach ($tag as $el) {
-                // array_push($params, $el);
-                $whereOrTags = $whereOrTags . "pt.id_tag = ".$el." AND pt.id_post = p.id_post OR ";
-            }
-            $whereOrTags = substr($whereOrTags,0,-3);
-        }
-
+    if ($tag) {
+        $selectParams = 'DISTINCT p.id_post, p.id_category, p.id_creator, p.id_status, p.heading, p.description, p.body, p.created_at, p.updated_at, c.name_category';
+        $where = $where . 'JOIN post_tag as pt ';
         if ($category) {
-            // array_push($params, $category);
-            $where = $where . "WHERE p.id_category = ".$category." ";
+            $whereOrTags = 'AND '.$leftScob;
+        } else {
+            $whereOrTags = 'WHERE ';
         }
-
-        $whereOrder = '';
-        switch ($order) {
-            case 1:
-                $whereOrder = $whereOrder . 'ORDER BY p.id_post ASC';
-                break;
-            case 2:
-                echo "по популярности";
-                break;
-            case 3:
-                echo "по рейтингу";
-                break;
-            default:
-                $whereOrder = $whereOrder . 'ORDER BY p.id_post DESC';
-                break;
+        foreach ($tag as $el) {
+            // array_push($params, $el);
+            $whereOrTags = $whereOrTags . "pt.id_tag = ".$el." AND pt.id_post = p.id_post OR ";
         }
+        $whereOrTags = substr($whereOrTags,0,-3);
+    }
 
-        $count = apache_getenv('numberLoadPosts');
+    if ($category) {
+        // array_push($params, $category);
+        $where = $where . "WHERE p.id_category = ".$category." ";
+    }
 
-        $res = $db->query("SELECT $selectParams FROM `post` as p $where $whereOrTags $rightScob $whereOrder LIMIT $start, $count", $params);
+    $whereOrder = '';
+    switch ($order) {
+        case 1:
+            $whereOrder = $whereOrder . 'ORDER BY p.id_post ASC';
+            break;
+        case 2:
+            echo "по популярности";
+            break;
+        case 3:
+            echo "по рейтингу";
+            break;
+        default:
+            $whereOrder = $whereOrder . 'ORDER BY p.id_post DESC';
+            break;
+    }
 
-//        $jsonData = [];
-        $getTags = [];
-        $getNameUser = [];
-        foreach ($res as $el) {
-            // array_push($jsonData, $el['body']);
-            $get = $db->query("SELECT t.id_tag, t.name_tag FROM tag as t JOIN post_tag as pt ON t.id_tag = pt.id_tag WHERE pt.id_post = ?", [$el['id_post']]);
-            array_push($getTags, $get);
+    $count = apache_getenv('numberLoadPosts');
 
-            $get = $db->query("SELECT u.login FROM user as u JOIN post as p ON p.id_creator = u.id_user WHERE p.id_creator = ?", [$el['id_creator']]);
-            array_push($getNameUser, $get);
-        }
+    $res = $db->query("SELECT $selectParams FROM `post` as p $where $whereOrTags $rightScob $whereOrder LIMIT $start, $count");
 
-        for ($i = 0; $i <  count($res); $i++) {
-            $res[$i]['tags'] = $getTags[$i];
-            $res[$i]['user_login'] = $getNameUser[$i];
-        }
+    // $jsonData = [];
 
+    $getTags = [];
+    $getNameUser = [];
+    foreach ($res as $el) {
+        // array_push($jsonData, $el['body']);
+        $get = $db->query("SELECT t.id_tag, t.name_tag FROM tag as t JOIN post_tag as pt ON t.id_tag = pt.id_tag WHERE pt.id_post = ?", [$el['id_post']]);
+        array_push($getTags, $get);
+
+        $get = $db->query("SELECT u.login FROM user as u JOIN post as p ON p.id_creator = u.id_user WHERE p.id_creator = ?", [$el['id_creator']]);
+        array_push($getNameUser, $get);
+    }
+
+    for ($i = 0; $i <  count($res); $i++) {
+        $res[$i]['tags'] = $getTags[$i];
+        $res[$i]['user_login'] = $getNameUser[$i];
+    }
 
 //        $db->response([
-//            "sql"=>"SELECT $selectParams FROM `post` as p $where $whereOrTags $rightScob $whereOrder LIMIT $start, 2",
+//            "sql"=>"SELECT $selectParams FROM `post` as p $where $whereOrTags $rightScob $whereOrder LIMIT $start, $count",
 //            "res"=>$lk
 //        ]);
 
-        echo json_encode($res);
+    echo json_encode($res);
 
 //        SELECT * FROM `post` as p
 //JOIN post_tag as pt

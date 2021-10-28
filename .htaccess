@@ -10,3 +10,8 @@ php_value session.auto_start 1
 
 SetEnv numberLoadPosts 2
 #apache_getenv('testGlobal') обращение в php
+
+SetEnv host localhost
+SetEnv db_name diplom
+SetEnv db_user root
+SetEnv db_password root
