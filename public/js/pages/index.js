@@ -7,6 +7,7 @@ if (window?.XMLHttpRequest) {
             url: '../api/post/search.php',
             data: getUrlParams  + start,
             success: function (data) {
+                console.log(data)
                 data = JSON.parse(data);
                 if (data?.length === 0) {
                     $('#nextPosts').remove();

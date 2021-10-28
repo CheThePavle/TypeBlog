@@ -6,7 +6,7 @@ if (window?.XMLHttpRequest) {
 
     const getPosts = () => {
         return $.ajax({
-            url: '../api/post/search.php',
+            url: '../api/post/searchPostProfile.php',
             data: getUrlParams  + start + '&id_user=' + id,
             success: function (data) {
                 data = JSON.parse(data);

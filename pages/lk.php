@@ -1,15 +1,14 @@
 <?php
     require_once "components/header.php";
-    // оптимизировать вкладки
 ?>
 
 <div class="tabbable">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab1" data-toggle="tab">Профиль</a></li>
-        <li><a href="#tab2" data-toggle="tab">Создать пост</a></li>
+        <li class="active"><a href="/lk" data-toggle="tab">Профиль</a></li>
+        <li><a href="/post/create">Создать пост</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="tab1">
+        <div class="tab-pane active">
             <div class="bg_shapka_lk">
                 <br><br>
                 <div class="prfole_block">
@@ -34,9 +33,6 @@
                 <div class="msg"></div>
                 <?php require_once "components/postLoader.php"?>
             </div>
-        </div>
-        <div class="tab-pane" id="tab2">
-            <?php require_once "post/create.php"; ?>
         </div>
     </div>
 </div>

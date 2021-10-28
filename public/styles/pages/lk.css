@@ -30,3 +30,15 @@
 .change_profile_btn{
     margin-top: 14px;
 }
+.img_post{
+    max-width: 100%;
+}
+.statistics_post{
+    display: flex;
+}
+.block_statistics_post{
+    margin-left: 10px;
+}
+.statistics_post_comment{
+    color: black;
+}

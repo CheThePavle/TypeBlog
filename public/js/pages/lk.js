@@ -4,7 +4,7 @@ if (window?.XMLHttpRequest) {
 
     const getPosts = () => {
         return $.ajax({
-            url: '../api/post/search.php',
+            url: '../api/post/searchPostLk.php',
             data: getUrlParams  + start + '&lk=true',
             success: function (data) {
                 data = JSON.parse(data);

@@ -46,11 +46,11 @@
         exit();
     }
 
-//    if ($urls[0] === 'post' && $urls[1] === 'create' && sizeof($urls) == 2){
-//        if (!$_SESSION['id']) {header("Location: /");};
-//        include_once 'pages/post/create.php'; // Создание поста страница
-//        exit();
-//    }
+    if ($urls[0] === 'post' && $urls[1] === 'create' && sizeof($urls) == 2){
+        if (!$_SESSION['id']) {header("Location: /");};
+        include_once 'pages/post/create.php'; // Создание поста страница
+        exit();
+    }
 
     if ($urls[0] === 'post' && $urls[1] === 'change' && sizeof($urls) == 2){
         if (!$_SESSION['id']) {header("Location: /");};
