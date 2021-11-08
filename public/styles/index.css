@@ -3,6 +3,7 @@
     padding: 0;
     border: 0;
 }
+p{word-wrap: break-word}
 .content {
     max-width: 1170px;
     margin:0 auto;

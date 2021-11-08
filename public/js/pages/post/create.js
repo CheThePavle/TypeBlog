@@ -1,4 +1,34 @@
 if (window?.XMLHttpRequest) {
+    // taggingJS
+    // http://verstaemvse.ru/plagin-sozdaniya-polya-dlya-vvoda-tegov-taggingjs.html
+    var my_custom_options = {
+        "no-duplicate": true,
+        "no-duplicate-callback": window.alert, // выводить валидацию на сайт
+        "no-duplicate-text": "Duplicate tags",
+        "type-zone-class": "type-zone",
+        "tag-box-class": "tagging",
+        "forbidden-chars": [",", ".", "_", "?"]
+    };
+    $("#tagBox").tagging(my_custom_options);
+
+    const readURL = (input) => {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#show_img_prev').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+    $("#controlFile").change(function() {
+        $(".show_img_prev_post").css({'display':'block'});
+        $("#name_btn_img_prev").html('Заменить');
+        readURL(this);
+    });
+
     const editor = new EditorJS({
         autofocus: true,
         tools: {
@@ -105,7 +135,7 @@ if (window?.XMLHttpRequest) {
         $('.btn-send').prop('disabled', bool);
     }
 
-    // $("#exampleFormControlFile").click(function () {
+    // $("#controlFile").click(function () {
     //     console.log($(this))
     // }) добавить вывод выбранного изображения
 
@@ -151,6 +181,8 @@ if (window?.XMLHttpRequest) {
         // const output = document.getElementById('output');
         editor.save().then(savedData => {
             formData.append('body', JSON.stringify(savedData));
+            formData.set('tags', $("#tagBox").tagging( "getTags" ));
+
             $.ajax({
                 url: '../../api/post/create.php',
                 type: 'POST',
@@ -159,6 +191,7 @@ if (window?.XMLHttpRequest) {
                 processData: false,
                 data: formData,
                 success: function (data) {
+                    console.log(data)
                     activeBtn(false);
                     if (data?.error) {
                         activeBtn(true);
@@ -172,7 +205,7 @@ if (window?.XMLHttpRequest) {
                     }
                 },
                 error: function (data) {
-                    activeBtn(true);
+                    activeBtn(false);
                     msg.html(`<div class="alert alert-danger">${data?.responseJSON?.error}</div>`);
                 }
             })

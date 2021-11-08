@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="navbar-brand" href="/">CheThePavle - Blog</a>
+            <a class="navbar-brand" href="/">TypeBlog</a>
         </div>
 
         <div id="slidemenu">

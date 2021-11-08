@@ -1,5 +1,6 @@
 <?php
     require_once "components/header.php";
+    require_once "src/usecases/post/create.php" // return $getCategory
 ?>
 
 <div class="tabbable">
@@ -9,13 +10,11 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">
-            <h1>Создание поста</h1>
             <form id="forCreatePost" role="form" enctype="multipart/form-data">
                 <div class="controls">
                     <div class="row">
-                        <h2>Превью поста</h2>
-
                         <div class="col-md-12">
+                            <h2>Превью поста</h2>
                             <div class="form-group">
                                 <label for="about">Название *</label>
                                 <input id="heading" type="text" name="heading" class="form-control" placeholder="Введите заголовок поста *" required="required">
@@ -24,24 +23,51 @@
                         </div>
 
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="exampleFormControlFile">Загрузить главное изображение *</label>
-                                <input type="file" name="image" class="form-control-file" id="exampleFormControlFile" required="required">
-                                <span>или перетащите его сюда</span>
+                            <label for="about">Загрузить главное изображение (формат только .png) *</label>
+                            <div class="form-group download_img_prev">
+                                <button type="button" id="name_btn_img_prev">Выбрать</button>
+                                <div>Выберите файл или перетащите его сюда</div>
+                                <input type="file" name="image" class="form-control-file" id="controlFile">
+                            </div>
+                            <div class="show_img_prev_post">
+                                <img id="show_img_prev" src="#" alt="prev_img_post" />
+                                <br><br>
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="about">Кратко о чем данный пост *</label>
+                                <label for="about">Кратко о чем пост *</label>
                                 <textarea rows="10" id="description" type="text" name="description" class="form-control" placeholder="Опишите о чем будет пост *" required="required"></textarea>
                                 <div class="errorDescription"></div>
                             </div>
                         </div>
 
-                        <h2>Содержание поста</h2>
+                        <div class="col-md-12">
+                            <label for="about">Выберите категорию *</label>
+                            <br>
+                            <?php
+                                if ($getCategory) {
+                                    echo "<select name='category'>";
+                                    foreach ($getCategory as $el) {
+                                        echo "<option value='".$el['id_category']."'>".$el['name_category']."</option>";
+                                    }
+                                    echo "</select>";
+                                } else {
+                                    echo '<p>Категории не обнаружены(</p>';
+                                }
+                            ?>
+                        </div>
 
                         <div class="col-md-12">
+                            <br>
+                            <label for="about">Теги *</label>
+                            <br>
+                            <div data-tags-input-name="tag" id="tagBox"></div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2>Содержание поста</h2>
                             <div id="editorjs"></div>
                         </div>
 
@@ -81,6 +107,10 @@
 <!--<script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>-->
 
 <style>@import url("../../public/styles/pages/post/create.css");</style>
+
+<style>@import url("../../libs/taggingJS/tag-basic-style.css");</style>
+<script src="../../libs/taggingJS/tagging.min.js"></script>
+
 <script src="../../public/js/pages/post/create.js"></script>
 
 <?php
