@@ -1,28 +1,29 @@
-if (window?.XMLHttpRequest) {
-    let start = 0;
-    let getUrlParams = window?.location?.search?.replace( '?', '') + '&start=';
+$(function() {
+    if (window?.XMLHttpRequest) { // сомнительная проверка ошибки в firefox 5.0 - знаки вопроса и объявления переменных через let
+        let start = 0;
+        let getUrlParams = window?.location?.search?.replace( '?', '') + '&start=';
 
-    const getPosts = () => {
-        return $.ajax({
-            url: '../api/post/search.php',
-            data: getUrlParams  + start,
-            success: function (data) {
-                console.log(data)
-                data = JSON.parse(data);
-                if (data?.length === 0) {
-                    $('#nextPosts').remove();
-                    $('#showmore-triger').remove();
-                    $(".msg").html('<div class="alert alert-danger">Постов больше нет(</div>')
-                } else {
-                    data?.map(function(el) {
-                        let strTags = '';
-                        el?.tags?.map(function(item) {
-                            strTags += `<a href="/?tag[]=${item?.id_tag}">${item?.name_tag + ', '}</a>`;
-                        });
-                        if (strTags) {
-                            strTags = strTags?.slice(0, strTags?.length - 6) + '</a>';
-                        }
-                        $('.posts').append(`
+        const getPosts = () => {
+            return $.ajax({
+                url: '../api/post/search.php',
+                data: getUrlParams  + start,
+                success: function (data) {
+                    // console.log(data)
+                    data = JSON.parse(data);
+                    if (data?.length === 0) {
+                        $('#nextPosts').remove();
+                        $('#showmore-triger').remove();
+                        $(".msg").html('<div class="alert alert-danger">Постов больше нет(</div>')
+                    } else {
+                        data?.map(function(el) {
+                            let strTags = '';
+                            el?.tags?.map(function(item) {
+                                strTags += `<a href="/?tag[]=${item?.id_tag}">${item?.name_tag + ', '}</a>`;
+                            });
+                            if (strTags) {
+                                strTags = strTags?.slice(0, strTags?.length - 6) + '</a>';
+                            }
+                            $('.posts').append(`
                         <div class="hero-unit">
                             <h2>${el?.heading}</h2>
                             <p>Автор: <a href="/profile/${el?.id_creator}">${el?.user_login[0]?.login}</a>, ${el?.created_at}</p>
@@ -56,33 +57,33 @@ if (window?.XMLHttpRequest) {
                         </div>
                         <br><br>
                     `);
-                    });
+                        });
+                    }
+                },
+                error: function () {
+                    $(".msg").html('<div class="alert alert-danger">Что-то пошло не так!</div>')
                 }
-            },
-            error: function () {
-                $(".msg").html('<div class="alert alert-danger">Что-то пошло не так!</div>')
+            });
+        }
+        getPosts();
+
+        let window_scrolled;
+        // фикс спама при прокрутке страницы
+        $(window).scroll(function() {
+            window_scrolled = ($(document).height()/100)*90;
+            if($(window).scrollTop() + $(window).height() >= window_scrolled) {
+                start += 2;
+                getPosts();
             }
         });
-    }
-    getPosts();
 
-    let window_scrolled;
-    // фикс спама при прокрутке страницы
-    $(window).scroll(function() {
-        window_scrolled = ($(document).height()/100)*90;
-        if($(window).scrollTop() + $(window).height() >= window_scrolled) {
+        $('#nextPosts').click(function (e) {
             start += 2;
             getPosts();
-        }
-    });
-
-    $('#nextPosts').click(function (e) {
-        start += 2;
-        getPosts();
-    });
-} else {
-    alert('Ваша версия браузера устарела, поддержки не будет)');
-}
+        });
+    } else {
+        alert('Ваша версия браузера устарела, поддержки не будет)');
+    }
 
 // let getParams = window
 //     .location
@@ -112,3 +113,4 @@ if (window?.XMLHttpRequest) {
 //     return r;
 // };
 // let QueryString = getRequests();
+});

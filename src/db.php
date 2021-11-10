@@ -44,8 +44,12 @@
             exit();
         }
     }
-//sleep(1); //задержка выполениня запроса к БД
 $db = new db();
+//    $res = $db->make("INSERT INTO `tag` (`name_tag`) VALUES (?);", ['test2']);
+//    $db->response($res);
+
+//sleep(1); //задержка выполениня запроса к БД
+
 //if (stristr($_SERVER['REQUEST_URI'], '.php')) {header("Location: /");exit();}
 
 //$test = new db();
