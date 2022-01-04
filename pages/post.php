@@ -30,6 +30,7 @@
     <!--<script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>-->
     <!--<script src="https://cdn.jsdelivr.net/npm/@editorjs/text-variant-tune@latest"></script>-->
     <!--<script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>-->
+
     <script src="../libs/EditorJS/editorjs.js"></script>
     <script src="../libs/EditorJS/blocks/simple-image.js"></script>
     <link href="../libs/EditorJS/blocks/simple-image.css" rel="stylesheet"/>
