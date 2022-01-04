@@ -16,18 +16,18 @@
                         <div class="col-md-12">
                             <h2>Превью поста</h2>
                             <div class="form-group">
-                                <label for="about">Название *</label>
-                                <input id="heading" type="text" name="heading" class="form-control" placeholder="Введите заголовок поста *" required="required">
+                                <label for="about">Название <span class="required">*</span></label>
+                                <input id="heading" maxlength="200" type="text" name="heading" class="form-control" placeholder="Введите заголовок поста *" required="required">
                                 <div class="errorHeading"></div>
                             </div>
                         </div>
 
                         <div class="col-md-12">
-                            <label for="about">Загрузить главное изображение (формат только .png) *</label>
+                            <label for="about">Загрузить главное изображение (форматы jpg, png и gif, не более 5 Мегабайт) <span class="required">*</span></label>
                             <div class="form-group download_img_prev">
                                 <button type="button" id="name_btn_img_prev">Выбрать</button>
-                                <div>Выберите файл или перетащите его сюда</div>
-                                <input type="file" name="image" class="form-control-file" id="controlFile">
+                                <div id="img_uploaded">Выберите файл или перетащите его сюда</div>
+                                <input type="file" name="image" class="form-control-file" id="controlFile" accept=".jpg, .jpeg, .png, .gif">
                             </div>
                             <div class="show_img_prev_post">
                                 <img id="show_img_prev" src="#" alt="prev_img_post" />
@@ -37,14 +37,14 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="about">Кратко о чем пост *</label>
-                                <textarea rows="10" id="description" type="text" name="description" class="form-control" placeholder="Опишите о чем будет пост *" required="required"></textarea>
+                                <label for="about">Кратко о чем пост <span class="required">*</span></label>
+                                <textarea maxlength="1000" rows="10" id="description" type="text" name="description" class="form-control" placeholder="Опишите о чем будет пост *" required="required"></textarea>
                                 <div class="errorDescription"></div>
                             </div>
                         </div>
 
                         <div class="col-md-12">
-                            <label for="about">Выберите категорию *</label>
+                            <label for="about">Выберите категорию <span class="required">*</span></label>
                             <br>
                             <?php
                                 if ($getCategory) {
@@ -54,16 +54,19 @@
                                     }
                                     echo "</select>";
                                 } else {
-                                    echo '<p>Категории не обнаружены(</p>';
+                                    echo "<select name='category'>";
+                                    echo "<option value='1'>Разное</option>";
+                                    echo "</select>";
                                 }
                             ?>
                         </div>
 
                         <div class="col-md-12">
                             <br>
-                            <label for="about">Теги *</label>
+                            <label for="about">Теги</label>
                             <br>
                             <div data-tags-input-name="tag" id="tagBox"></div>
+                            <div class="errorTags"></div>
                         </div>
 
                         <div class="col-md-12">
@@ -106,6 +109,8 @@
 
 <style>@import url("../../libs/taggingJS/tag-basic-style.css");</style>
 <script src="../../libs/taggingJS/tagging.min.js"></script>
+
+<script src="../../public/js/functions/normalizeSpace.js"></script>
 
 <style>@import url("../../public/styles/pages/post/create.css");</style>
 <script src="../../public/js/pages/post/create.js"></script>

@@ -3,7 +3,11 @@
     padding: 0;
     border: 0;
 }
-p{word-wrap: break-word}
+
+p{
+    word-wrap: break-word
+}
+
 .content {
     max-width: 1170px;
     margin:0 auto;
@@ -12,6 +16,10 @@ p{word-wrap: break-word}
 /* Стили для EditorJS */
 .ce-block__content, .ce-toolbar__content {
     max-width: 1170px;
+}
+
+.required {
+    color: red;
 }
 
 /* Прелоадер */
@@ -65,7 +73,6 @@ p{word-wrap: break-word}
 }
 
 @keyframes preloader-bounce {
-
     0%,
     100% {
         transform: scale(0);
@@ -89,6 +96,7 @@ p{word-wrap: break-word}
 .footer_cont{
     max-width: 100%;
 }
+
 .footer_row{
     background-color: lightslategrey;
     border-radius: 4px;
