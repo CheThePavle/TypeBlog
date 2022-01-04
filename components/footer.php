@@ -1,35 +1,28 @@
-        </div><!-- /.col-lg-8 col-lg-offset-2 -->
-    </div> <!-- /.row-->
-</div> <!-- /.container-->
-
-<footer id="footer" class="footer">
-    <div class="footer-bottom">
-        <div class="container" style="max-width: 100%">
-            <div class="row" style="background-color: lightslategrey; border-radius: 4px; padding: 10px">
-                <p style="color: white" class="pull-left">Copyright ©2021</p>
-                <p style="color: white" class="pull-right">Чикуров Павел</p>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
 
-<div class="preloader">
-    <div class="preloader__row">
-        <div class="preloader__item"></div>
-        <div class="preloader__item"></div>
-    </div>
-</div>
+        <footer>
+            <div class="footer-bottom">
+                <div class="container footer_cont">
+                    <div class="row footer_row">
+                        <p style="color: white" class="pull-left">Copyright ©2021</p>
+                        <p style="color: white" class="pull-right">Чикуров Павел</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
-<script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
-<script src="https://bootstraptema.ru/snippets/menu/2016/slidemenu/slidemenu.js"></script>
-<script>
-    window.onload = function () {
-        $("body").attr('class', 'loaded_hiding');
-        window.setTimeout(function () {
-            $("body").attr('class', 'loaded');
-            $("body").removeAttr('loaded_hiding');
-        }, 500);
-    }
-</script>
-</body>
+        <div class="preloader">
+            <div class="preloader__row">
+                <div class="preloader__item"></div>
+                <div class="preloader__item"></div>
+            </div>
+        </div>
+
+        <!--<script src="../libs/bootstrap/bootstrap.min.js"></script>-->
+        <!--<script src="https://bootstraptema.ru/snippets/menu/2016/slidemenu/slidemenu.js"></script>-->
+
+        <script src="../public/js/loader.js"></script>
+    </body>
 </html>

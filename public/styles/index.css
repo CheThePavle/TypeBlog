@@ -3,6 +3,7 @@
     padding: 0;
     border: 0;
 }
+p{word-wrap: break-word}
 .content {
     max-width: 1170px;
     margin:0 auto;
@@ -82,4 +83,14 @@
 
 .loaded .preloader {
     display: none;
+}
+
+/* footer */
+.footer_cont{
+    max-width: 100%;
+}
+.footer_row{
+    background-color: lightslategrey;
+    border-radius: 4px;
+    padding: 10px
 }

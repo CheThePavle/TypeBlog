@@ -10,11 +10,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="navbar-brand" href="/">CheThePavle - Blog</a>
+            <a class="navbar-brand" href="/">TypeBlog</a>
         </div>
 
         <div id="slidemenu">
-
             <form class="navbar-form navbar-right" role="form">
                 <div class="form-group">
                     <input type="search" placeholder="Найти" class="form-control">
@@ -43,7 +42,6 @@
                     </ul>
                 </li>
             </ul>
-
         </div>
     </div>
 </div>
