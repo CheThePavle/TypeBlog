@@ -86,8 +86,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 
-<script src="../../public/js/blocks/simple-image.js"></script>
-<link href="../../public/js/blocks/simple-image.css" rel="stylesheet"/>
+<script src="../../libs/EditorJS/blocks/simple-image.js"></script>
+<link href="../../libs/EditorJS/blocks/simple-image.css" rel="stylesheet"/>
 
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script>

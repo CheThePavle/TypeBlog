@@ -5,6 +5,7 @@
 
         $heading = validate($_POST['heading']);
         $description = validate($_POST['description']);
+        $category = validate($_POST['category']);
 
         // добавить доп проверку длины $heading
         // добавить доп проверку длины $description
