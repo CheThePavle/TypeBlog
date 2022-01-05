@@ -11,10 +11,6 @@ $(function() {
             $(".errorHeading").html('');
             activeBtn(false);
 
-            // if (h?.length  > 200) {
-            //     $(".errorHeading").html('<div class="alert alert-warning">Название не может быть больше 200 символов!</div>')
-            //     activeBtn(true);
-            // }
             if (h?.length  < 6) {
                 $(".errorHeading").html('<div class="alert alert-warning">Название не может быть меньше 6 символов!</div>')
                 activeBtn(true);
@@ -28,10 +24,6 @@ $(function() {
             $(".errorDescription").html('');
             activeBtn(false);
 
-            // if (d?.length  > 1000) {
-            //     $(".errorDescription").html('<div class="alert alert-warning">Описание не может быть больше 1000 символов!</div>')
-            //     activeBtn(true);
-            // }
             if (d?.length  < 20) {
                 $(".errorDescription").html('<div class="alert alert-warning">Описание не может быть меньше 20 символов!</div>')
                 activeBtn(true);
@@ -66,7 +58,17 @@ $(function() {
             // "forbidden-words-callback": ''
         };
         $("#tagBox").tagging(my_custom_options);
-        // alert($("#tagBox").length); // условие для проверки на 10 тегов + узнать почему спамит ошибка в консоль при удалении ничего в input)
+        // узнать почему спамит ошибка в консоль при удалении ничего в input)
+        $(".type-zone").keyup(function () {
+            let getLengthTags = $('#tagBox .tag').length;
+            if (getLengthTags > 10) {
+                $('#tagBox .tag:last').remove();
+                $(".errorTags").html('<div class="alert alert-warning">Можно только не более 10 тегов!</div>');
+                setTimeout(() => {
+                    $(".errorTags").html('')
+                }, 3000)
+            }
+        })
 
         const readURL = (input) => {
             if (input.files && input.files[0]) {
@@ -155,23 +157,7 @@ $(function() {
                     // levels: [2, 3, 4],
                     // defaultLevel: 3
                 }
-            },
-            // data: {
-            //     time: 1552744582955,
-            //     blocks: [
-            //         {
-            //             type: "image",
-            //             data: {
-            //                 url: "https://cdn.pixabay.com/photo/2017/09/01/21/53/blue-2705642_1280.jpg",
-            //                 caption: 'Here is a caption field',
-            //                 withBorder: false,
-            //                 withBackground: false,
-            //                 stretched: false
-            //             }
-            //         }
-            //     ],
-            //     version: "2.11.10"
-            // }
+            }
         });
 
         $('#forCreatePost').submit(function (e) {
@@ -187,10 +173,11 @@ $(function() {
 
             // const output = document.getElementById('output');
             editor.save().then(savedData => {
+                // возможно тут ограничение передачи body в php 27 000 байт
                 formData.append('body', JSON.stringify(savedData));
                 formData.set('tags', $("#tagBox").tagging( "getTags" ));
-                console.log(savedData)
-                // return console.log(savedData);
+                // console.log(savedData)
+
                 $.ajax({
                     url: '../../api/post/create.php',
                     type: 'POST',
@@ -199,7 +186,7 @@ $(function() {
                     processData: false,
                     data: formData,
                     success: function (data) {
-                        console.log(data)
+                        // console.log(data)
                         activeBtn(false);
                         if (data?.error) {
                             activeBtn(true);
@@ -213,7 +200,7 @@ $(function() {
                         }
                     },
                     error: function (data) {
-                        console.log(data)
+                        // console.log(data)
                         activeBtn(false);
                         msg.html(`<div class="alert alert-danger">${data?.responseJSON?.error || 'Что-то пошло не так!'}</div>`);
                     }

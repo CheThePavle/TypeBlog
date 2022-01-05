@@ -23,11 +23,12 @@ $(function() {
                             if (strTags) {
                                 strTags = strTags?.slice(0, strTags?.length - 6) + '</a>';
                             }
+                            el.body = JSON.parse(el.body);
                             $('.posts').append(`
                         <div class="hero-unit">
                             <h2>${el?.heading}</h2>
                             <p>Автор: <a href="/profile/${el?.id_creator}">${el?.user_login[0]?.login}</a>, ${el?.created_at}</p>
-                            <img class="img_post" src="../jsonData/posts/${el?.body}.png" alt="${el?.heading}">
+                            <img class="img_post" src="../data/posts/${el?.body?.uniqUrl}/main_img.${el?.body?.typeMainImg}" alt="Картинка для ${el?.heading}">
                             <br><br>
                             <p>${el?.description}</p>
                             <p>Категория: <a href="/?category=${el?.id_category}">${el?.name_category}</a></p>

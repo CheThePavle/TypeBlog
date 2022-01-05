@@ -41,6 +41,7 @@
                 </div>
                 <br><br>
                 <p><b>Категория:</b></p>
+                <p><input checked name='category' type='radio' value='all'> Все</p>
                 <?php
                     if ($getCategory) {
                         foreach ($getCategory as $el) {

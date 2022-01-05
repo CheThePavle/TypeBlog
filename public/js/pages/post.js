@@ -9,18 +9,19 @@ $(function() {
             },
             success: function (data) {
                 data = JSON.parse(data);
-                const prevData = data?.dbData[0];
-                const jsonData = data?.jsonData[0];
+                data = data[0];
+                // console.log(data)
+                data.body = JSON.parse(data?.body);
                 if (data?.jsonData?.length === 0) {
                     $(".msg").html('<div class="alert alert-danger">Пост не найден!</div>')
                     $("#heading").html(`<h1 id="heading">Такого поста не существует (</h1>`);
                 } else {
-                    $("#heading").html(`<h1 id="heading">${prevData?.heading}</h1>`);
+                    $("#heading").html(`<h1 id="heading">${data?.heading}</h1>`);
                     $(".prevPost").html(`
                     <div class="hero-unit prev_content">
-                        <img src="../jsonData/posts/${prevData?.body}.png" alt="${prevData?.heading}">
+                        <img src="../data/posts/${data?.body?.uniqUrl}/main_img.${data?.body?.typeMainImg}" alt="Картинка для ${data?.heading}"">
                         <br><br>
-                        <p>${prevData?.description}</p>
+                        <p>${data?.description}</p>
                     </div>
                 `);
 
@@ -96,7 +97,7 @@ $(function() {
                                 }
                             }
                         },
-                        data: jsonData
+                        data
                     });
                 }
             },
