@@ -45,3 +45,8 @@
         </div>
     </div>
 </div>
+
+<input type="text" name="referal" placeholder="Живой поиск" value="" class="who"  autocomplete="off">
+<ul class="search_result"></ul>
+
+<script src="../public/js/index.js"></script>
