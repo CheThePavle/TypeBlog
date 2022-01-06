@@ -14,11 +14,12 @@
         </div>
 
         <div id="slidemenu">
-            <form class="navbar-form navbar-right" role="form">
-                <div class="form-group">
-                    <input type="search" placeholder="Найти" class="form-control">
+            <form class="navbar-form navbar-right">
+                <div class="form-group" id="block_search">
+                    <input type="search" placeholder="Найти" class="form-control" id="searchPostAndUser" maxlength="50">
+                    <ul class="resultSearch"></ul>
                 </div>
-                <button type="submit" class="btn btn-default">Поиск</button>
+<!--                <button type="submit" class="btn btn-default">Поиск</button>-->
             </form>
 
             <ul class="nav navbar-nav">
@@ -45,3 +46,6 @@
         </div>
     </div>
 </div>
+
+<script src="../public/js/functions/normalizeSpace.js"></script>
+<script src="../public/js/index.js"></script>

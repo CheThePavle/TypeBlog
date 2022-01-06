@@ -6,4 +6,4 @@
     <br><br>
 </div>
 
-<style>@import url("../public/styles/components/postLoader.css");</style>
+<!--<style>@import url("../public/styles/components/postLoader.css");</style>-->

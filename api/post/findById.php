@@ -4,15 +4,9 @@
 
         $id = $_GET['id'];
 
-        $res = $db->query("SELECT * FROM `post` WHERE id_post = ?", [$id]);
-
-        $getJson = json_decode(file_get_contents('../../jsonData/posts/'.$res[0]["body"].'.json'.''));
-
         if ($id) {
-            echo json_encode([
-                "dbData"=>$res,
-                "jsonData"=>[$getJson]
-            ]);
+            $res = $db->query("SELECT * FROM `post` WHERE id_post = ?", [$id]);
+            echo json_encode($res);
         } else {
             http_response_code(409);
             echo $db->response([

@@ -30,7 +30,9 @@
 
     if ($category) {
         // array_push($params, $category);
-        $where = $where . "WHERE p.id_category = ".$category." ";
+        if ($category != 'all') {
+            $where = $where . "WHERE p.id_category = ".$category." ";
+        }
     }
 
     $whereOrder = '';
@@ -69,6 +71,8 @@
     for ($i = 0; $i <  count($res); $i++) {
         $res[$i]['tags'] = $getTags[$i];
         $res[$i]['user_login'] = $getNameUser[$i];
+//      можно оптимизировать body? через запрос SQL, чтобы не приходило тело поста
+//        $res[$i]['body']['blocks'] = [];
     }
 
 //        $db->response([

@@ -4,7 +4,7 @@
 
     <h1 class="text-center">Вход</h1>
 
-    <form id="formAuth" role="form">
+    <form id="formAuth">
         <div class="controls">
             <div class="row">
                 <div class="col-md-6">
@@ -43,7 +43,7 @@
         <div class="msg"></div>
     </form>
 
-    <script src="../public/js/pages/authorization.js"></script>
+<!--    <script src="../public/js/pages/authorization.js"></script>-->
 
 <?php
     require_once "components/footer.php";
