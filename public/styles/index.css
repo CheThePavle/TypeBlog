@@ -8,6 +8,16 @@ p{
     word-wrap: break-word
 }
 
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    flex-grow: 1;
+}
+
 .content {
     max-width: 1170px;
     margin:0 auto;

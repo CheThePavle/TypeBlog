@@ -14,7 +14,7 @@
                     <div class="prfole_block">
                         <div class="ava_block">
                             <div class="block_ava_img">
-                                <img class="ava_img" src="https://vjoy.cc/wp-content/uploads/2019/12/2-1.png" alt="avatarka">
+                                <img class="ava_img" src="../public/imgs/profile.png" alt="avatarka">
                             </div>
                             <input id="btn-auth" type="submit" class="btn btn-primary change_profile_btn" value="Редактировать">
                         </div>

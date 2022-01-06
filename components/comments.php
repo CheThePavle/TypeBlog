@@ -17,7 +17,7 @@
                     <!-- Содержание Новостей -->
                     <!--===================================================-->
                     <div class="media-block">
-                        <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="https://bootstraptema.ru/snippets/icons/2016/mia/1.png"></a>
+                        <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="../public/imgs/profile.png"></a>
                         <div class="media-body">
                             <div class="mar-btm">
                                 <a href="#" class="btn-link text-semibold media-heading box-inline">Максим</a>
@@ -32,12 +32,12 @@
                                 </div>
                                 <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
                             </div>
-                            <hr>
+                            <br>
 
                             <!-- Комментарий -->
                             <div>
                                 <div class="media-block">
-                                    <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="https://bootstraptema.ru/snippets/icons/2016/mia/2.png"></a>
+                                    <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="../public/imgs/profile.png"></a>
                                     <div class="media-body">
                                         <div class="mar-btm">
                                             <a href="#" class="btn-link text-semibold media-heading box-inline">Вася</a>
@@ -52,12 +52,12 @@
                                             </div>
                                             <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
                                         </div>
-                                        <hr>
+                                        <br>
                                     </div>
                                 </div>
 
                                 <div class="media-block">
-                                    <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="https://bootstraptema.ru/snippets/icons/2016/mia/3.png">
+                                    <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="../public/imgs/profile.png">
                                     </a>
                                     <div class="media-body">
                                         <div class="mar-btm">
@@ -73,7 +73,7 @@
                                             </div>
                                             <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
                                         </div>
-                                        <hr>
+                                        <br>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                     <!-- Содержание Новостей -->
                     <!--===================================================-->
                     <div class="media-block pad-all">
-                        <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="https://bootstraptema.ru/snippets/icons/2016/mia/4.png"></a>
+                        <a class="media-left" href="#"><img class="img-circle img-sm" alt="Профиль пользователя" src="../public/imgs/profile.png"></a>
                         <div class="media-body">
                             <div class="mar-btm">
                                 <a href="#" class="btn-link text-semibold media-heading box-inline">Ирина</a>
@@ -101,7 +101,6 @@
                                 </div>
                                 <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
                             </div>
-                            <hr>
                         </div>
                     </div>
                     <!--===================================================-->

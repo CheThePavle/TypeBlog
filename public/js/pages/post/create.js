@@ -1,5 +1,6 @@
 $(function() {
     if (window?.XMLHttpRequest) {
+        // добавить автосохранение поста каждую 1 минуту к примеру
         const activeBtn = (bool) => {
             $('.btn-send').prop('disabled', bool);
         }
