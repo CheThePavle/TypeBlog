@@ -30,8 +30,8 @@
         </div>
     </div>
 
-    <style>@import url("../public/styles/pages/profile.css");</style>
-    <script src="../public/js/pages/profile.js"></script>
+<!--    <style>@import url("../public/styles/pages/profile.css");</style>-->
+<!--    <script src="../public/js/pages/profile.js"></script>-->
 
 <?php
     require_once "components/footer.php";

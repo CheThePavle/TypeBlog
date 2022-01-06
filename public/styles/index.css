@@ -92,6 +92,26 @@ p{
     display: none;
 }
 
+/* Поиск по постам и пользователям */
+.resultSearch{
+    position: absolute;
+    margin-top: 10px;
+    z-index: 2;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    padding: 0px 5px;
+    max-height: 300px;
+    overflow: auto;
+    width: 100%;
+}
+.resultSearch li{
+    list-style: none;
+    cursor: pointer;
+}
+#block_search{
+    position: relative;
+}
+
 /* footer */
 .footer_cont{
     max-width: 100%;

@@ -37,8 +37,8 @@
         </div>
     </div>
 
-    <style>@import url("../public/styles/pages/lk.css");</style>
-    <script src="../public/js/pages/lk.js"></script>
+<!--    <style>@import url("../public/styles/pages/lk.css");</style>-->
+<!--    <script src="../public/js/pages/lk.js"></script>-->
 
 <?php
     require_once "components/footer.php";

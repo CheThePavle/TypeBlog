@@ -144,6 +144,7 @@
 
     $body['uniqUrl'] = $uniqUrl;
     $body['typeMainImg'] = $typeMainImg;
+    $body['storage'] = 0; // место хранения данных поста
 
 //            добавить проверку на размер изображений в simple-image ??? а если изображение будет превышать столько то ... то урезаем качество до нужного размера
     foreach ($body["blocks"] as &$el) {

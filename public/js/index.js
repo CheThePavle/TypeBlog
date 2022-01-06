@@ -1,26 +1,54 @@
-$(function() {
+$(function() { // normalizeSpace()
     if (window?.XMLHttpRequest) {
-        $('.who').bind("change keyup input click", function() {
-            if(this.value.length >= 2){
-                $.ajax({
-                    type: 'post',
-                    url: "../../../api/searchPostAndUser.php", //Путь к обработчику
-                    dаta: {'referal':this.value},
-                    response: 'text',
-                    success: function(data){
-                        $(".search_result").html(data).fadeIn(); //Выводим полученые данные в списке
-                    }
-                })
+        // Поиск по постам и пользователям (поставить задержку отправки запросов)
+        const getResSearch = () => {
+            let name = $('#searchPostAndUser').val();
+            $('#searchPostAndUser').val(normalizeSpace(name));
+            if (name === "") {
+                $(".resultSearch").html("");
             }
+            else {
+                $.ajax({
+                    method: "POST",
+                    url: "../../../api/searchPostAndUser.php",
+                    data: {
+                        searchPostAndUser: name
+                    },
+                    success: function(data) {
+                        $('.resultSearch').html('');
+                        data = JSON.parse(data);
+                        if (data.length == 0) {
+                            return $('.resultSearch').append(`
+                                    <li>
+                                        Ничего не найдено
+                                    </li>
+                                `)
+                        }
+                        data?.map(function(el) {
+                            $('.resultSearch').append(`
+                                <li>
+                                    <a href="${el?.id_post ? '/post/' + el?.id_post : '/profile/' + el?.id_user}">
+                                        ${el?.heading ? el?.heading + ' (пост)' : el?.login + ' (пользователь)'}
+                                    </a>
+                                </li>
+                            `)
+                        });
+                    }
+                });
+            }
+        }
+        $("#searchPostAndUser").focus(function() {
+            $('.resultSearch').show();
+            getResSearch();
+
+            $("#searchPostAndUser").keyup(function() {
+                getResSearch();
+            });
         })
-        $(".search_result").hover(function(){
-            $(".who").blur();//Убираем фокус с input
-        })
-        //При выборе результата поиска, прячем список и заносим выбранный результат в input
-        $(".search_result").on("click", "li", function(){
-            s_user = $(this).text();
-            //$(".who").val(s_user).attr('disabled', 'disabled'); //деактивируем input, если нужно
-            $(".search_result").fadeOut();
+        $("#searchPostAndUser").blur(function() {
+            setTimeout(function () {
+                $('.resultSearch').hide();
+            }, 200)
         })
     } else {
         alert('Ваша версия браузера устарела, поддержки не будет)');

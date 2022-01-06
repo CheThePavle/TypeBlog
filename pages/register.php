@@ -4,7 +4,7 @@
 
     <h1 class="text-center">Регистрация</h1>
 
-    <form id="formReg" role="form">
+    <form id="formReg">
         <div class="controls">
             <div class="row">
                 <div class="col-md-6">
@@ -65,7 +65,7 @@
         <div class="msg"></div>
     </form>
 
-    <script src="../public/js/pages/register.js"></script>
+<!--    <script src="../public/js/pages/register.js"></script>-->
 
 <?php
     require_once "components/footer.php";

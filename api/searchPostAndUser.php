@@ -3,15 +3,14 @@
     require_once "../src/db.php";
     require_once "../src/fieldValidation.php"; // validate()
 
-    $get = validate($_POST["referal"]);
+    $get = validate($_POST["searchPostAndUser"]);
+    $get = '%' . $get . '%';
 
-    $res = $db->query("SELECT `heading` FROM `post` WHERE heading LIKE '%?%'", [$get]);
+    $res = $db->query("SELECT `id_post`, `heading` FROM `post` WHERE heading LIKE ? ORDER BY heading", [$get]);
 
-    foreach ($res as $el) { // &
-        echo "\n<li>".$el["heading"]."</li>";
+//  возможно можно по другому сделать
+    if (!$res) {
+        $res = $db->query("SELECT `id_user`, `login` FROM `user` WHERE login LIKE ? ORDER BY login", [$get]);
     }
-//    while ($row = $db_referal -> fetch_array()) {
-//        echo "\n<li>".$row["name"]."</li>";
-//    //$row["name"] - имя поля таблицы
-//
-//    }
+
+    echo json_encode($res);

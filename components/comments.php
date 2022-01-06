@@ -1,6 +1,6 @@
 <br><br><br>
 
-<section class="container">
+<div class="container">
     <div class="row">
 
         <div class="col-md-12">
@@ -111,6 +111,6 @@
         </div>
 
     </div><!-- /.row -->
-</section><!-- /.container -->
+</div><!-- /.container -->
 
-<style>@import url("../public/styles/components/comments.css");</style>
+<!--<style>@import url("../public/styles/components/comments.css");</style>-->

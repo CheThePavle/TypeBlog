@@ -59,6 +59,7 @@ $(function() {
         };
         $("#tagBox").tagging(my_custom_options);
         // узнать почему спамит ошибка в консоль при удалении ничего в input)
+        // добавить проверку на длину тега, проверять через массив тегов
         $(".type-zone").keyup(function () {
             let getLengthTags = $('#tagBox .tag').length;
             if (getLengthTags > 10) {

@@ -2,7 +2,7 @@
     require_once "components/header.php";
 ?>
 
-    <h1 id="heading"></h1>
+    <h1 id="heading">Назавние</h1>
     <hr>
     <div class="row">
         <div class="col-md-12">
@@ -31,24 +31,24 @@
     <!--<script src="https://cdn.jsdelivr.net/npm/@editorjs/text-variant-tune@latest"></script>-->
     <!--<script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>-->
 
-    <script src="../libs/EditorJS/editorjs.js"></script>
-    <script src="../libs/EditorJS/blocks/simple-image.js"></script>
-    <link href="../libs/EditorJS/blocks/simple-image.css" rel="stylesheet"/>
-    <script src="../libs/EditorJS/blocks/header.js"></script>
-    <script src="../libs/EditorJS/blocks/warning.js"></script>
-    <script src="../libs/EditorJS/blocks/marker.js"></script>
-    <script src="../libs/EditorJS/blocks/delimiter.js"></script>
-    <script src="../libs/EditorJS/blocks/table.js"></script>
-    <script src="../libs/EditorJS/blocks/quote.js"></script>
-    <script src="../libs/EditorJS/blocks/inline-code.js"></script>
-    <script src="../libs/EditorJS/blocks/nested-list.js"></script>
-    <script src="../libs/EditorJS/blocks/underline.js"></script>
-    <script src="../libs/EditorJS/blocks/paragraph.js"></script>
-    <script src="../libs/EditorJS/blocks/text-variant-tune.js"></script>
-    <script src="../libs/EditorJS/blocks/checklist.js"></script>
-
-    <style>@import url("../public/styles/pages/post.css");</style>
-    <script src="../public/js/pages/post.js"></script>
+<!--    <script src="../libs/EditorJS/editorjs.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/simple-image.js"></script>-->
+<!--    <link href="../libs/EditorJS/blocks/simple-image.css" rel="stylesheet"/>-->
+<!--    <script src="../libs/EditorJS/blocks/header.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/warning.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/marker.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/delimiter.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/table.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/quote.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/inline-code.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/nested-list.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/underline.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/paragraph.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/text-variant-tune.js"></script>-->
+<!--    <script src="../libs/EditorJS/blocks/checklist.js"></script>-->
+<!---->
+<!--    <style>@import url("../public/styles/pages/post.css");</style>-->
+<!--    <script src="../public/js/pages/post.js"></script>-->
 
 <?php
     require_once "components/footer.php";
