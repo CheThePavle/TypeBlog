@@ -45,3 +45,18 @@
 .ava_block{
     text-align: center
 }
+
+/* Временно */
+.header_block{
+    position: relative
+}
+
+.header_block > h2 {
+    display: inline-block;
+}
+
+.header_block > img {
+    max-width: 50px;
+    position: absolute;
+    top: 15px;
+}

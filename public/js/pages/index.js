@@ -8,8 +8,8 @@ $(function() {
                 url: '../api/post/search.php',
                 data: getUrlParams  + start,
                 success: function (data) {
-                    data = JSON.parse(data);
                     // console.log(data)
+                    data = JSON.parse(data);
                     if (data?.length === 0) {
                         $('#nextPosts').remove();
                         $('#showmore-triger').remove();
@@ -26,7 +26,14 @@ $(function() {
                             el.body = JSON.parse(el.body);
                             $('.posts').append(`
                         <div class="hero-unit">
-                            <h2>${el?.heading}</h2>
+                            ${el?.read_post ? `
+                                <div class="header_block">
+                                    <h2>${el?.heading}&nbsp;</h2>
+                                    <img src="../../../public/imgs/readPost.png" alt="Просмотрен">
+                                </div>
+                            ` : `
+                                <h2>${el?.heading}</h2>
+                            `}
                             <p>Автор: <a href="/profile/${el?.id_creator}">${el?.user_login[0]?.login}</a>, ${el?.created_at}</p>
                             <img class="img_post" src="../data/posts/${el?.body?.uniqUrl}/main_img.${el?.body?.typeMainImg}" alt="Картинка для ${el?.heading}">
                             <br><br>
@@ -36,16 +43,16 @@ $(function() {
                             <div class="statistics_post">
                                 <div>
                                     <img src="http://s1.iconbird.com/ico/2013/9/452/w512h4481380476860heart.png" alt="Репутация" width="20px">
-                                    +1
+                                    +0
                                 </div>
                                 <div class="block_statistics_post">
                                     <img src="http://s1.iconbird.com/ico/2014/1/607/w512h5121390848413visible512.png" alt="Просмотры" width="20px">
-                                    1
+                                    ${el?.views[0]?.number} ${+el?.views_day[0]?.number == '0' || !el?.views_day[0]?.number ? '' : '(+' + el?.views_day[0]?.number + ')'}
                                 </div>
                                 <div class="block_statistics_post">
                                     <a class="statistics_post_comment" href="/">
                                         <img src="http://s1.iconbird.com/ico/2013/8/429/w512h5121377939697185079bubblecommentstreamlinetalk.png" alt="Комментарии" width="20px">
-                                        1
+                                        0
                                     </a>
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Янв 06 2022 г., 17:53
+-- Время создания: Янв 07 2022 г., 18:20
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.14
 
@@ -40,21 +40,6 @@ INSERT INTO `category` (`id_category`, `name_category`) VALUES
 (1, 'Разное'),
 (2, 'Тестовая'),
 (3, 'Программирование');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `comment`
---
-
-CREATE TABLE `comment` (
-  `id_comment` int NOT NULL,
-  `id_post` int NOT NULL,
-  `id_creator` int NOT NULL,
-  `text` text NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -149,7 +134,8 @@ INSERT INTO `post` (`id_post`, `id_category`, `id_creator`, `id_status`, `headin
 INSERT INTO `post` (`id_post`, `id_category`, `id_creator`, `id_status`, `heading`, `description`, `body`, `created_at`, `updated_at`) VALUES
 (71, 1, 1, 1, 'fdgdsfgds gdg dg d', 'sdfgsdfgsdgsdfgdsgdsdfsgds', '{\"time\":1641379613564,\"blocks\":[{\"id\":\"bVC-avmV9U\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/bVC-avmV9U.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"7AZKvrMdqz\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/7AZKvrMdqz.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"LfXhkUMRUl\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/LfXhkUMRUl.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"CzzmNpb8a2\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/CzzmNpb8a2.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"-jNTEDCTXR\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/-jNTEDCTXR.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"4fNKEKuIdl\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/4fNKEKuIdl.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"-C_MfUxKNr\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/-C_MfUxKNr.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"wIhFKmaSCi\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/wIhFKmaSCi.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"8GFxyDpLfM\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/8GFxyDpLfM.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"raMrp-vOH9\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/raMrp-vOH9.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"x7g_uUzVge\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/x7g_uUzVge.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"UgeOEz7kf-\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/UgeOEz7kf-.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"kgGJ35cjAU\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/kgGJ35cjAU.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"9sbY-T1sfU\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/9sbY-T1sfU.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"IytKTKa9fx\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/IytKTKa9fx.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"cj9o9OIxLL\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/cj9o9OIxLL.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"eOv-ZJ561E\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/eOv-ZJ561E.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"mMVNJgu7tI\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/mMVNJgu7tI.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"N_7s56cfwM\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/N_7s56cfwM.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"eapUSB1W5W\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/eapUSB1W5W.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"kpn_nKmbWK\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/kpn_nKmbWK.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"4E58L31JHs\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/4E58L31JHs.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"094Cr0qi9B\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/094Cr0qi9B.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"RdymK7NgtK\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/RdymK7NgtK.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"oc73FVQrB3\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/oc73FVQrB3.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"wIFODi_qzS\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/wIFODi_qzS.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"JPuuTGskmd\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/JPuuTGskmd.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"UNQAhPYCLY\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/UNQAhPYCLY.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"Ls9y_RVRBF\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/Ls9y_RVRBF.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"gbyfF68S_H\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/gbyfF68S_H.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"DdiX3YGH_I\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/DdiX3YGH_I.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"dQKtTNYF5f\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/dQKtTNYF5f.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"jCbEaWsPaZ\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/jCbEaWsPaZ.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"A-5qfxzhuU\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/A-5qfxzhuU.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"Sn9ArOeAiV\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/Sn9ArOeAiV.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"PFPP8aUR5s\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/PFPP8aUR5s.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"K88ZvufsUG\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/K88ZvufsUG.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"KfScr9mlYd\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/KfScr9mlYd.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"OZv1-In4_J\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/OZv1-In4_J.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"AnrTDcrn3W\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/AnrTDcrn3W.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"UsUhIBBlPP\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/UsUhIBBlPP.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"cwXcKM-1WN\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/cwXcKM-1WN.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"jTxFUcuPtn\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/jTxFUcuPtn.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"hY6-uIN13_\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/hY6-uIN13_.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"0E-jWYcqnB\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/0E-jWYcqnB.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"EYwZKMSjcb\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/EYwZKMSjcb.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"PjDGX-Mmoq\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/PjDGX-Mmoq.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"IG266j4OVP\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/IG266j4OVP.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"jtPzjtTX7R\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/jtPzjtTX7R.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"F3JTPN0fj8\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/F3JTPN0fj8.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"1tx2cHD7Uh\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/1tx2cHD7Uh.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"2SS2BM-o-s\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/2SS2BM-o-s.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"CULCI7fQaK\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/CULCI7fQaK.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"Vg_MFEEMuT\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/Vg_MFEEMuT.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"xvmjEncOuB\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/xvmjEncOuB.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"Ub_qjgO5ns\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/Ub_qjgO5ns.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"Locs98PQ5z\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/Locs98PQ5z.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"x5eT3k4Cn1\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/x5eT3k4Cn1.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"RZHIBax5wz\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/RZHIBax5wz.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"dDcyjkn2ME\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/dDcyjkn2ME.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"XInEmQSyiw\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/XInEmQSyiw.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"G_-6KpCdOv\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/G_-6KpCdOv.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"erIYSW-uJ9\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/erIYSW-uJ9.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"R8XRIKs40P\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/R8XRIKs40P.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"m45nZUo2XO\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/m45nZUo2XO.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"ZbeVned-WS\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/ZbeVned-WS.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"ocpVUDcsf1\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/ocpVUDcsf1.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"izgTgk4abn\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/izgTgk4abn.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"iKsFM7coNy\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/iKsFM7coNy.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"cDBMDiqB1H\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/cDBMDiqB1H.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"LsneRzSBvh\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/LsneRzSBvh.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"pItFB7TOMi\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/pItFB7TOMi.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"t7WI6n0n8a\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/t7WI6n0n8a.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"2ocaUL_X9b\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/2ocaUL_X9b.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"JyE2JeLuW9\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/JyE2JeLuW9.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"u8KLO3bntd\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/u8KLO3bntd.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"NJAt6LmefJ\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/NJAt6LmefJ.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"iTuVM0uL3T\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/iTuVM0uL3T.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"hv7fhjJ9RP\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/hv7fhjJ9RP.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"Tazmfkavum\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/Tazmfkavum.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"D5ur7JabMD\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/D5ur7JabMD.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"JJOcP5J4X5\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/JJOcP5J4X5.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"TRF5nUWEr8\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/TRF5nUWEr8.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"hsQBxsWu9M\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/hsQBxsWu9M.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"3pJcjgugBD\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/3pJcjgugBD.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"eFuNFU3DNL\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/eFuNFU3DNL.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"AqlibQl_qg\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/AqlibQl_qg.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"Pkf0VBeKIj\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/Pkf0VBeKIj.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"zvfxScVWw7\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/zvfxScVWw7.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"Nvi8iqlebP\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/Nvi8iqlebP.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"0tAagork_4\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/0tAagork_4.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"xzr3wnJNMq\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/xzr3wnJNMq.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"FWzLKFyMha\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/FWzLKFyMha.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"KBiFnwAtFt\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/KBiFnwAtFt.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"du-iqnAEip\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/du-iqnAEip.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"AjKicNtTDD\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/AjKicNtTDD.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"x7589PXznm\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/x7589PXznm.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"4j3uWZlYvq\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/4j3uWZlYvq.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"EkZZTKbPm7\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/EkZZTKbPm7.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"yW9L9S_zgZ\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/yW9L9S_zgZ.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"Ly1wv3JwoV\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/Ly1wv3JwoV.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"E7BVRpw2uj\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/E7BVRpw2uj.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"MnmyCf1xdw\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/MnmyCf1xdw.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"bWcRlf9rx5\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/bWcRlf9rx5.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"AQu2G9zlhy\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/AQu2G9zlhy.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"9FKEZzBo8Z\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/9FKEZzBo8Z.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"zHCnaXfHU_\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/zHCnaXfHU_.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"285nOaQvdl\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/285nOaQvdl.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"KiLWhGEBT6\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/KiLWhGEBT6.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"JrUi9wMEuj\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/JrUi9wMEuj.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"0LKDlY3f_Y\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/0LKDlY3f_Y.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"Ao7I1wy30L\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/Ao7I1wy30L.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"JjmyVi8M3g\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/JjmyVi8M3g.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"PC0gvYO9LH\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/PC0gvYO9LH.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"h5Ws5F9evu\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/h5Ws5F9evu.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"YIMToGN2ef\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/YIMToGN2ef.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"mwXSWSmgkq\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/mwXSWSmgkq.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"LZbB0xhl21\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/LZbB0xhl21.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"R1pBmHgRSw\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/R1pBmHgRSw.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"w8tQpGM0ME\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/w8tQpGM0ME.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"QalTMYCxB3\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/QalTMYCxB3.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"iMTw4Vq2hl\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/iMTw4Vq2hl.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"6yGsYTAqbT\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/6yGsYTAqbT.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"eUEYPOhFSA\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/eUEYPOhFSA.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"CIdjFbMyxy\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/CIdjFbMyxy.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"CmKVOYu7S_\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/CmKVOYu7S_.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"jpb0sUgUPE\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/jpb0sUgUPE.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"oZioyUc05F\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/oZioyUc05F.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"ZVmmi7NDGP\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/ZVmmi7NDGP.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"s6amppKQVB\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/s6amppKQVB.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"UyW37znKas\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/UyW37znKas.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"OcR0L412PB\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/OcR0L412PB.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"0yoITUoQwG\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/0yoITUoQwG.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"4u0sItSAdz\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/4u0sItSAdz.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"yKQ5i3AlkD\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/yKQ5i3AlkD.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"xa53M5K791\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/xa53M5K791.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"6kyAT9hB80\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/6kyAT9hB80.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"ZugGw-2WhL\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/ZugGw-2WhL.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"ha1-awPI_9\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/ha1-awPI_9.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"JVKiTLPl8K\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/JVKiTLPl8K.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"ip3RYFr-nT\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/ip3RYFr-nT.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"fE29WyTR9l\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/fE29WyTR9l.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"XARukArJBn\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/XARukArJBn.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"lw3sLMf1e-\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/lw3sLMf1e-.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"y7OUWjJAKa\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/y7OUWjJAKa.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"6-o5GmwZEv\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/6-o5GmwZEv.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"sV6vm7BWcO\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/sV6vm7BWcO.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"kGbnAJOPg_\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/kGbnAJOPg_.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"wA2yGZfiMW\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/wA2yGZfiMW.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"BVxNaM639A\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/BVxNaM639A.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"4IPA0AXZUf\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/4IPA0AXZUf.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"y0YJU-3Ekf\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/y0YJU-3Ekf.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"72t0V_FaPq\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/72t0V_FaPq.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"-bAAWmQYfY\",\"type\":\"image\",\"data\":{\"url\":\"960e70a0ea8001a15e9b0b221204b01a\\/-bAAWmQYfY.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}}],\"version\":\"2.22.2\",\"uniqUrl\":\"960e70a0ea8001a15e9b0b221204b01a\",\"typeMainImg\":\"png\"}', '2022-01-05 13:46:55', '2022-01-05 13:46:55'),
 (72, 3, 1, 1, 'TESTIGESEGSGe', 'dfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dgas dfas fdfsg sdfgs d dga', '{\"time\":1641383895669,\"blocks\":[{\"id\":\"rUNkq23AD9\",\"type\":\"paragraph\",\"data\":{\"text\":\"dfgsdfgdsgsdfgsdgfds ds gaS ds sda g\"},\"tunes\":{\"textVariant\":\"\"}},{\"id\":\"XkI26uMAKd\",\"type\":\"image\",\"data\":{\"url\":\"2d63a9debbe60041ab5379ba9f97eb53\\/XkI26uMAKd.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"NIQFC5ZLan\",\"type\":\"image\",\"data\":{\"url\":\"2d63a9debbe60041ab5379ba9f97eb53\\/NIQFC5ZLan.png\",\"caption\":\"\",\"withBorder\":false,\"withBackground\":false,\"stretched\":false}},{\"id\":\"mbLIKJPSml\",\"type\":\"paragraph\",\"data\":{\"text\":\"dfsgds\"},\"tunes\":{\"textVariant\":\"\"}}],\"version\":\"2.22.2\",\"uniqUrl\":\"2d63a9debbe60041ab5379ba9f97eb53\",\"typeMainImg\":\"png\"}', '2022-01-05 14:58:15', '2022-01-05 14:58:15'),
-(73, 1, 1, 1, 'dfsdsadfs', 'sdgdgdssd ds gsd sdg dsgf', '{\"time\":1641472048385,\"blocks\":[{\"id\":\"hvJJuZS-2J\",\"type\":\"paragraph\",\"data\":{\"text\":\"dfgs dg sdg sd\"},\"tunes\":{\"textVariant\":\"\"}}],\"version\":\"2.22.2\",\"uniqUrl\":\"598d5fa5ff128ffaca88786163271bd6\",\"typeMainImg\":\"jpeg\"}', '2022-01-06 15:27:28', '2022-01-06 15:27:28');
+(73, 1, 1, 1, 'dfsdsadfs', 'sdgdgdssd ds gsd sdg dsgf', '{\"time\":1641472048385,\"blocks\":[{\"id\":\"hvJJuZS-2J\",\"type\":\"paragraph\",\"data\":{\"text\":\"dfgs dg sdg sd\"},\"tunes\":{\"textVariant\":\"\"}}],\"version\":\"2.22.2\",\"uniqUrl\":\"598d5fa5ff128ffaca88786163271bd6\",\"typeMainImg\":\"jpeg\"}', '2022-01-06 15:27:28', '2022-01-06 15:27:28'),
+(74, 2, 3, 1, '123123', 'sdfg sd gd gdf sfgsd dfsg', '{\"time\":1641481590032,\"blocks\":[{\"id\":\"jwmRrFGk4-\",\"type\":\"paragraph\",\"data\":{\"text\":\"dgsdgs&nbsp;\"},\"tunes\":{\"textVariant\":\"\"}}],\"version\":\"2.22.2\",\"uniqUrl\":\"85838b44b2bc1b4394e54d58cad91b8d\",\"typeMainImg\":\"png\",\"storage\":0}', '2022-01-06 18:06:30', '2022-01-06 18:06:30');
 
 -- --------------------------------------------------------
 
@@ -247,7 +233,11 @@ INSERT INTO `post_tag` (`id_post`, `id_tag`) VALUES
 (73, 110),
 (73, 111),
 (73, 112),
-(73, 113);
+(73, 113),
+(74, 71),
+(74, 114),
+(74, 115),
+(74, 116);
 
 -- --------------------------------------------------------
 
@@ -323,7 +313,10 @@ INSERT INTO `tag` (`id_tag`, `name_tag`, `public_tag`) VALUES
 (110, 'fh', b'0'),
 (111, 'dhdf', b'0'),
 (112, 'hfddfhdfhfd', b'0'),
-(113, 'df', b'0');
+(113, 'df', b'0'),
+(114, 'dfgfdsg', b'0'),
+(115, '13123', b'0'),
+(116, '46432', b'0');
 
 -- --------------------------------------------------------
 
@@ -348,7 +341,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `id_role`, `email`, `login`, `password`, `about`, `created_at`, `updated_at`) VALUES
 (1, 1, 'ceyoror152@forfity.com', 'admin', '$2y$10$7waQibRTQUp20cHiXR2pxeCcoLjutp.Yh82D8M0HsQFCzEIqUe.C6', 'Люблю создавать блоги!', '2021-10-27 16:00:49', NULL),
-(2, 1, 'xiyiroh244@koldpak.com', 'tester', '$2y$10$izzc6n7z/dcthdFAHvl8qexcmQ8gmvUz7rWmF2gb7wigpXmfSkwvS', 'Тестер по жизни', '2021-10-27 21:05:01', NULL);
+(2, 1, 'xiyiroh244@koldpak.com', 'tester', '$2y$10$izzc6n7z/dcthdFAHvl8qexcmQ8gmvUz7rWmF2gb7wigpXmfSkwvS', 'Тестер по жизни', '2021-10-27 21:05:01', NULL),
+(3, 1, 'nayajo2303@vinopub.com', 'admin2', '$2y$10$j6vZDoClYSlkc3BfR2J91ebty8tNr.qHOa/MmmlqLLHse0V74pOQW', 'О себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО себеО себе', '2022-01-06 18:05:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -371,6 +365,30 @@ INSERT INTO `user_role` (`id_role`, `code`, `name`) VALUES
 (2, 'moder', 'Модератор'),
 (3, 'admin', 'Администратор');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `view`
+--
+
+CREATE TABLE `view` (
+  `id_view` int NOT NULL,
+  `id_post` int NOT NULL,
+  `ip_address` binary(16) NOT NULL,
+  `id_looked` int DEFAULT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `view`
+--
+
+INSERT INTO `view` (`id_view`, `id_post`, `ip_address`, `id_looked`, `created_at`) VALUES
+(103, 74, 0x32313330373036343333000000000000, 1, '2022-01-07 18:09:18'),
+(104, 73, 0x32313330373036343333000000000000, 1, '2022-01-07 18:09:22'),
+(105, 6, 0x32313330373036343333000000000000, 1, '2022-01-07 18:14:38'),
+(106, 71, 0x32313330373036343333000000000000, 1, '2022-01-07 18:20:17');
+
 --
 -- Индексы сохранённых таблиц
 --
@@ -380,14 +398,6 @@ INSERT INTO `user_role` (`id_role`, `code`, `name`) VALUES
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id_category`);
-
---
--- Индексы таблицы `comment`
---
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`id_comment`),
-  ADD KEY `id_post` (`id_post`,`id_creator`),
-  ADD KEY `id_creator` (`id_creator`);
 
 --
 -- Индексы таблицы `post`
@@ -433,6 +443,14 @@ ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id_role`);
 
 --
+-- Индексы таблицы `view`
+--
+ALTER TABLE `view`
+  ADD PRIMARY KEY (`id_view`),
+  ADD KEY `id_post` (`id_post`),
+  ADD KEY `id_looked` (`id_looked`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -443,16 +461,10 @@ ALTER TABLE `category`
   MODIFY `id_category` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT для таблицы `comment`
---
-ALTER TABLE `comment`
-  MODIFY `id_comment` int NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT для таблицы `post`
 --
 ALTER TABLE `post`
-  MODIFY `id_post` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id_post` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT для таблицы `post_status`
@@ -464,13 +476,13 @@ ALTER TABLE `post_status`
 -- AUTO_INCREMENT для таблицы `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `id_tag` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `id_tag` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `user_role`
@@ -479,15 +491,14 @@ ALTER TABLE `user_role`
   MODIFY `id_role` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Ограничения внешнего ключа сохраненных таблиц
+-- AUTO_INCREMENT для таблицы `view`
 --
+ALTER TABLE `view`
+  MODIFY `id_view` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
--- Ограничения внешнего ключа таблицы `comment`
+-- Ограничения внешнего ключа сохраненных таблиц
 --
-ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_creator`) REFERENCES `user` (`id_user`),
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`);
 
 --
 -- Ограничения внешнего ключа таблицы `post`
@@ -509,6 +520,13 @@ ALTER TABLE `post_tag`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `user_role` (`id_role`);
+
+--
+-- Ограничения внешнего ключа таблицы `view`
+--
+ALTER TABLE `view`
+  ADD CONSTRAINT `view_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`),
+  ADD CONSTRAINT `view_ibfk_2` FOREIGN KEY (`id_looked`) REFERENCES `user` (`id_user`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

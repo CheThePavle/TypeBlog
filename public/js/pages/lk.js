@@ -35,16 +35,16 @@ $(function() {
                             <div class="statistics_post">
                                 <div>
                                     <img src="http://s1.iconbird.com/ico/2013/9/452/w512h4481380476860heart.png" alt="Репутация" width="20px">
-                                    +1
+                                    +0
                                 </div>
                                 <div class="block_statistics_post">
                                     <img src="http://s1.iconbird.com/ico/2014/1/607/w512h5121390848413visible512.png" alt="Просмотры" width="20px">
-                                    1
+                                    ${el?.views[0]?.number} ${+el?.views_day[0]?.number == '0' || !el?.views_day[0]?.number ? '' : '(+' + el?.views_day[0]?.number + ')'}
                                 </div>
                                 <div class="block_statistics_post">
                                     <a class="statistics_post_comment" href="/">
                                         <img src="http://s1.iconbird.com/ico/2013/8/429/w512h5121377939697185079bubblecommentstreamlinetalk.png" alt="Комментарии" width="20px">
-                                        1
+                                        0
                                     </a>
                                 </div>
                             </div>

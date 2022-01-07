@@ -2,15 +2,33 @@
     position: sticky;
     top: 30px
 }
+
 .img_post{
     max-width: 100%;
 }
+
 .statistics_post{
     display: flex;
 }
+
 .block_statistics_post{
     margin-left: 10px;
 }
+
 .statistics_post_comment{
     color: black;
+}
+
+.header_block{
+    position: relative
+}
+
+.header_block > h2 {
+    display: inline-block;
+}
+
+.header_block > img {
+    max-width: 50px;
+    position: absolute;
+    top: 15px;
 }
