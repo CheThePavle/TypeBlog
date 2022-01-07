@@ -1,5 +1,6 @@
 <?php
     require_once "components/header.php";
+    require_once "src/usecases/post/setView.php";
 ?>
 
     <h1 id="heading">Назавние</h1>

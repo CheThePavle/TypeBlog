@@ -8,10 +8,10 @@
 
         private function connect(){
             $driver = 'mysql';
-            $host = apache_getenv('host');
-            $db_name = apache_getenv('db_name');
-            $db_user = apache_getenv('db_user');
-            $db_password = apache_getenv('db_password');
+            $host = 'localhost';
+            $db_name = 'diplom';
+            $db_user = 'root';
+            $db_password = 'root';
             $charset = 'utf8';
 
             try{
