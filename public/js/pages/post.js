@@ -108,7 +108,89 @@ $(function() { // normalizeSpace()
         })
 
         //динамическая подгрузка комментариев на страницу добавить при прокрутке до ввода комменатрия
-                let msg = $('.msgEmptyComments');
+
+        $( ".comments" ).on( "click", ".like", function() {
+            let getIdComment = $(this).data('id');
+            $.ajax({
+                url: '../api/post/likeComment.php',
+                type: 'POST',
+                data: {
+                    getIdComment
+                },
+                success: function (data) {
+                    // console.log(data)
+                    if (data?.status == 200) {
+                        // добавить изменение рейтинга коммента при оценивании
+                        let like = $(`.like[data-id="${getIdComment}"]`);
+                        let dislike = $(`.dislike[data-id="${getIdComment}"]`);
+                        //
+                        // let arryClass = like.attr('class').split(' ');
+                        // let checkActive = arryClass[arryClass.length - 1];
+                        // if (checkActive != 'activeLike' && checkActive != 'activeDislike') {
+                        //     let ratingHTML = $(`.comment_rating[data-id="${getIdComment}"]`);
+                        //     let rating = +ratingHTML.text() + 1;
+                        //     ratingHTML.text(rating);
+                        //
+                        //     if (rating == 0) {
+                        //         ratingHTML.removeClass();
+                        //         ratingHTML.addClass('comment_rating neutralRating');
+                        //     } else if (rating > 0) {
+                        //         ratingHTML.removeClass();
+                        //         ratingHTML.addClass('comment_rating positiveRating');
+                        //     } else {
+                        //         ratingHTML.removeClass();
+                        //         ratingHTML.addClass('comment_rating negativeRating');
+                        //     }
+                        // }
+                        //
+                        like.toggleClass('activeLike')
+                        dislike.removeClass('activeDislike')
+
+                        $(".notifyComments").html(`<div class="alert alert-success">${data?.result?.msg}</div>`);
+                        setTimeout(function () {
+                            $(".notifyComments").html(``);
+                        }, 3000)
+                    }
+                },
+                error: function (data) {
+                    $(".notifyComments").html(`<div class="alert alert-danger">${data?.responseJSON?.error}</div>`);
+                    setTimeout(function () {
+                        $(".notifyComments").html(``);
+                    }, 3000)
+                }
+            })
+        });
+        $( ".comments" ).on( "click", ".dislike", function() {
+            let getIdComment = $(this).data('id');
+            $.ajax({
+                url: '../api/post/dislikeComment.php',
+                type: 'POST',
+                data: {
+                    getIdComment
+                },
+                success: function (data) {
+                    if (data?.status == 200) {
+                        let dislike = $(`.dislike[data-id="${getIdComment}"]`);
+                        let like = $(`.like[data-id="${getIdComment}"]`);
+                        dislike.toggleClass('activeDislike')
+                        like.removeClass('activeLike')
+
+                        $(".notifyComments").html(`<div class="alert alert-success">${data?.result?.msg}</div>`);
+                        setTimeout(function () {
+                            $(".notifyComments").html(``);
+                        }, 3000)
+                    }
+                },
+                error: function (data) {
+                    $(".notifyComments").html(`<div class="alert alert-danger">${data?.responseJSON?.error}</div>`);
+                    setTimeout(function () {
+                        $(".notifyComments").html(``);
+                    }, 3000)
+                }
+            })
+        });
+
+        let msg = $('.msgEmptyComments');
 
         // вывести вложенные комментарии + добавить onclick на лайки
                 $.ajax({
@@ -118,45 +200,104 @@ $(function() { // normalizeSpace()
                         idPost: id
                     },
                     success: function (data) {
+                        console.log(data)
                         if (data?.status == 200 && data?.result?.length != 0) {
-                            data?.result?.map(function(el) {
-                                console.log(el)
-                                $('.comments').append(`
-                                    <div class="media-block">
-                                        <a class="media-left" target="_blank" href="/profile/${el?.id_author}">
-                                            <img class="img-circle img-sm" alt="Аватар ${el?.login}" src="${el?.avatar_url}">
-                                        </a>
-                                        <div class="media-body">
-                                            <div class="mar-btm">
-                                                <a href="/profile/${el?.id_author}" class="btn-link text-semibold media-heading box-inline" target="_blank">${el?.login}</a>
-                                                <span style="color: ${+el?.like > 0 ? 'green' : +el?.like < 0 ? 'red' : 'gray'}">
-                                                    ${+el?.like > 0 ? '+' + +el?.like : +el?.like}
-                                                </span>
-                                                <p class="text-muted text-sm"><i class="fa fa-lg"></i>${el?.created_at}</p>
-                                            </div>
-                                            <p>${el?.body_comment}</p>
-                                            <div class="pad-ver">
-                                                <div class="btn-group">
-                                                    <span class="btn btn-sm btn-default btn-hover-success like">
-                                                        <i class="fa fa-thumbs-up"></i>
-                                                    </span>
-                                                    <span class="btn btn-sm btn-default btn-hover-danger dislike">
-                                                        <i class="fa fa-thumbs-down"></i>
-                                                    </span>
+                            //start func - вынести в отдельную функцию
+                            let comments = data?.result;
+
+                            function buildHierarchy(arry) {
+                                let roots = [],
+                                    children = {};
+
+                                // find the top level nodes and hash the children based on parent
+                                for (let i = 0, len = arry.length; i < len; ++i) {
+                                    let item = arry[i],
+                                        p = item.id_parent_comment,
+                                        target = !p ? roots : (children[p] || (children[p] = []));
+
+                                    target.push({
+                                        value: item
+                                    });
+                                }
+
+                                // function to recursively build the tree
+                                let findChildren = function(id_parent_comment) {
+                                    if (children[id_parent_comment.value.id_comment]) {
+                                        id_parent_comment.children = children[id_parent_comment.value.id_comment];
+                                        for (let i = 0, len = id_parent_comment.children.length; i < len; ++i) {
+                                            findChildren(id_parent_comment.children[i]);
+                                        }
+                                    }
+                                };
+
+                                // enumerate through to handle the case where there are multiple roots
+                                for (let i = 0, len = roots.length; i < len; ++i) {
+                                    findChildren(roots[i]);
+                                }
+
+                                return roots;
+                            }
+
+                            let hierarchy = buildHierarchy(comments);
+
+                            (function() {
+                                $.fn.appendList = function(array) {
+                                    let $list = $('<ul></ul>');
+
+                                    array.forEach(function(li_obj) {
+                                        //console.log(li_obj);
+                                        let $li = $(`<li>
+                                            <div class="media-block">
+                                                <a class="media-left" target="_blank" href="/profile/${li_obj.value?.id_author}">
+                                                    <img class="img-circle img-sm" alt="Аватар ${li_obj.value?.login}" src="${li_obj.value?.avatar_url}">
+                                                </a>
+                                                <div class="media-body">
+                                                    <div class="mar-btm">
+                                                        <a href="/profile/${li_obj.value?.id_author}" class="btn-link text-semibold media-heading box-inline" target="_blank">${li_obj.value?.login}</a>
+                                                        <span 
+                                                            class="comment_rating ${+li_obj.value?.like > 0 ? 'positiveRating' : +li_obj.value?.like < 0 ? 'negativeRating' : 'neutralRating'}"
+                                                            data-id="${li_obj.value?.id_comment}"
+                                                        >
+                                                            ${+li_obj.value?.like > 0 ? '+' : ''}${+li_obj.value?.like > 0 ? +li_obj.value?.like : +li_obj.value?.like}
+                                                        </span>
+                                                        <p class="text-muted text-sm"><i class="fa fa-lg"></i>${li_obj.value?.created_at}</p>
+                                                    </div>
+                                                    <p>${li_obj.value?.body_comment}</p>
+                                                    <div class="pad-ver">
+                                                        <div class="btn-group">
+                                                            <span data-id="${li_obj.value?.id_comment}" class="btn btn-sm btn-default btn-hover-success like ${li_obj.value?.myLike == true ? 'activeLike' : ''}" >
+                                                                <i class="fa fa-thumbs-up"></i>
+                                                            </span>
+                                                            <span data-id="${li_obj.value?.id_comment}" class="btn btn-sm btn-default btn-hover-danger dislike ${li_obj.value?.myLike == false ? 'activeDislike' : ''}">
+                                                                <i class="fa fa-thumbs-down"></i>
+                                                            </span>
+                                                        </div>
+                                                        <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
+                                                    </div>
+                                                    <br>
                                                 </div>
-                                                <a class="btn btn-sm btn-default btn-hover-primary" href="#">Ответить</a>
                                             </div>
-                                            <br>
-                                        </div>
-                                    </div>
-                                `);
-                            });
+                                        </li>`);
+
+                                        if (li_obj.children) {
+                                            $li.appendList( li_obj.children );
+                                        }
+
+                                        $list.append($li);
+                                    });
+
+                                    return this.append($list);
+                                };
+                            })();
+
+                            $('.comments').appendList(hierarchy);
+
+                            // end func
                         } else {
                             msg.html(`<div class="alert alert-success">Пока нету комментариев :(</div>`);
                         }
                     },
                     error: function (data) {
-                        console.log(data)
                         msg.html(`<div class="alert alert-danger">${data?.responseJSON?.error}</div>`);
                     }
                 })

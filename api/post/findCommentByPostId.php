@@ -2,7 +2,6 @@
     require_once "../../src/db.php"; // class $db
     require_once "../../src/fieldValidation.php"; //validate()
     require_once "../ajax.php";
-    require_once "../../src/getTree.php"; //getTree()
 
     $idPost = validate($_POST['idPost']);
 
@@ -22,22 +21,36 @@
     ]);
 
     $getLikes = [];
-    $getParents = [];
+    $getYourLike = [];
 
     // оптимизировать ?
     foreach ($res as $el) {
         $get = $db->query("SELECT COUNT(cl.mark) as 'like' FROM comment_like as cl WHERE cl.id_comment = ? AND cl.mark = ?
-                                UNION SELECT COUNT(cl.mark) as 'dislike' FROM comment_like as cl WHERE cl.id_comment = ? AND cl.mark = ?", [$el['id_comment'], 1, $el['id_comment'], 0]);
+                                UNION SELECT COUNT(cl.mark) FROM comment_like as cl WHERE cl.id_comment = ? AND cl.mark = ?", [$el['id_comment'], 1, $el['id_comment'], 0]);
         $get = $get[0]['like'] - $get[1]['like'];
         array_push($getLikes, $get);
+
+        if ($_SESSION['id']) {
+            $get = $db->query("SELECT cl.mark FROM comment_like as cl WHERE cl.id_author = ? AND cl.id_comment = ?", [$_SESSION['id'], $el['id_comment']]);
+            if ($get[0]['mark'] == '0') {
+                array_push($getYourLike, false);
+            } elseif ($get[0]['mark'] == '1') {
+                array_push($getYourLike, true);
+            } else {
+                array_push($getYourLike, NULL);
+            }
+        }
+
     }
 
     for ($i = 0; $i <  count($res); $i++) {
         $res[$i]['like'] = $getLikes[$i];
+        $res[$i]['myLike'] = $getYourLike[$i];
     }
 
+    //getTree($res, 'id_comment', 'id_parent_comment')
     http_response_code(200);
     $db->response([
         "status"=>200,
-        "result"=>getTree($res, 'id_comment', 'id_parent_comment')
+        "result"=>$res
     ]);
