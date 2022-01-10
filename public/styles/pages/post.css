@@ -41,3 +41,7 @@ li {
 .neutralRating{
     color: gray;
 }
+
+#btn_send_comment_reply_closed, #btn_send_comment_change_closed{
+    margin-right: 5px;
+}

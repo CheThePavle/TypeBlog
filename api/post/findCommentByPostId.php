@@ -22,6 +22,7 @@
 
     $getLikes = [];
     $getYourLike = [];
+    $getYourComment = [];
 
     // оптимизировать ?
     foreach ($res as $el) {
@@ -39,6 +40,13 @@
             } else {
                 array_push($getYourLike, NULL);
             }
+
+            $get = $db->query("SELECT id_comment FROM comments WHERE id_comment = ? AND id_author = ?", [$el['id_comment'], $_SESSION['id']]);
+            if ($get) {
+                array_push($getYourComment, true);
+            } else {
+                array_push($getYourComment, false);
+            }
         }
 
     }
@@ -46,6 +54,7 @@
     for ($i = 0; $i <  count($res); $i++) {
         $res[$i]['like'] = $getLikes[$i];
         $res[$i]['myLike'] = $getYourLike[$i];
+        $res[$i]['myComment'] = $getYourComment[$i];
     }
 
     //getTree($res, 'id_comment', 'id_parent_comment')

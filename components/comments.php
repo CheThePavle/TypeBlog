@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="panel">
-                <div class="panel-body body_comments">
+                <div class="panel-body">
                     <div class="comments"></div>
                     <div class="msgEmptyComments"></div>
                     <div class="notifyComments"></div>
