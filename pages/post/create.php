@@ -87,34 +87,6 @@
     </div>
 </div>
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw"></script> -->
-<!--<script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>-->
-
-<!--<script src="../../libs/EditorJS/editorjs.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/simple-image.js"></script>-->
-<!--<link href="../../libs/EditorJS/blocks/simple-image.css" rel="stylesheet"/>-->
-<!--<script src="../../libs/EditorJS/blocks/header.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/warning.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/marker.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/delimiter.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/table.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/quote.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/inline-code.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/nested-list.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/underline.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/paragraph.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/text-variant-tune.js"></script>-->
-<!--<script src="../../libs/EditorJS/blocks/checklist.js"></script>-->
-<!---->
-<!--<style>@import url("../../libs/taggingJS/tag-basic-style.css");</style>-->
-<!--<script src="../../libs/taggingJS/tagging.min.js"></script>-->
-<!---->
-<!--<script src="../../public/js/functions/normalizeSpace.js"></script>-->
-<!---->
-<!--<style>@import url("../../public/styles/pages/post/create.css");</style>-->
-<!--<script src="../../public/js/pages/post/create.js"></script>-->
-
 <?php
     require_once "components/footer.php";
 ?>

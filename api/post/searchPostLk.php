@@ -1,9 +1,10 @@
 <?php
+    require_once "../ajax.php";
     require_once "../../src/db.php";
-    require_once "../ajax.php"; //IS_AJAX
+    require_once "../../src/validate.php";
 
-    $start = $_GET['start'];
-    $lk = $_GET['lk'];
+    $start = validate($_GET['start']);
+    $lk = validate($_GET['lk']);
 
     $params = [];
 
@@ -19,7 +20,6 @@
 
     $res = $db->query("SELECT * FROM `post` as p $where LIMIT $start, $count", $params);
 
-    //  $jsonData = [];
     $getTags = [];
     $getNameUser = [];
     $getViews = [];
@@ -48,10 +48,5 @@
         $res[$i]['views_day'] = $getViewsDay[$i];
     }
 
-//        $db->response([
-//            "sql"=>"SELECT * FROM `post` as p $where LIMIT $start, $count",
-//            "res"=>$res
-//        ]);
-
-    echo json_encode($res);
+    $db->response(200, "", $res);
 

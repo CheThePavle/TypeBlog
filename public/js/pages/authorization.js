@@ -1,40 +1,8 @@
 $(function() {
     if (window?.XMLHttpRequest) {
-        const activeBtn = (bool) => {
-            $('.btn-send').prop('disabled', bool);
+        const activeBtn = (disabled) => {
+            $('.btn-send').prop('disabled', disabled);
         }
-
-        $("#login").keyup(function () {
-            let l = $(this).val();
-
-            $(".errorLogin").html('');
-            activeBtn(false);
-
-            if (l?.length  < 5) {
-                $(".errorLogin").html('<div class="alert alert-warning">Логин не может быть < 5 символов!</div>')
-                activeBtn(true);
-            }
-            if (l?.length  > 20) {
-                $(".errorLogin").html('<div class="alert alert-warning">Логин не может быть > 20 символов!</div>')
-                activeBtn(true);
-            }
-        })
-
-        $("#password").keyup(function () {
-            let l = $(this).val();
-
-            $(".errorPassword").html('');
-            activeBtn(false);
-
-            if (l?.length  < 5) {
-                $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть < 6 символов!</div>')
-                activeBtn(true);
-            }
-            if (l?.length  > 20) {
-                $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть > 20 символов!</div>')
-                activeBtn(true);
-            }
-        })
 
         $('#formAuth').submit(function (e) {
             e.preventDefault();
@@ -47,19 +15,19 @@ $(function() {
                 url: '../api/user/auth.php',
                 type: 'POST',
                 data: th.serialize(),
-                success: function (data) {
+                success: function (d) {
                     activeBtn(true);
-                    msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
+                    msg.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
                     setTimeout(function(){
                         window.location.href = '/lk';
                     }, 2000);
                 },
-                error: function (data) {
+                error: function (d) {
                     activeBtn(true);
-                    msg.html(`<div class="alert alert-danger">${data?.responseJSON?.error}</div>`);
+                    msg.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
                     setTimeout(function(){
-                        window.location.href = '/authorization';
-                    }, 2000);
+                        activeBtn(false);
+                    }, 1000);
                 }
             })
 

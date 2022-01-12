@@ -74,9 +74,6 @@
         </div>
     </div>
 
-<!--    <style>@import url("../public/styles/pages/index.css");</style>-->
-<!--    <script src="../public/js/pages/index.js"></script>-->
-
 <?php
     require_once "components/footer.php";
 ?>

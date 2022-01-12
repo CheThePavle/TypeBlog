@@ -1,7 +1,7 @@
 $(function() {
     if (window?.XMLHttpRequest) {
-        const activeBtn = (bool) => {
-            $('.btn-send').prop('disabled', bool);
+        const activeBtn = (disabled) => {
+            $('.btn-send').prop('disabled', disabled);
         }
 
         $("#password").keyup(function () {
@@ -50,36 +50,56 @@ $(function() {
 
         $("#login").keyup(function() {
             let th = $(this);
+            let val = th.val();
             let msg = $('.errorLogin');
+            msg.html('');
 
-            $(".errorLogin").html('');
+            if (val?.length < 5) {
+                msg.html('<div class="alert alert-warning">Логин не может быть меньше 5 символов!</div>')
+                activeBtn(true);
+            }
+            if (val?.length > 25) {
+                msg.html('<div class="alert alert-warning">Логин не может быть больше 25 символов!</div>')
+                activeBtn(true);
+            }
+
             activeBtn(false);
             // добавить условия, чтоб статусы не спамили в консоль
             $.ajax({
                 url: '../api/user/findLogin.php',
                 type: 'POST',
                 data: th.serialize(),
-                error: function (data) {
+                error: function (d) {
                     activeBtn(true);
-                    msg.html(`<div class="alert alert-warning">${data?.responseJSON?.error}</div>`);
+                    msg.html(`<div class="alert alert-warning">${d?.responseJSON?.result?.msg}</div>`);
                 }
             })
         });
 
         $("#email").keyup(function() {
             let th = $(this);
+            let val = th.val();
             let msg = $('.errorEmail');
+            msg.html('');
 
-            $(".errorEmail").html('');
+            if (val?.length < 1) {
+                msg.html('<div class="alert alert-warning">Заполните почту!</div>')
+                activeBtn(true);
+            }
+            if (val?.length > 100) {
+                msg.html('<div class="alert alert-warning">Слишком длинная почта!</div>')
+                activeBtn(true);
+            }
+
             activeBtn(false);
             // добавить условия, чтоб статусы не спамили в консоль
             $.ajax({
                 url: '../api/user/findEmail.php',
                 type: 'POST',
                 data: th.serialize(),
-                error: function (data) {
+                error: function (d) {
                     activeBtn(true);
-                    msg.html(`<div class="alert alert-warning">${data?.responseJSON?.error}</div>`);
+                    msg.html(`<div class="alert alert-warning">${d?.responseJSON?.result?.msg}</div>`);
                 }
             })
         });

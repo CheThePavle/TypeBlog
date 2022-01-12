@@ -1,12 +1,10 @@
 <?php
     $ip = $_SERVER['REMOTE_ADDR'];
-//    $ip = '1050:0:0:0:5:600:300c:326b';
-//    $ip = '192.0.0.1';
 
 //  возможно можно оптимизировать + добавить доп. проверки + попробовать без id_view сравнивать ip - адреса
     if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
         require_once "src/db.php";
-        require_once "src/fieldValidation.php"; // validate()
+        require_once "src/validate.php";
 
         $getIdPost = validate($urls[1]);
         $idLooked = $_SESSION['id'];
@@ -41,7 +39,7 @@
 
     if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
         require_once "src/db.php";
-        require_once "src/fieldValidation.php"; // validate()
+        require_once "src/validate.php";
 
         $getIdPost = validate($urls[1]);
         $idLooked = $_SESSION['id'];
@@ -72,4 +70,3 @@
             ]);
         }
     }
-

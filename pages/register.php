@@ -65,8 +65,6 @@
         <div class="msg"></div>
     </form>
 
-<!--    <script src="../public/js/pages/register.js"></script>-->
-
 <?php
     require_once "components/footer.php";
 ?>

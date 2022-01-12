@@ -5,5 +5,3 @@
     <button type="button" class="btn btn-primary btn-lg btn-block" id="nextPosts">Загрузить еще</button>
     <br><br>
 </div>
-
-<!--<style>@import url("../public/styles/components/postLoader.css");</style>-->

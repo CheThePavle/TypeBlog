@@ -43,8 +43,6 @@
         <div class="msg"></div>
     </form>
 
-<!--    <script src="../public/js/pages/authorization.js"></script>-->
-
 <?php
     require_once "components/footer.php";
 ?>

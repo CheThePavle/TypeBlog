@@ -12,17 +12,5 @@
                 </div>
             </div>
         </footer>
-
-<!--        <div class="preloader">-->
-<!--            <div class="preloader__row">-->
-<!--                <div class="preloader__item"></div>-->
-<!--                <div class="preloader__item"></div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-        <!--<script src="../libs/bootstrap/bootstrap.min.js"></script>-->
-        <!--<script src="https://bootstraptema.ru/snippets/menu/2016/slidemenu/slidemenu.js"></script>-->
-
-<!--        <script src="../public/js/loader.js"></script>-->
     </body>
 </html>

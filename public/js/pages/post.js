@@ -129,11 +129,11 @@ $(function() { // normalizeSpace()
                 data: {
                     idPost: id
                 },
-                success: function (data) {
+                success: function (d) {
                     // console.log(data)
-                    if (data?.status == 200 && data?.result?.length != 0) {
+                    let comments = d?.result?.data;
+                    if (d?.status == 200 && comments?.length != 0) {
                         //start func - вынести в отдельную функцию
-                        let comments = data?.result;
 
                         function buildHierarchy(arry) {
                             let roots = [],
@@ -231,7 +231,7 @@ $(function() { // normalizeSpace()
                     }
                 },
                 error: function (data) {
-                    msg.html(`<div class="alert alert-danger">${data?.responseJSON?.error}</div>`);
+                    msg.html(`<div class="alert alert-danger">${data?.responseJSON?.result?.msg}</div>`);
                 }
             })
         }
