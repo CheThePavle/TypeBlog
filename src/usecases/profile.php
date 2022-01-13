@@ -1,4 +1,5 @@
 <?php
     require_once "src/db.php";
+    require_once "src/validate.php";
 
-    $getUser = $db->query("SELECT u.id_user, u.login FROM `user` as u WHERE u.id_user = ?", [$urls[1]]);
+    $getUser = $db->query("SELECT id_user, login FROM `user` WHERE id_user = ?", [validate($urls[1])]);

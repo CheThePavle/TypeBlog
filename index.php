@@ -1,28 +1,10 @@
 <?php
-//    // Временные роуты для тестирования проекта Postman
-//    require_once "src/db.php";
-//    $db = new db();
-//    //для api ответов
-//    if ($urls[0] === 'api' && $urls[1] === 'user' && $urls[2] === 'create'){include_once 'api/user/create.php';exit();}
-
-//    define('MyConst', TRUE);
-//    if(!defined('MyConst')) {
-//        die('Direct access not permitted');
-//    }
-
-    if ($_SERVER['REQUEST_URI'] === '/index.php') {
-        header("Location: /");
-    }
-
-    // Разбираем url
+    if ($_SERVER['REQUEST_URI'] === '/index.php') {header("Location: /");}
 
     $url = (isset($_GET['q'])) ? $_GET['q'] : '';
-    $url = rtrim($url, '/'); // Удаляет "/" из конца строки
-    $urls = explode('/', $url); // Разбивает строку с помощью разделителя "/"
+    $url = rtrim($url, '/');
+    $urls = explode('/', $url);
 
-    //Переменная $urls - доступна во всех файлах
-
-    // Определяем роутер
     if ($urls[0] === '' && sizeof($urls) == 1){
         $setStyleAndScript = '
             <title>TypeBlog - Главная</title>
@@ -89,8 +71,6 @@
             <link rel="stylesheet" href="../libs/taggingJS/tag-basic-style.css">
             <script src="../libs/taggingJS/tagging.min.js"></script>
                     
-            <script src="../public/js/functions/normalizeSpace.js"></script>
-                    
             <link rel="stylesheet" href="../public/styles/pages/post/create.css">
             <script src="../public/js/pages/post/create.js"></script>
         ';
@@ -127,7 +107,6 @@
             <script src="../libs/EditorJS/blocks/checklist.js"></script>
                     
             <link rel="stylesheet" href="../public/styles/pages/post.css">
-            <script src="../public/js/functions/normalizeSpace.js"></script>
             <script src="../public/js/pages/post.js"></script>
             
             <link rel="stylesheet" href="../public/styles/components/comments.css">

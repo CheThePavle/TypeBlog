@@ -1,5 +1,5 @@
 <?php
-    function is_base64($s){
+    function isBase64($s){
         // Check if there are valid base64 characters
         if (!preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $s)) return false;
 

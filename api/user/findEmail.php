@@ -1,33 +1,13 @@
 <?php
+    require_once "../ajax.php";
     require_once "../../src/db.php";
-    require_once "../../src/fieldValidation.php"; //validate()
-    require_once "../ajax.php"; //IS_AJAX
+    require_once "../../src/validate.php";
 
+    $email = validate($_POST['email']);
 
-        $email = validate($_POST['email']);
+    $res = $db->query("SELECT `email` FROM `user` WHERE `email` = ?", [$email]);
+    if ($res) {
+        $db->response(409, "Такой email уже занят");
+    }
 
-        if ($email) {
-            if (strlen($email) > 100) {
-                http_response_code(409);
-                $db->response([
-                    "status"=>409,
-                    "error"=>"Email не может быть больше 100 символов"
-                ]);
-            }
-            // брать только нужное!
-            $res = $db->query("SELECT * FROM `user` WHERE `email` = ?", [$email]);
-            if ($res) {
-                http_response_code(409);
-                $db->response([
-                    "status"=>409,
-                    "error"=>"Такой email уже занят)"
-                ]);
-            }
-        } else {
-            http_response_code(409);
-            $db->response([
-            "status"=>409,
-            "error"=>"Заполните email!"
-            ]);
-        }
-
+    $db->response(200);

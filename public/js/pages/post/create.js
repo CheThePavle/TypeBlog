@@ -1,40 +1,41 @@
 $(function() {
     if (window?.XMLHttpRequest) {
-        // добавить автосохранение поста каждую 1 минуту к примеру
-        const activeBtn = (bool) => {
-            $('.btn-send').prop('disabled', bool);
+        const activeBtn = (disabled) => {
+            $('.btn-send').prop('disabled', disabled);
         }
 
         $("#heading").keyup(function () {
-            let h = $(this).val();
-            $(this).val(normalizeSpace(h));
+            let val = $(this).val();
+            $(this).val(normalizeSpace(val));
+            let errorHeading = $(".errorHeading");
 
-            $(".errorHeading").html('');
+            errorHeading.html('');
             activeBtn(false);
 
-            if (h?.length  < 6) {
-                $(".errorHeading").html('<div class="alert alert-warning">Название не может быть меньше 6 символов!</div>')
+            if (val?.length  < 6) {
+                errorHeading.html('<div class="alert alert-warning">Название не может быть меньше 6 символов!</div>')
                 activeBtn(true);
             }
         })
 
         $("#description").keyup(function () {
-            let d = $(this).val();
-            $(this).val(normalizeSpace(d));
+            let val = $(this).val();
+            $(this).val(normalizeSpace(val));
+            let errorDescription = $(".errorDescription");
 
-            $(".errorDescription").html('');
+            errorDescription.html('');
             activeBtn(false);
 
-            if (d?.length  < 20) {
-                $(".errorDescription").html('<div class="alert alert-warning">Описание не может быть меньше 20 символов!</div>')
+            if (val?.length  < 20) {
+                errorDescription.html('<div class="alert alert-warning">Описание не может быть меньше 20 символов!</div>')
                 activeBtn(true);
             }
         })
 
         // http://verstaemvse.ru/plagin-sozdaniya-polya-dlya-vvoda-tegov-taggingjs.html
-        var my_custom_options = {
+        let myOptionsTagging = {
             "case-sensitive": false, // нижний регистр
-            "no-duplicate": true, // нет повторений
+            "no-duplicate": true,
             "forbidden-chars-text": '',
             "forbidden-chars-callback": function(el){
                 $(".errorTags").html('<div class="alert alert-warning">Такой символ запрещен - '+el+'</div>');
@@ -58,23 +59,22 @@ $(function() {
             // "forbidden-words": [], // массив запрещенных слов
             // "forbidden-words-callback": ''
         };
-        $("#tagBox").tagging(my_custom_options);
-        // узнать почему спамит ошибка в консоль при удалении ничего в input)
-        // добавить проверку на длину тега, проверять через массив тегов
+        $("#tagBox").tagging(myOptionsTagging);
         $(".type-zone").keyup(function () {
             let getLengthTags = $('#tagBox .tag').length;
             if (getLengthTags > 10) {
                 $('#tagBox .tag:last').remove();
-                $(".errorTags").html('<div class="alert alert-warning">Можно только не более 10 тегов!</div>');
+                let errorTags = $(".errorTags");
+                errorTags.html('<div class="alert alert-warning">Можно только не более 10 тегов!</div>');
                 setTimeout(() => {
-                    $(".errorTags").html('')
+                    errorTags.html('')
                 }, 3000)
             }
         })
 
         const readURL = (input) => {
             if (input.files && input.files[0]) {
-                var reader = new FileReader();
+                let reader = new FileReader();
                 reader.onload = function(e) {
                     $('#show_img_prev').attr('src', e.target.result);
                 }
@@ -82,12 +82,19 @@ $(function() {
             }
         }
 
-        $("#controlFile").change(function() {
-            $(".show_img_prev_post").css({'display':'block'});
-            $("#name_btn_img_prev").html('Заменить');
-            // выводить название файла???
-            $("#img_uploaded").html('Файл загружен');
-            readURL(this);
+        $("#controlFile").change(function(e) {
+            let fileName = $(this).val().split('/').pop().split('\\').pop();
+            if (!fileName) {
+                $(".show_img_prev_post").css({'display':'none'});
+                $("#name_btn_img_prev").html('Выбрать');
+                $("#img_uploaded").html('Выберите файл или перетащите его сюда');
+            } else {
+                $(".show_img_prev_post").css({'display':'block'});
+                $("#name_btn_img_prev").html('Заменить');
+                $("#img_uploaded").html('Выбран: ' + fileName);
+                readURL(this);
+            }
+
         });
 
         const editor = new EditorJS({
@@ -165,49 +172,36 @@ $(function() {
         $('#forCreatePost').submit(function (e) {
             e.preventDefault();
 
-            var formData = new FormData(this);
+            let formData = new FormData(this);
             let msg = $('.msg');
 
-            if (!$('#controlFile').val()) {
-                // баг если загрузили и захотели заменить, но не заменили, то условие выполняется fixme
-                return msg.html(`<div class="alert alert-warning">Загрузите главное изображение</div>`);
-            }
-
-            // const output = document.getElementById('output');
             editor.save().then(savedData => {
                 // возможно тут ограничение передачи body в php 27 000 байт
                 formData.append('body', JSON.stringify(savedData));
                 formData.set('tags', $("#tagBox").tagging( "getTags" ));
-                // console.log(savedData)
 
                 $.ajax({
                     url: '../../api/post/create.php',
-                    type: 'POST',
+                    method: 'POST',
                     cache: false,
                     contentType: false,
                     processData: false,
                     data: formData,
-                    success: function (data) {
-                        // console.log(data)
-                        activeBtn(false);
-                        if (data?.error) {
-                            activeBtn(true);
-                            msg.html(`<div class="alert alert-warning">${data?.error}</div>`);
-                        } else if (data?.status == 200) {
-                            activeBtn(true);
-                            msg.html(`<div class="alert alert-success">Пост создан.</div>`);
-                            setTimeout(function(){
-                                window.location.href = '/';
-                            }, 2000);
-                        }
+                    success: function (d) {
+                        activeBtn(true);
+                        msg.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                        setTimeout(function(){
+                            window.location.href = '/';
+                        }, 2000);
                     },
-                    error: function (data) {
-                        // console.log(data)
-                        activeBtn(false);
-                        msg.html(`<div class="alert alert-danger">${data?.responseJSON?.error || 'Что-то пошло не так!'}</div>`);
+                    error: function (d) {
+                        activeBtn(true);
+                        msg.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg || 'Что-то пошло не так!'}</div>`);
+                        setTimeout(function(){
+                            activeBtn(false);
+                        }, 1000);
                     }
                 })
-                // output.innerHTML = JSON.stringify(savedData, null, 4);
             })
         });
     } else {

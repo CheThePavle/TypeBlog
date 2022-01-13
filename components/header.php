@@ -9,6 +9,8 @@
         <link rel="shortcut icon" href="../public/imgs/favicon.png" type="image/x-icon">
         <script src="../libs/jQuery/jquery.min.js"></script>
         <script src="../public/js/loader.js"></script>
+        <script src="../public/js/functions/normalizeSpace.js"></script>
+        <script src="../public/js/index.js"></script>
         <?= $setStyleAndScript; ?>
     </head>
     <body>

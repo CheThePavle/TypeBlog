@@ -1,17 +1,12 @@
 <?php
-    require_once "../../src/db.php"; // class $db
-    require_once "../../src/fieldValidation.php"; //validate()
     require_once "../ajax.php";
+    require_once "../../src/db.php";
+    require_once "../../src/validate.php";
 
-    $idPost = validate($_POST['idPost']);
+    $idPost = validate($_POST['id']);
 
-    // доп. проверка полей
     if (!$idPost) {
-        http_response_code(409);
-        $db->response([
-            "status"=>409,
-            "error"=>"Комментарий не может быть добавлен на этот пост!"
-        ]);
+        $db->response(409, "Комментарии не могут загрузиться для этого поста!");
     }
 
     $res = $db->query("SELECT c.id_comment, c.id_author, c.body_comment, c.id_parent_comment, c.created_at, c.updated_at, u.avatar_url, u.login 
@@ -57,9 +52,4 @@
         $res[$i]['myComment'] = $getYourComment[$i];
     }
 
-    //getTree($res, 'id_comment', 'id_parent_comment')
-    http_response_code(200);
-    $db->response([
-        "status"=>200,
-        "result"=>$res
-    ]);
+    $db->response(200, "", $res);

@@ -1,88 +1,99 @@
 $(function() {
     if (window?.XMLHttpRequest) {
-        const activeBtn = (bool) => {
-            $('.btn-send').prop('disabled', bool);
+        const activeBtn = (disabled) => {
+            $('.btn-send').prop('disabled', disabled);
         }
-
-        $("#password").keyup(function () {
-            let p = $(this).val();
-            let p2 = $("#password2").val();
-
-            $(".errorPassword").html('');
-            activeBtn(false);
-
-            if (p !== p2) {
-                activeBtn(true);
-                $(".errorPassword").html('<div class="alert alert-warning">Пароли не совпадают(</div>')
-            }
-
-            if (p?.length  < 6) {
-                $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть < 6 символов!</div>')
-                activeBtn(true);
-            }
-            if (p?.length  > 20) {
-                $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть > 20 символов!</div>')
-                activeBtn(true);
-            }
-        })
-
-        $("#password2").keyup(function () {
-            let p = $("#password").val();
-            let p2 = $(this).val();
-
-            $(".errorPassword").html('');
-            activeBtn(false);
-
-            if (p !== p2) {
-                activeBtn(true);
-                $(".errorPassword").html('<div class="alert alert-warning">Пароли не совпадают(</div>')
-            }
-
-            if (p2?.length  < 6) {
-                $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть < 6 символов!</div>')
-                activeBtn(true);
-            }
-            if (p2?.length  > 20) {
-                $(".errorPassword").html('<div class="alert alert-warning">Пароль не может быть > 20 символов!</div>')
-                activeBtn(true);
-            }
-        })
 
         $("#login").keyup(function() {
             let th = $(this);
-            let msg = $('.errorLogin');
+            let val = th.val();
+            th.val(normalizeSpace(val))
 
-            $(".errorLogin").html('');
+            let errorLoginHTML = $('.errorLogin');
+            errorLoginHTML.html('');
+
+            if (val?.length < 5) {
+                errorLoginHTML.html('<div class="alert alert-warning">Логин не может быть меньше 5 символов!</div>')
+                activeBtn(true);
+            }
+
             activeBtn(false);
-            // добавить условия, чтоб статусы не спамили в консоль
             $.ajax({
                 url: '../api/user/findLogin.php',
-                type: 'POST',
+                method: 'POST',
                 data: th.serialize(),
-                error: function (data) {
+                error: function (d) {
                     activeBtn(true);
-                    msg.html(`<div class="alert alert-warning">${data?.responseJSON?.error}</div>`);
+                    errorLoginHTML.html(`<div class="alert alert-warning">${d?.responseJSON?.result?.msg}</div>`);
                 }
             })
         });
 
         $("#email").keyup(function() {
             let th = $(this);
-            let msg = $('.errorEmail');
+            let val = th.val();
+            th.val(normalizeSpace(val))
 
-            $(".errorEmail").html('');
+            let errorEmailHTML = $('.errorEmail');
+            errorEmailHTML.html('');
+
+            if (val?.length < 1) {
+                errorEmailHTML.html('<div class="alert alert-warning">Заполните почту!</div>')
+                activeBtn(true);
+            }
+
             activeBtn(false);
-            // добавить условия, чтоб статусы не спамили в консоль
             $.ajax({
                 url: '../api/user/findEmail.php',
-                type: 'POST',
+                method: 'POST',
                 data: th.serialize(),
-                error: function (data) {
+                error: function (d) {
                     activeBtn(true);
-                    msg.html(`<div class="alert alert-warning">${data?.responseJSON?.error}</div>`);
+                    errorEmailHTML.html(`<div class="alert alert-warning">${d?.responseJSON?.result?.msg}</div>`);
                 }
             })
         });
+
+        let errorPasswordHTML = $(".errorPassword");
+        $("#password").keyup(function () {
+            let th = $(this);
+            let val = th.val();
+
+            th.val(normalizeSpace(val));
+
+            errorPasswordHTML.html('');
+            activeBtn(false);
+
+            if (val?.length  < 6) {
+                errorPasswordHTML.html('<div class="alert alert-warning">Пароль не может быть меньше 6 символов!</div>')
+                activeBtn(true);
+            }
+            if (val?.length  > 32) {
+                errorPasswordHTML.html('<div class="alert alert-warning">Пароль не может быть больше 32 символов!</div>')
+                activeBtn(true);
+            }
+        })
+        $("#password2").keyup(function () {
+            let th = $(this);
+            let p = $("#password").val();
+            let p2 = th.val();
+
+            th.val(normalizeSpace(p2));
+
+            errorPasswordHTML.html('');
+            activeBtn(false);
+
+            if (p !== p2) {
+                activeBtn(true);
+                errorPasswordHTML.html('<div class="alert alert-warning">Пароли не совпадают</div>')
+            }
+        })
+
+        // fixme изменить потом
+        document.querySelector('textarea').addEventListener('input', function (e) {
+            e.target.style.height = 'auto'
+            e.target.style.height = e.target.scrollHeight + 2 + "px"
+        })
 
         $('#formReg').submit(function (e) {
             e.preventDefault();
@@ -93,39 +104,45 @@ $(function() {
 
             $.ajax({
                 url: '../api/user/create.php',
-                type: 'POST',
+                method: 'POST',
                 data: th.serialize(),
-                success: function (data) {
-                    if (data?.verifyEmail) {
-                        activeBtn(false);
-                        $('.verifyEmail').html(`
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <br><br>
-                                <label for="code">Код подтверждения из письма *</label>
-                                <input id="code" type="text" name="code" class="form-control" placeholder="Введите код *" required="required">
-                                <div class="errorCode"></div>
-                            </div>
-                        </div>
-                    `);
-                        msg.html(`<div class="alert alert-success">${data?.verifyEmail}</div>`);
-                        setTimeout(function(){
-                            msg.html(``);
-                        }, 3000);
-                    } else {
-                        activeBtn(true);
-                        msg.html(`<div class="alert alert-success">${data?.msg}</div>`);
+                success: function (d) {
+                    msg.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                    if (d?.result?.data?.redirect) {
                         setTimeout(function(){
                             window.location.href = '/authorization';
                         }, 3000);
                     }
-                },
-                error: function (data) {
-                    activeBtn(true);
-                    msg.html(`<div class="alert alert-danger">${data?.responseJSON?.error}</div>`);
+
+                    activeBtn(false);
+                    $(".stage1").hide();
+                    $(".stage2").val('Подтвердить');
+                    $('.verifyEmail').html(`
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="code">Код подтверждения из письма <span class="required">*</span></label>
+                                <input maxlength="5" id="code" type="text" name="code" class="form-control" placeholder="Введите код *" required="required">
+                            </div>
+                        </div>
+                    `);
                     setTimeout(function(){
-                        window.location.href = '/register';
-                    }, 2000);
+                        msg.html('');
+                    }, 4000);
+                },
+                error: function (d) {
+                    activeBtn(true);
+                    msg.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
+                    setTimeout(function(){
+                        activeBtn(false);
+                    }, 500);
+                    setTimeout(function(){
+                        msg.html('');
+                    }, 3000);
+                    if (d?.responseJSON?.result?.data?.redirect) {
+                        setTimeout(function(){
+                            window.location.href = '/register';
+                        }, 5000);
+                    }
                 }
             })
         });

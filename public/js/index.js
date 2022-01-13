@@ -1,53 +1,58 @@
 $(function() { // normalizeSpace()
     if (window?.XMLHttpRequest) {
         // Поиск по постам и пользователям (поставить задержку отправки запросов)
+
+        let searchHTML = $('#searchPostAndUser');
+        let resultHTML = $(".resultSearch");
         const getResSearch = () => {
-            let name = $('#searchPostAndUser').val();
-            $('#searchPostAndUser').val(normalizeSpace(name));
-            if (name === "") {
-                $(".resultSearch").html("");
+            let searchVal = searchHTML.val();
+            searchHTML.val(normalizeSpace(searchVal));
+
+            if (searchVal === "") {
+                resultHTML.html("");
             }
             else {
                 $.ajax({
                     method: "POST",
-                    url: "../../../api/searchPostAndUser.php",
+                    url: "../../../api/postUser/search.php",
                     data: {
-                        searchPostAndUser: name
+                        searchPostAndUser: searchVal
                     },
-                    success: function(data) {
-                        $('.resultSearch').html('');
-                        data = JSON.parse(data);
-                        if (data.length == 0) {
-                            return $('.resultSearch').append(`
-                                    <li>
-                                        Ничего не найдено
-                                    </li>
-                                `)
-                        }
-                        data?.map(function(el) {
-                            $('.resultSearch').append(`
+                    success: function(d) {
+                        d = d?.result?.data;
+                        resultHTML.html('');
+                        if (d?.length === 0) {
+                            resultHTML.append(`
+                                <li>
+                                    Ничего не найдено
+                                </li>
+                            `)
+                        } else {
+                            d?.map(function(el) {
+                                resultHTML.append(`
                                 <li>
                                     <a href="${el?.id_post ? '/post/' + el?.id_post : '/profile/' + el?.id_user}">
                                         ${el?.heading ? el?.heading + ' (пост)' : el?.login + ' (пользователь)'}
                                     </a>
                                 </li>
                             `)
-                        });
+                            });
+                        }
                     }
                 });
             }
         }
-        $("#searchPostAndUser").focus(function() {
-            $('.resultSearch').show();
+        searchHTML.focus(function() {
+            resultHTML.show();
             getResSearch();
 
-            $("#searchPostAndUser").keyup(function() {
+            searchHTML.keyup(function() {
                 getResSearch();
             });
         })
-        $("#searchPostAndUser").blur(function() {
+        searchHTML.blur(function() {
             setTimeout(function () {
-                $('.resultSearch').hide();
+                resultHTML.hide();
             }, 200)
         })
     } else {

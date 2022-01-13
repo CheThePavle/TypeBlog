@@ -46,6 +46,3 @@
         </div>
     </div>
 </div>
-
-<script src="../public/js/functions/normalizeSpace.js"></script>
-<script src="../public/js/index.js"></script>

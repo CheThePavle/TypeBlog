@@ -9,8 +9,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="login">Логин *</label>
-                        <input id="login" type="text" name="login" class="form-control" placeholder="Ваш логин *" required="required">
+                        <label for="login">Логин <span class="required">*</span></label>
+                        <input maxlength="25" id="login" type="text" name="login" class="form-control" placeholder="Ваш логин *" required="required">
                         <div class="errorLogin"></div>
                     </div>
                 </div>
@@ -19,8 +19,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="password">Пароль *</label>
-                        <input id="password" type="password" name="password" class="form-control" placeholder="Ваш пароль *" required="required">
+                        <label for="password">Пароль <span class="required">*</span></label>
+                        <input maxlength="32" id="password" type="password" name="password" class="form-control" placeholder="Ваш пароль *" required="required">
                         <div class="errorPassword"></div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
 
             <div class="form-check">
                 <input class="form-check-input" name="checkbox" type="checkbox" value="true" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault" style="cursor: pointer">
                     Запомнить меня
                 </label>
             </div>
@@ -42,8 +42,6 @@
         <br>
         <div class="msg"></div>
     </form>
-
-<!--    <script src="../public/js/pages/authorization.js"></script>-->
 
 <?php
     require_once "components/footer.php";

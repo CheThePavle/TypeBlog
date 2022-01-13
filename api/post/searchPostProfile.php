@@ -1,9 +1,10 @@
 <?php
+    require_once "../ajax.php";
     require_once "../../src/db.php";
-    require_once "../ajax.php"; //IS_AJAX
+    require_once "../../src/validate.php";
 
-    $start = $_GET['start'];
-    $id_user = $_GET['id_user'];
+    $start = validate($_GET['start']);
+    $id_user = validate($_GET['id_user']);
 
     $params = [];
 
@@ -58,9 +59,4 @@
         $res[$i]['read_post'] = $getReadPost[$i];
     }
 
-//        $db->response([
-//            "sql"=>"SELECT $selectParams FROM `post` as p $where $whereOrTags $rightScob $whereOrder LIMIT $start, 2",
-//            "res"=>$lk
-//        ]);
-
-    echo json_encode($res);
+    $db->response(200, "", $res);

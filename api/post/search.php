@@ -1,11 +1,12 @@
 <?php
+    require_once "../ajax.php";
     require_once "../../src/db.php";
-    require_once "../ajax.php"; //IS_AJAX
+    require_once "../../src/validate.php";
 
-    $start = $_GET['start'];
-    $order = $_GET['order'];
-    $category = $_GET['category'];
-    $tag = $_GET['tag'];
+    $start = validate($_GET['start']);
+    $order = validate($_GET['order']);
+    $category = validate($_GET['category']);
+    $tag = validate($_GET['tag']);
     $leftScob = $tag ? '(' : '';
     $rightScob = $tag && $category ? ')' : '';
 
@@ -100,12 +101,15 @@
 //        $res[$i]['body']['blocks'] = [];
     }
 
+    $db->response(200, "", $res);
+
+
+
+
 //        $db->response([
 //            "sql"=>"SELECT $selectParams FROM `post` as p $where $whereOrTags $rightScob $whereOrder LIMIT $start, $count",
 //            "res"=>$lk
 //        ]);
-
-    echo json_encode($res);
 
 //        SELECT * FROM `post` as p
 //JOIN post_tag as pt
