@@ -19,6 +19,7 @@
             <div class="panel">
                 <div class="panel-body">
                     <div class="comments"></div>
+                    <img class="loader loader_comment" src="../public/imgs/loader.gif" alt="loader">
                     <div class="msgEmptyComments"></div>
                     <div class="notifyComments"></div>
                 </div>

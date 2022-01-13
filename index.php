@@ -71,8 +71,6 @@
             <link rel="stylesheet" href="../libs/taggingJS/tag-basic-style.css">
             <script src="../libs/taggingJS/tagging.min.js"></script>
                     
-            <script src="../public/js/functions/normalizeSpace.js"></script>
-                    
             <link rel="stylesheet" href="../public/styles/pages/post/create.css">
             <script src="../public/js/pages/post/create.js"></script>
         ';
@@ -109,7 +107,6 @@
             <script src="../libs/EditorJS/blocks/checklist.js"></script>
                     
             <link rel="stylesheet" href="../public/styles/pages/post.css">
-            <script src="../public/js/functions/normalizeSpace.js"></script>
             <script src="../public/js/pages/post.js"></script>
             
             <link rel="stylesheet" href="../public/styles/components/comments.css">

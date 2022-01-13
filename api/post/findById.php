@@ -7,7 +7,8 @@
 
     if ($id) {
         $res = $db->query("SELECT * FROM `post` WHERE id_post = ?", [$id]);
-        echo json_encode($res); //fixme
-    } else {
-        $db->response(409, "Пост не найден!");
+        if (!$res) {
+            $db->response(404, "Пост не найден");
+        }
+        $db->response(200, "", $res);
     }

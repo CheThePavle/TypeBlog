@@ -24,7 +24,7 @@
     if (!$description) {
         $db->response(409, "Описание обязательное поле!");
     }
-    if (strlen($description) > 1000) {
+    if (strlen($description) > 2000) { //fixme
         $db->response(409, "Описание не может быть больше 1000 символов!");
     }
     if (strlen($description) < 20) {
@@ -119,10 +119,8 @@
 
     $id_creator = $_SESSION['id'];
 
-    $created_at = date("Y-m-d H:i:s");
-    $updated_at = date("Y-m-d H:i:s");
-    $res = $db->make("INSERT INTO `post` (`id_category`, `id_creator`, `heading`, `description`, `body`, `id_status`, `created_at`, `updated_at`) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    $res = $db->make("INSERT INTO `post` (`id_category`, `id_creator`, `heading`, `description`, `body`, `id_status`, `updated_at`) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?)",
         [
             $category,
             $id_creator,
@@ -130,8 +128,7 @@
             $description,
             json_encode($body),
             1, // status отправлен
-            $created_at,
-            $updated_at
+            NULL
         ]);
     if (!$res) {
         RDir($newDir);
@@ -157,4 +154,4 @@
         }
     }
 
-    $db->response(200);
+    $db->response(200, "Пост был отправлен на проверку");

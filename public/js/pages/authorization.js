@@ -4,6 +4,18 @@ $(function() {
             $('.btn-send').prop('disabled', disabled);
         }
 
+        $("#login").keyup(function() {
+            let th = $(this);
+            let val = th.val();
+            th.val(normalizeSpace(val));
+        });
+
+        $("#password").keyup(function() {
+            let th = $(this);
+            let val = th.val();
+            th.val(normalizeSpace(val));
+        });
+
         $('#formAuth').submit(function (e) {
             e.preventDefault();
             activeBtn(true);
@@ -13,7 +25,7 @@ $(function() {
 
             $.ajax({
                 url: '../api/user/auth.php',
-                type: 'POST',
+                method: 'POST',
                 data: th.serialize(),
                 success: function (d) {
                     activeBtn(true);

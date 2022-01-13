@@ -3,7 +3,7 @@
     require_once "../../src/db.php";
     require_once "../../src/validate.php";
 
-    $idPost = validate($_POST['idPost']);
+    $idPost = validate($_POST['id']);
 
     if (!$idPost) {
         $db->response(409, "Комментарии не могут загрузиться для этого поста!");

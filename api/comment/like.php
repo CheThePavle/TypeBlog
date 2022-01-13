@@ -3,15 +3,14 @@
     require_once "../../src/db.php";
     require_once "../../src/validate.php";
 
-    $getIdComment = validate($_POST['getIdComment']);
+    $getIdComment = validate($_POST['idComment']);
     $id_author = $_SESSION['id'];
 
-    // доп. проверка полей
+    if (!$id_author) {
+        $db->response(409, "Только зарегистрированные пользователи могут ставить лайки на комментарии!");
+    }
     if (!$getIdComment) {
         $db->response(409, "Этот комментарий не может быть оценен!");
-    }
-    if (!$id_author) {
-        $db->response(409, "Только зарегистрированные пользователи могут оценивать комментарии!");
     }
 
     if ($id_author) {
@@ -28,7 +27,7 @@
                 if (!$check) {
                     $db->response(409, "Что-то пошло не так, невозможно отменить лайк!");
                 } else {
-                    $db->response(409, "Лайк отменен", ["toggle"=>0]);
+                    $db->response(200, "Лайк отменен");
                 }
             } elseif ($res[0]['mark'] == '0') {
                 $check = $db->make("UPDATE `comment_like` SET `id_comment` = ?, `id_author` = ?, `mark` = b? WHERE `comment_like`.`id_like` = ?", [
@@ -40,7 +39,7 @@
                 if (!$check) {
                     $db->response(409, "Что-то пошло не так, невозможно поставить вместо дизлайка лайк!");
                 } else {
-                    $db->response(409, "Дизлайк заменился лайком", ["toggle"=>1]);
+                    $db->response(200, "Дизлайк заменился лайком");
                 }
             } else {
                 $check = $db->make("UPDATE `comment_like` SET `id_comment` = ?, `id_author` = ?, `mark` = b? WHERE `comment_like`.`id_like` = ?", [
@@ -52,7 +51,7 @@
                 if (!$check) {
                     $db->response(409, "Что-то пошло не так, невозможно поставить лайк!");
                 } else {
-                    $db->response(409, "Лайк поставлен", ["toggle"=>1]);
+                    $db->response(200, "Лайк поставлен");
                 }
             }
         } else {
@@ -64,7 +63,7 @@
             if (!$check) {
                 $db->response(409, "Что-то пошло не так, невозможно поставить лайк!");
             } else {
-                $db->response(409, "Лайк поставлен", ["toggle"=>1]);
+                $db->response(200, "Лайк поставлен");
             }
         }
     } else {

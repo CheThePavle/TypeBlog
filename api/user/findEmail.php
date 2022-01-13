@@ -7,7 +7,7 @@
 
     $res = $db->query("SELECT `email` FROM `user` WHERE `email` = ?", [$email]);
     if ($res) {
-        $db->response(409, "Такой email уже занят)");
+        $db->response(409, "Такой email уже занят");
     }
 
     $db->response(200);

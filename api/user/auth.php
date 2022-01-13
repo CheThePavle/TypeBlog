@@ -3,9 +3,6 @@
     require_once "../../src/db.php";
     require_once "../../src/validate.php";
 
-    session_start(); //fixme нужна ли?
-    $_SESSION['verifyEmail'] = [];
-
     $login = validate($_POST['login']);
     $password = validate($_POST['password']);
 
@@ -14,6 +11,7 @@
         if (password_verify($password, $res[0]['password'])) {
             $_SESSION['id'] = $res[0]['id_user'];
             $_SESSION['login'] = $res[0]['login'];
+            unset($_SESSION['verifyEmail']);
 
             $db->response(200, "Успешная авторизация!");
         } else {
