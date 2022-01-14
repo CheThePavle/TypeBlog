@@ -15,19 +15,19 @@
     if (!$heading) {
         $db->response(409, "Название обязательное поле!");
     }
-    if (strlen($heading) > 200) {
+    if (iconv_strlen($heading) > 200) {
         $db->response(409, "Название не может быть больше 200 символов!");
     }
-    if (strlen($heading) < 6) {
+    if (iconv_strlen($heading) < 6) {
         $db->response(409, "Название не может быть меньше 6 символов!");
     }
     if (!$description) {
         $db->response(409, "Описание обязательное поле!");
     }
-    if (strlen($description) > 2000) { //fixme
+    if (iconv_strlen($description) > 1000) {
         $db->response(409, "Описание не может быть больше 1000 символов!");
     }
-    if (strlen($description) < 20) {
+    if (iconv_strlen($description) < 20) {
         $db->response(409, "Описание не может быть меньше 20 символов!");
     }
     if (!$body["blocks"]) {
@@ -81,8 +81,8 @@
         $db->response(409, "Что-то пошло не так главное изображение не было загружено на сервер!");
     }
 
-    $body['uniqUrl'] = $uniqUrl;
-    $body['typeMainImg'] = $typeMainImg;
+    //$body['uniqUrl'] = $uniqUrl;
+    //$body['typeMainImg'] = $typeMainImg;
     $body['storage'] = 0; // место хранения данных поста
 
 //            добавить проверку на размер изображений в simple-image ??? а если изображение будет превышать столько то ... то урезаем качество до нужного размера
@@ -119,13 +119,15 @@
 
     $id_creator = $_SESSION['id'];
 
-    $res = $db->make("INSERT INTO `post` (`id_category`, `id_creator`, `heading`, `description`, `body`, `id_status`, `updated_at`) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?)",
+    $res = $db->make("INSERT INTO `post` (`id_category`, `id_creator`, `heading`, `description`, `main_folder`, `main_img_type`, `body`, `id_status`, `updated_at`) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
             $category,
             $id_creator,
             $heading,
             $description,
+            $uniqUrl,
+            $typeMainImg,
             json_encode($body),
             1, // status отправлен
             NULL

@@ -24,6 +24,7 @@
 
             <ul class="nav navbar-nav">
                 <li <?=$urls[0] === '' ? 'class="active"' : ''?>><a href="/">Все посты</a></li>
+                <li class="randomPost"><a href="#">Случайный пост</a></li>
                 <?php
                     if ($_SESSION['id']) {
                         echo '<li '.$lk.'><a href="/lk">Привет, '.$_SESSION['login'].'</a></li>';

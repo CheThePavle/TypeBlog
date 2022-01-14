@@ -17,9 +17,10 @@
     }
 
     if ($urls[0] === 'register' && sizeof($urls) == 1){
-        if ($_SESSION['id']) {header("Location: /");}
+        if ($_SESSION['id']) {header("Location: /");exit();}
         $setStyleAndScript = '
             <title>TypeBlog - Регистрация</title>
+            <link rel="stylesheet" href="../public/styles/pages/register.css">
             <script src="../public/js/pages/register.js"></script>
         ';
         include_once 'pages/register.php'; // Регистрация страница
@@ -27,9 +28,10 @@
     }
 
     if ($urls[0] === 'authorization' && sizeof($urls) == 1){
-        if ($_SESSION['id']) {header("Location: /");}
+        if ($_SESSION['id']) {header("Location: /");exit();}
         $setStyleAndScript = '
             <title>TypeBlog - Авторизация</title>
+            <link rel="stylesheet" href="../public/styles/pages/authorization.css">
             <script src="../public/js/pages/authorization.js"></script>
         ';
         include_once 'pages/authorization.php'; // Вход страница
@@ -37,7 +39,7 @@
     }
 
     if ($urls[0] === 'lk' && sizeof($urls) == 1){
-        if (!$_SESSION['id']) {header("Location: /");}
+        if (!$_SESSION['id']) {header("Location: /");exit();}
         $setStyleAndScript = '
             <title>TypeBlog - Личный кабинет</title>
             <link rel="stylesheet" href="../public/styles/pages/lk.css">
@@ -49,7 +51,7 @@
     }
 
     if ($urls[0] === 'post' && $urls[1] === 'create' && sizeof($urls) == 2){
-        if (!$_SESSION['id']) {header("Location: /");}
+        if (!$_SESSION['id']) {header("Location: /");exit();}
         $setStyleAndScript = '
             <title>TypeBlog - Создание поста</title>
             <script src="../libs/EditorJS/editorjs.js"></script>
@@ -79,7 +81,7 @@
     }
 
     if ($urls[0] === 'post' && $urls[1] === 'change' && sizeof($urls) == 2){
-        if (!$_SESSION['id']) {header("Location: /");}
+        if (!$_SESSION['id']) {header("Location: /");exit();}
         $setStyleAndScript = '
             <title>TypeBlog - Изменение поста</title>
         ';
@@ -87,9 +89,36 @@
         exit();
     }
 
+    if ($urls[0] === 'post' && $urls[1] === 'list' && sizeof($urls) == 2){
+        if (!$_SESSION['id']) {
+            header("Location: /");exit();
+        }
+        if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
+            $setStyleAndScript = '
+                <title>TypeBlog - Список постов</title>
+                <link rel="stylesheet" href="../public/styles/pages/post/list.css">
+                <script src="../public/js/pages/post/list.js"></script>
+            ';
+            include_once 'pages/post/list.php'; // Список постов страница для админов и модеров
+            exit();
+        } else {
+            header("Location: /");exit();
+        }
+    }
+
     if ($urls[0] === 'post' && sizeof($urls) == 2){
         $setStyleAndScript = '
             <title>TypeBlog - (вывести название поста)</title>
+            <!-- для Facebook и ВКонтакте (протокол Open Graph) -->
+            <meta property="og:title" content="Заголовок поста" />
+            <meta property="og:description" content="Описание поста" />
+            <meta property="og:image" content="Ссылка на изображение" />
+            <meta property="og:url" content="Адрес страницы" />
+            <meta property="og:site_name" content="Название сайта" />
+            <!-- для Twitter -->
+            <meta name="twitter:site" content="Название сайта" />
+            <meta name="twitter:title" content="Заголовок поста" />
+            <meta name="twitter:description" content="Описание поста" />
             <script src="../libs/EditorJS/editorjs.js"></script>
             <script src="../libs/EditorJS/blocks/simple-image.js"></script>
             <link rel="stylesheet" href="../libs/EditorJS/blocks/simple-image.css">

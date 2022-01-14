@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="panel">
-                <div class="panel-body">
+                <div class="panel-body" id="redirect_comments">
                     <div class="comments"></div>
                     <img class="loader loader_comment" src="../public/imgs/loader.gif" alt="loader">
                     <div class="msgEmptyComments"></div>

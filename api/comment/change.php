@@ -13,10 +13,10 @@
     if (!$idComment) {
         $db->response(409, "Не удалось изменить не существующий комментарий!");
     }
-    if (!$change_comment || strlen($change_comment) < 1) {
+    if (!$change_comment || iconv_strlen($change_comment) < 1) {
         $db->response(409, "Измененный комментарий не должен быть пустым!");
     }
-    if (strlen($change_comment) > 2000) { // fixme
+    if (iconv_strlen($change_comment) > 1000) {
         $db->response(409, "Измененный комментарий не может быть больше 1000 символов!");
     }
 

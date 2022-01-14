@@ -1,7 +1,15 @@
 $(function() { // normalizeSpace()
     if (window?.XMLHttpRequest) {
-        // Поиск по постам и пользователям (поставить задержку отправки запросов)
+        $(".randomPost").click(function () {
+            $.ajax({
+                url: "../../../api/post/random.php",
+                success: function(d) {
+                    window.location.href = '/post/' + d?.result?.data;
+                }
+            });
+        })
 
+        // Поиск по постам и пользователям (поставить задержку отправки запросов)
         let searchHTML = $('#searchPostAndUser');
         let resultHTML = $(".resultSearch");
         const getResSearch = () => {

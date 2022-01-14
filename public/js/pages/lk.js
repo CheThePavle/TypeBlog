@@ -6,19 +6,28 @@ $(function() {
         let nextHTML = $('#nextPosts');
         let showmoreHTML = $('#showmore-triger');
         let postsHTML = $('.posts');
+        let loadPost = true;
 
-        // фикс спама при прокрутке страницы
+
+        let href_avatar = $(".href_avatar");
+        href_avatar.click(function (e) {
+            alert();
+        });
+
         let window_scrolled;
         $(window).scroll(function() {
             window_scrolled = ($(document).height()/100)*90;
             if($(window).scrollTop() + $(window).height() >= window_scrolled) {
-                start += 2;
-                getPosts(start);
+                if (loadPost) {
+                    start += 5; //fixme
+                    loadPost = false;
+                    getPosts(start);
+                }
             }
         });
 
         nextHTML.click(function (e) {
-            start += 2;
+            start += 5; //fixme
             getPosts(start);
         });
 
@@ -33,7 +42,9 @@ $(function() {
                         nextHTML.remove();
                         showmoreHTML.remove();
                         msg.html('<div class="alert alert-danger">Постов больше нет</div>');
+                        loadPost = false;
                     } else {
+                        loadPost = true;
                         d?.map(function(el) {
                             let strTags = '';
                             el?.tags?.map(function(item) {
@@ -53,25 +64,26 @@ $(function() {
                                     ` : `
                                         <h2>${el?.heading}</h2>
                                     `}
-                                    <p>Автор: <a href="/profile/${el?.id_creator}">${el?.user_login[0]?.login}</a>, ${el?.created_at}</p>
-                                    <img class="img_post" src="../data/posts/${el?.body?.uniqUrl}/main_img.${el?.body?.typeMainImg}" alt="Картинка для ${el?.heading}">
+                                    <p>Автор: <a href="/profile/${el?.id_creator}">${el?.user_login}</a>, ${el?.created_at}</p>
+                                    <p>Статус: ${el?.name}</p>
+                                    <img class="img_post" src="../data/posts/${el?.main_folder}/main_img.${el?.main_img_type}" alt="Картинка для ${el?.heading}">
                                     <br><br>
                                     <p>${el?.description}</p>
                                     <p>Категория: <a href="/?category=${el?.id_category}">${el?.name_category}</a></p>
                                     ${strTags && `<p>Теги: ${strTags}</p>`}
                                     <div class="statistics_post">
                                         <div>
-                                            <img src="http://s1.iconbird.com/ico/2013/9/452/w512h4481380476860heart.png" alt="Репутация" width="20px">
-                                            +0
+                                            <i class="fas fa-heart"></i>
+                                            ${el?.likes > 0 ? '+' + el?.likes : el?.likes}
                                         </div>
                                         <div class="block_statistics_post">
-                                            <img src="http://s1.iconbird.com/ico/2014/1/607/w512h5121390848413visible512.png" alt="Просмотры" width="20px">
-                                            ${el?.views[0]?.number} ${+el?.views_day[0]?.number == '0' || !el?.views_day[0]?.number ? '' : '(+' + el?.views_day[0]?.number + ')'}
+                                            <i class="fas fa-eye"></i>
+                                            ${el?.views} ${+el?.views_day == '0' || !el?.views_day ? '' : '(+' + el?.views_day + ')'}
                                         </div>
                                         <div class="block_statistics_post">
-                                            <a class="statistics_post_comment" href="/">
-                                                <img src="http://s1.iconbird.com/ico/2013/8/429/w512h5121377939697185079bubblecommentstreamlinetalk.png" alt="Комментарии" width="20px">
-                                                0
+                                            <i class="fa fa-comments" aria-hidden="true"></i>
+                                            <a class="statistics_post_comment" href="/post/${el?.id_post}#redirect_comments">
+                                                ${el?.comments_count}
                                             </a>
                                         </div>
                                     </div>

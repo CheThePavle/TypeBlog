@@ -4,11 +4,17 @@
     border: 0;
 }
 
+@font-face {
+    font-family: "Roboto Regular";
+    src: url("fonts/Roboto_regular.ttf");
+}
+
 p{
     word-wrap: break-word
 }
 
 body{
+    font-family: "Roboto Regular";
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -129,13 +135,21 @@ body{
     max-width: 20%;
 }
 
+.notify{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
 /* footer */
+footer{
+    background-color: lightslategrey;
+}
+
 .footer_cont{
     max-width: 100%;
 }
 
 .footer_row{
-    background-color: lightslategrey;
-    border-radius: 4px;
     padding: 10px
 }

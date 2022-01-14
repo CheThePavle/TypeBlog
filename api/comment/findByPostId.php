@@ -27,7 +27,7 @@
         array_push($getLikes, $get);
 
         if ($_SESSION['id']) {
-            $get = $db->query("SELECT cl.mark FROM comment_like as cl WHERE cl.id_author = ? AND cl.id_comment = ?", [$_SESSION['id'], $el['id_comment']]);
+            $get = $db->query("SELECT mark FROM comment_like WHERE id_author = ? AND id_comment = ?", [$_SESSION['id'], $el['id_comment']]);
             if ($get[0]['mark'] == '0') {
                 array_push($getYourLike, false);
             } elseif ($get[0]['mark'] == '1') {

@@ -13,10 +13,10 @@
     if (!$idPost) {
         $db->response(409, "Комментарий не может быть добавлен на этот пост!");
     }
-    if (!$comment || strlen($comment) < 1) {
+    if (!$comment || iconv_strlen($comment) < 1) {
         $db->response(409, "Комментарий не должен быть пустым!");
     }
-    if (strlen($comment) > 2000) { // fixme
+    if (iconv_strlen($comment) > 1000) {
         $db->response(409, "Комментарий не может быть больше 1000 символов!");
     }
 

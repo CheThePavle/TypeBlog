@@ -2,7 +2,7 @@
 	require_once "components/header.php";
 ?>
 
-    <h1 class="text-center">Вход</h1>
+<h1 class="text-center">Вход</h1>
 
     <form id="formAuth">
         <div class="controls">
@@ -20,7 +20,10 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="password">Пароль <span class="required">*</span></label>
-                        <input maxlength="32" id="password" type="password" name="password" class="form-control" placeholder="Ваш пароль *" required="required">
+                        <div class="passwordBlock">
+                            <input maxlength="32" id="password" type="password" name="password" class="form-control" placeholder="Ваш пароль *" required="required">
+                            <i class="fas fa-eye-slash eyePassword"></i>
+                        </div>
                         <div class="errorPassword"></div>
                     </div>
                 </div>
