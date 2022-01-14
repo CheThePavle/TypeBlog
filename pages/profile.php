@@ -16,7 +16,8 @@
                 <div class="info_user">
                     <br><br>
                     <h2><?= $getUser[0]['login'] ?></h2>
-                    <p>Статус</p>
+                    <p>Статус: <?= $getUser[0]['name'] ?></p>
+                    <p><?= $getUser[0]['about'] ?></p>
                 </div>
             </div>
         </div>

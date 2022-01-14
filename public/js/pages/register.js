@@ -54,6 +54,27 @@ $(function() {
             })
         });
 
+        $(".eye1").click(function () {
+            let passwordHTML = $("#password");
+            let passwordType = $("#password[type='password']");
+            if (passwordType?.length) {
+                passwordHTML.attr('type','text');
+            } else {
+                passwordHTML.attr('type','password');
+            }
+            $(this).toggleClass('fa-eye-slash fa-eye');
+        })
+        $(".eye2").click(function () {
+            let passwordHTML = $("#password2");
+            let passwordType = $("#password2[type='password']");
+            if (passwordType?.length) {
+                passwordHTML.attr('type','text');
+            } else {
+                passwordHTML.attr('type','password');
+            }
+            $(this).toggleClass('fa-eye-slash fa-eye');
+        })
+
         let errorPasswordHTML = $(".errorPassword");
         $("#password").keyup(function () {
             let th = $(this);

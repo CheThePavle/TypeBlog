@@ -14,7 +14,7 @@
     }
 
     if ($id_author) {
-        $res = $db->query("SELECT * FROM comment_like as cl WHERE cl.id_comment = ? AND cl.id_author = ? ", [$getIdComment, $id_author]);
+        $res = $db->query("SELECT * FROM comment_like WHERE id_comment = ? AND id_author = ?", [$getIdComment, $id_author]);
 
         if ($res) {
             if ($res[0]['mark'] == '1') {

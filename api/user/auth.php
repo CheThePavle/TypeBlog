@@ -7,11 +7,12 @@
     $password = validate($_POST['password']);
 
     if ($login && $password) {
-        $res = $db->query("SELECT `id_user`, `login`, `password` FROM `user` WHERE `login` = ?", [$login]);
+        $res = $db->query("SELECT u.id_user, u.login, u.password, ur.code, ur.name FROM user as u JOIN user_role as ur ON ur.id_role = u.id_role WHERE u.login = ?", [$login]);
         if (password_verify($password, $res[0]['password'])) {
             $_SESSION['id'] = $res[0]['id_user'];
             $_SESSION['login'] = $res[0]['login'];
-            unset($_SESSION['verifyEmail']);
+            $_SESSION['name_role'] = $res[0]['name'];
+            $_SESSION['code_role'] = $res[0]['code'];
 
             $db->response(200, "Успешная авторизация!");
         } else {

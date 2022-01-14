@@ -17,10 +17,10 @@
     if (!$id_parent_comment) {
         $db->response(409, "Ответный комментарий не может быть добавлен к не существующему комментарию!");
     }
-    if (!$parent_comment || strlen($parent_comment) < 1) {
+    if (!$parent_comment || iconv_strlen($parent_comment) < 1) {
         $db->response(409, "Ответный комментарий не должен быть пустым!");
     }
-    if (strlen($parent_comment) > 2000) { // fixme
+    if (iconv_strlen($parent_comment) > 1000) {
         $db->response(409, "Ответный комментарий не может быть больше 1000 символов!");
     }
 

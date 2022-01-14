@@ -24,12 +24,6 @@ li {
 }
 
 /* для лайков и ответов */
-.notifyComments{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-}
-
 .activeLike, .positiveRating{
     color: green;
 }

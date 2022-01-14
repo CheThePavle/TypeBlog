@@ -10,6 +10,17 @@ $(function() {
             th.val(normalizeSpace(val));
         });
 
+        $(".eyePassword").click(function () {
+            let passwordHTML = $("#password");
+            let passwordType = $("#password[type='password']");
+            if (passwordType?.length) {
+                passwordHTML.attr('type','text');
+            } else {
+                passwordHTML.attr('type','password');
+            }
+            $(this).toggleClass('fa-eye-slash fa-eye');
+        })
+
         $("#password").keyup(function() {
             let th = $(this);
             let val = th.val();

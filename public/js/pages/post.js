@@ -5,6 +5,64 @@ $(function() { // normalizeSpace()
 
         let msgPost = $(".msg");
         let headingPost = $("#heading");
+        let likesPost = $(".likesPost");
+        let notify = $(".notify");
+
+        let postHTML = $(".body_post");
+        postHTML.on( "click", ".likePost", function() {
+            let likePost = $(`.likePost`);
+            let dislikePost = $(`.dislikePost`);
+
+            $.ajax({
+                url: '../api/post/like.php',
+                method: 'POST',
+                data: {
+                    id
+                },
+                success: function (d) {
+                    likePost.toggleClass('activeLike')
+                    dislikePost.removeClass('activeDislike')
+
+                    notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000)
+                },
+                error: function (d) {
+                    notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000)
+                }
+            })
+        });
+        postHTML.on( "click", ".dislikePost", function() {
+            let dislikePost = $(`.dislikePost`);
+            let likePost = $(`.likePost`);
+
+            $.ajax({
+                url: '../api/post/dislike.php',
+                method: 'POST',
+                data: {
+                    id
+                },
+                success: function (d) {
+                    dislikePost.toggleClass('activeDislike')
+                    likePost.removeClass('activeLike')
+
+                    notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000)
+                },
+                error: function (d) {
+                    notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000)
+                }
+            })
+        });
 
         $.ajax({
             url: '../api/post/findById.php',
@@ -14,12 +72,24 @@ $(function() { // normalizeSpace()
             success: function (d) {
                 d = d?.result?.data[0];
                 d.body = JSON.parse(d?.body);
+                // console.log(d);
                 headingPost.html(`<h1 id="heading">${d?.heading}</h1>`);
+                likesPost.html(`
+                    <h3>Понравился пост?</h3>
+                    <div class="btn-group">
+                        <span class="btn btn-sm btn-default btn-hover-success likePost ${d?.myLike == true ? 'activeLike' : ''}" >
+                            <i class="fa fa-thumbs-up"></i>
+                        </span>
+                        <span class="btn btn-sm btn-default btn-hover-danger dislikePost ${d?.myLike == false ? 'activeDislike' : ''}">
+                            <i class="fa fa-thumbs-down"></i>
+                        </span>
+                    </div>
+                `);
                 $(".prevPost").html(`
                    <div class="hero-unit prev_content">
-                       <img src="../data/posts/${d?.body?.uniqUrl}/main_img.${d?.body?.typeMainImg}" alt="Картинка для ${d?.heading}"">
-                       <br><br>
-                       <p>${d?.description}</p>
+                        <img src="../data/posts/${d?.main_folder}/main_img.${d?.main_img_type}" alt="Картинка для ${d?.heading}"">
+                        <br><br>
+                        <p>${d?.description}</p>
                    </div>
                 `);
 
@@ -163,15 +233,12 @@ $(function() { // normalizeSpace()
             })
         }
 
-
-        let notifyCommentsHTML = $(".notifyComments");
-
         commentsHTML.on( "click", ".like", function() {
             let getHTML = $(this).closest('.id_comment');
             let getId = getHTML.data('id');
 
-            let like = $(`.like[data-id="${getId}"]`);
-            let dislike = $(`.dislike[data-id="${getId}"]`);
+            let like = $(`.like`);
+            let dislike = $(`.dislike`);
 
             $.ajax({
                 url: '../api/comment/like.php',
@@ -183,16 +250,16 @@ $(function() { // normalizeSpace()
                     like.toggleClass('activeLike')
                     dislike.removeClass('activeDislike')
 
-                    notifyCommentsHTML.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                    notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
                     setTimeout(function () {
-                        notifyCommentsHTML.html(``);
+                        notify.html(``);
                     }, 3000)
                     getComments(1);
                 },
                 error: function (d) {
-                    notifyCommentsHTML.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
+                    notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
                     setTimeout(function () {
-                        notifyCommentsHTML.html(``);
+                        notify.html(``);
                     }, 3000)
                 }
             })
@@ -201,8 +268,8 @@ $(function() { // normalizeSpace()
             let getHTML = $(this).closest('.id_comment');
             let getId = getHTML.data('id');
 
-            let dislike = $(`.dislike[data-id="${getId}"]`);
-            let like = $(`.like[data-id="${getId}"]`);
+            let dislike = $(`.dislike`);
+            let like = $(`.like`);
 
             $.ajax({
                 url: '../api/comment/dislike.php',
@@ -214,16 +281,16 @@ $(function() { // normalizeSpace()
                     dislike.toggleClass('activeDislike')
                     like.removeClass('activeLike')
 
-                    notifyCommentsHTML.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                    notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
                     setTimeout(function () {
-                        notifyCommentsHTML.html(``);
+                        notify.html(``);
                     }, 3000)
                     getComments(1);
                 },
                 error: function (d) {
-                    notifyCommentsHTML.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
+                    notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
                     setTimeout(function () {
-                        notifyCommentsHTML.html(``);
+                        notify.html(``);
                     }, 3000)
                 }
             })
@@ -238,9 +305,9 @@ $(function() { // normalizeSpace()
         commentsHTML.on( "click", ".change", function() {
             let body_change = $('.body_change');
             if (body_change?.length === 0) {
-                notifyCommentsHTML.html(`<div class="alert alert-danger">Изменять свои комментарии могут только зарегистрированные пользователи</div>`);
+                notify.html(`<div class="alert alert-danger">Изменять свои комментарии могут только зарегистрированные пользователи</div>`);
                 return setTimeout(function () {
-                    notifyCommentsHTML.html(``);
+                    notify.html(``);
                 }, 3000);
             }
             body_change.html('');
@@ -332,9 +399,9 @@ $(function() { // normalizeSpace()
         commentsHTML.on( "click", ".reply", function() {
             let body_reply = $('.body_reply');
             if (body_reply?.length === 0) {
-                notifyCommentsHTML.html(`<div class="alert alert-danger">Отвечать на комментарии могут только зарегистрированные пользователи</div>`);
+                notify.html(`<div class="alert alert-danger">Отвечать на комментарии могут только зарегистрированные пользователи</div>`);
                 return setTimeout(function () {
-                    notifyCommentsHTML.html(``);
+                    notify.html(``);
                 }, 3000);
             }
             body_reply.html('');

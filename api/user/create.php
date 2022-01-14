@@ -13,31 +13,34 @@
     if (!$login) {
         $db->response(409, "Логин должен быть указан обязательно!");
     }
-    if (strlen($login) < 5) {
+    if (iconv_strlen($login) < 5) {
         $db->response(409, "Логин не может быть меньше 5 символов!");
     }
-    if (strlen($login) > 25) {
+    if (iconv_strlen($login) > 25) {
         $db->response(409, "Логин не может быть больше 25 символов!");
     }
     if (!$email) {
         $db->response(409, "Почта должна быть указана обязательно!");
     }
-    if (strlen($email) > 100) {
+    if (iconv_strlen($email) > 100) {
         $db->response(409, "Почта не может быть больше 100 символов!");
     }
     if (!$password) {
         $db->response(409, "Пароль должен быть указан обязательно!");
     }
-    if (strlen($password) < 6) {
+    if (iconv_strlen($password) < 6) {
         $db->response(409, "Пароль не может быть меньше 6 символов!");
     }
-    if (strlen($password) > 50) { //fixme
+    if (iconv_strlen($password) > 32) {
         $db->response(409, "Пароль не может быть больше 32 символов!");
     }
-    if ($password === $password2) {
+    if ($password == $password2) {
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     } else {
         $db->response(409, "Пароли не совпадают!");
+    }
+    if (iconv_strlen($about) > 1000) {
+        $db->response(409, "О себе не может быть больше 1000 символов!");
     }
     if (!$checkAccept) {
         $db->response(409, "Вы не согласились с пользовательским соглашением!");

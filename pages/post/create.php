@@ -7,6 +7,11 @@
     <ul class="nav nav-tabs">
         <li><a href="/lk">Профиль</a></li>
         <li class="active"><a href="/lk" data-toggle="tab">Создать пост</a></li>
+        <?php
+            if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
+                echo '<li><a href="/post/list">Список постов</a></li>';
+            }
+        ?>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">
