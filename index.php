@@ -5,6 +5,8 @@
     $url = rtrim($url, '/');
     $urls = explode('/', $url);
 
+    //print_r(session_save_path());
+
     if ($urls[0] === '' && sizeof($urls) == 1){
         $setStyleAndScript = '
             <title>TypeBlog - Главная</title>
@@ -100,6 +102,23 @@
                 <script src="../public/js/pages/post/list.js"></script>
             ';
             include_once 'pages/post/list.php'; // Список постов страница для админов и модеров
+            exit();
+        } else {
+            header("Location: /");exit();
+        }
+    }
+
+    if ($urls[0] === 'user' && $urls[1] === 'complaint' && sizeof($urls) == 2){
+        if (!$_SESSION['id']) {
+            header("Location: /");exit();
+        }
+        if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
+            $setStyleAndScript = '
+                    <title>TypeBlog - Жалобы на пользователей</title>
+                    <link rel="stylesheet" href="../public/styles/pages/user/complaint.css">
+                    <script src="../public/js/pages/user/complaint.js"></script>
+                ';
+            include_once 'pages/user/complaint.php'; // Жалоба на пользователей страница для админов и модеров
             exit();
         } else {
             header("Location: /");exit();

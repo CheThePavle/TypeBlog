@@ -20,6 +20,10 @@ body{
     flex-direction: column;
 }
 
+img{
+    object-fit: cover;
+}
+
 .container{
     flex-grow: 1;
 }

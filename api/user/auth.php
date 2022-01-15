@@ -7,8 +7,13 @@
     $password = validate($_POST['password']);
 
     if ($login && $password) {
-        $res = $db->query("SELECT u.id_user, u.login, u.password, ur.code, ur.name FROM user as u JOIN user_role as ur ON ur.id_role = u.id_role WHERE u.login = ?", [$login]);
+        $res = $db->query("SELECT u.id_user, u.login, u.password, ur.code, ur.name, u.blocked FROM user as u JOIN user_role as ur ON ur.id_role = u.id_role WHERE u.login = ?", [$login]);
         if (password_verify($password, $res[0]['password'])) {
+            if ($res[0]['blocked'] == '1') {
+                $db->response(409, "Ваш аккаунт был заблокирован :(");
+                exit();
+            }
+
             $_SESSION['id'] = $res[0]['id_user'];
             $_SESSION['login'] = $res[0]['login'];
             $_SESSION['name_role'] = $res[0]['name'];

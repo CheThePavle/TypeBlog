@@ -2,6 +2,7 @@ $(function() {
     if (window?.XMLHttpRequest) {
         let start = 0;
         let getUrlParams = window.location.search.replace( '?', '') + '&start=';
+        let getIdUser = window?.location?.pathname?.substr(9);
 
         let nextHTML = $('#nextPosts');
         let showmoreHTML = $('#showmore-triger');
@@ -25,11 +26,17 @@ $(function() {
             getPosts(start);
         });
 
+        // fixme изменить потом
+        document.querySelector('textarea').addEventListener('input', function (e) {
+            e.target.style.height = 'auto'
+            e.target.style.height = e.target.scrollHeight + 2 + "px"
+        })
+
         const getPosts = (start) => {
             let msg = $(".msg");
             return $.ajax({
                 url: '../api/post/searchPostProfile.php',
-                data: getUrlParams  + start + '&id_user=' + window?.location?.pathname?.substr(9),
+                data: getUrlParams  + start + '&id_user=' + getIdUser,
                 success: function (d) {
                     d = d?.result?.data;
                     if (d?.length === 0) {
@@ -98,6 +105,42 @@ $(function() {
             })
         }
         getPosts(start);
+
+        // Жалоба
+        let modal_complaint = $(".modal_complaint");
+        $(".complaint_profile_btn").click(function () {
+            modal_complaint.show();
+        })
+        $(".closed_complaint").click(function () {
+            modal_complaint.hide();
+        })
+
+        $('#formComplaint').submit(function (e) {
+            e.preventDefault();
+
+            let th = $(this);
+            let notify = $('.notify');
+
+            $.ajax({
+                url: '../api/user/complaint.php',
+                method: 'POST',
+                data: th.serialize() + '&idUserAccused=' + getIdUser,
+                success: function (d) {
+                    modal_complaint.hide();
+                    notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000);
+                },
+                error: function (d) {
+                    notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000);
+                }
+            })
+        });
+
     } else {
         alert('Ваша версия браузера устарела, поддержки не будет)');
     }

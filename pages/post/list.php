@@ -8,6 +8,7 @@
         <li><a href="/lk">Профиль</a></li>
         <li><a href="/post/create">Создать пост</a></li>
         <li class="active"><a href="/post/list" data-toggle="tab">Список постов</a></li>
+        <li><a href="/user/complaint">Жалобы на пользователей</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active table-responsive">

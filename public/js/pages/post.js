@@ -590,11 +590,13 @@ $(function() { // normalizeSpace()
                     let $list = $('<ul></ul>');
 
                     array.forEach(function(li_obj) {
-                        //console.log(li_obj);
                         let $li = $(`<li>
                                             <div class="media-block id_comment" data-id="${li_obj.value?.id_comment}">
                                                 <a class="media-left" target="_blank" href="/profile/${li_obj.value?.id_author}">
-                                                    <img class="img-circle img-sm" alt="Аватар ${li_obj.value?.login}" src="${li_obj.value?.avatar_url}">
+                                                    <img class="img-circle img-sm" alt="Аватар ${li_obj.value?.login}"
+                                                        src="${li_obj.value?.folder && li_obj.value?.img_type 
+                                                            ? `../data/users/${li_obj.value?.folder}/avatar.${li_obj.value?.img_type}` 
+                                                            : '../public/imgs/profile.png'}">
                                                 </a>
                                                 <div class="media-body">
                                                     <div class="mar-btm">
