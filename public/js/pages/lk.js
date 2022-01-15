@@ -7,11 +7,50 @@ $(function() {
         let showmoreHTML = $('#showmore-triger');
         let postsHTML = $('.posts');
         let loadPost = true;
+        let notify = $(".notify");
 
+        const readURL = (input) => {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    $('.ava_img').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
 
-        let href_avatar = $(".href_avatar");
-        href_avatar.click(function (e) {
-            alert();
+        let uploadimage = $("#uploadimage");
+        uploadimage.change(function () {
+            $('#btn_uploadimage').trigger('click');
+        });
+
+        // смена аватарки
+        $('#formAvatar').submit(function (e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            $.ajax({
+                url: '../api/user/setAvatar.php',
+                method: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (d) {
+                    readURL(uploadimage[0]);
+                    notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000)
+                },
+                error: function (d) {
+                    notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000)
+                }
+            })
         });
 
         let window_scrolled;

@@ -14,11 +14,11 @@
     }
 
     if ($id_author) {
-        $res = $db->query("SELECT * FROM post_like WHERE id_post = ? AND id_author = ?", [$getIdPost, $id_author]);
+        $res = $db->query("SELECT * FROM post_like WHERE id_post = ? AND id_author = ?;", [$getIdPost, $id_author]);
 
         if ($res) {
             if ($res[0]['mark'] == '1') {
-                $check = $db->make("UPDATE `post_like` SET `id_post` = ?, `id_author` = ?, `mark` = ? WHERE `post_like`.`id_like` = ?", [
+                $check = $db->make("UPDATE `post_like` SET `id_post` = ?, `id_author` = ?, `mark` = ? WHERE `post_like`.`id_like` = ?;", [
                     $getIdPost,
                     $id_author,
                     NULL,
@@ -30,7 +30,7 @@
                     $db->response(200, "Лайк отменен");
                 }
             } elseif ($res[0]['mark'] == '0') {
-                $check = $db->make("UPDATE `post_like` SET `id_post` = ?, `id_author` = ?, `mark` = b? WHERE `post_like`.`id_like` = ?", [
+                $check = $db->make("UPDATE `post_like` SET `id_post` = ?, `id_author` = ?, `mark` = b? WHERE `post_like`.`id_like` = ?;", [
                     $getIdPost,
                     $id_author,
                     1,
@@ -42,7 +42,7 @@
                     $db->response(200, "Дизлайк заменился лайком");
                 }
             } else {
-                $check = $db->make("UPDATE `post_like` SET `id_post` = ?, `id_author` = ?, `mark` = b? WHERE `post_like`.`id_like` = ?", [
+                $check = $db->make("UPDATE `post_like` SET `id_post` = ?, `id_author` = ?, `mark` = b? WHERE `post_like`.`id_like` = ?;", [
                     $getIdPost,
                     $id_author,
                     1,
@@ -55,7 +55,7 @@
                 }
             }
         } else {
-            $check = $db->make("INSERT INTO `post_like` (`id_post`, `id_author`, `mark`) VALUES (?, ?, b?)", [
+            $check = $db->make("INSERT INTO `post_like` (`id_post`, `id_author`, `mark`) VALUES (?, ?, b?);", [
                 $getIdPost,
                 $id_author,
                 1

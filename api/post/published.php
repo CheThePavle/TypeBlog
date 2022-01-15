@@ -6,7 +6,7 @@
     if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
         $idPost = validate($_POST['id']);
 
-        $res = $db->make("UPDATE `post` SET `id_status` = ? WHERE `post`.`id_post` = ?", [2, $idPost]);
+        $res = $db->make("UPDATE `post` SET `id_status` = ? WHERE `post`.`id_post` = ?;", [2, $idPost]);
         if ($res) {
             $db->response(200, "Пост успешно опубликован!");
         } else {

@@ -20,7 +20,7 @@
         $db->response(409, "Измененный комментарий не может быть больше 1000 символов!");
     }
 
-    $res = $db->make("UPDATE `comments` SET `id_author` = ?, `body_comment` = ? WHERE `comments`.`id_comment` = ?", [
+    $res = $db->make("UPDATE `comments` SET `id_author` = ?, `body_comment` = ? WHERE `comments`.`id_comment` = ?;", [
         $id_author,
         $change_comment,
         $idComment

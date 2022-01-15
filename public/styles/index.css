@@ -20,6 +20,10 @@ body{
     flex-direction: column;
 }
 
+img{
+    object-fit: cover;
+}
+
 .container{
     flex-grow: 1;
 }
@@ -139,6 +143,7 @@ body{
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 10;
 }
 
 /* footer */

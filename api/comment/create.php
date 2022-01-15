@@ -20,7 +20,7 @@
         $db->response(409, "Комментарий не может быть больше 1000 символов!");
     }
 
-    $res = $db->make("INSERT INTO `comments` (`id_post`, `id_author`, `body_comment`, `updated_at`) VALUES (?, ?, ?, ?)", [
+    $res = $db->make("INSERT INTO `comments` (`id_post`, `id_author`, `body_comment`, `updated_at`) VALUES (?, ?, ?, ?);", [
         $idPost,
         $id_author,
         $comment,

@@ -4,7 +4,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="../libs/bootstrap/js/bootstrap.min.js">
         <link rel="stylesheet" href="../libs/FontAwesome6/css/all.min.css">
         <link rel="stylesheet" href="../public/styles/index.css">
         <link rel="shortcut icon" href="../public/imgs/favicon.png" type="image/x-icon">
@@ -21,6 +23,8 @@
                 <div class="preloader__item"></div>
             </div>
         </div>
+
+        <div class="notify"></div>
 
         <?php require_once "headerMenu.php" ?>
 

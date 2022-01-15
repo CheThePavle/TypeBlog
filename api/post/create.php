@@ -38,7 +38,7 @@
     }
 
     if ($category) {
-        $resCategory = $db->query("SELECT * FROM `category` WHERE id_category = ?", [$category]);
+        $resCategory = $db->query("SELECT * FROM `category` WHERE id_category = ?;", [$category]);
         if (!$resCategory) {
             $db->response(409, "Такой категории не существует!");
         }
@@ -120,7 +120,7 @@
     $id_creator = $_SESSION['id'];
 
     $res = $db->make("INSERT INTO `post` (`id_category`, `id_creator`, `heading`, `description`, `main_folder`, `main_img_type`, `body`, `id_status`, `updated_at`) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
         [
             $category,
             $id_creator,
@@ -138,7 +138,7 @@
     }
 
 //  возможно есть лучше способ записи в бд
-    $getIdPost = $db->query("SELECT `id_post` FROM `post` WHERE id_post=(SELECT max(`id_post`) FROM `post` WHERE post.id_creator = ?)", [$id_creator]);
+    $getIdPost = $db->query("SELECT `id_post` FROM `post` WHERE id_post=(SELECT max(`id_post`) FROM `post` WHERE post.id_creator = ?);", [$id_creator]);
 
     if ($tags) {
         if (count($tags) > 10) {
@@ -147,12 +147,12 @@
             $tags = array_slice($tags, 0, $count + 1, true);
         }
         foreach ($tags as $el) {
-            $resTag = $db->query("SELECT `id_tag`, `name_tag` FROM `tag` WHERE `name_tag` = ?", [$el]);
+            $resTag = $db->query("SELECT `id_tag`, `name_tag` FROM `tag` WHERE `name_tag` = ?;", [$el]);
             if (!$resTag) {
-                $resTag = $db->make("INSERT INTO `tag` (`name_tag`) VALUES (?)", [$el]);
-                $resTag = $db->query("SELECT `id_tag` FROM `tag` WHERE id_tag=(SELECT max(`id_tag`) FROM `tag`)");
+                $resTag = $db->make("INSERT INTO `tag` (`name_tag`) VALUES (?);", [$el]);
+                $resTag = $db->query("SELECT `id_tag` FROM `tag` WHERE id_tag=(SELECT max(`id_tag`) FROM `tag`);");
             }
-            $db->make("INSERT INTO `post_tag` (`id_post`, `id_tag`) VALUES (?, ?)", [$getIdPost[0]['id_post'], $resTag[0]['id_tag']]);
+            $db->make("INSERT INTO `post_tag` (`id_post`, `id_tag`) VALUES (?, ?);", [$getIdPost[0]['id_post'], $resTag[0]['id_tag']]);
         }
     }
 
