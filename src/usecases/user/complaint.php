@@ -7,7 +7,7 @@
                                     JOIN user as u2 
                                     ON u2.id_user = uc.id_accused) 
                                     ON u1.id_user = uc.id_witness 
-                                    ORDER BY uc.id_complaint DESC");
+                                    ORDER BY uc.id_complaint DESC;");
 
     $treeComplaint = [];
     foreach($getComplaint as $k => $v) {

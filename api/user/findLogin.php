@@ -5,7 +5,7 @@
 
     $login = validate($_POST['login']);
 
-    $res = $db->query("SELECT `login` FROM `user` WHERE `login` = ?", [$login]);
+    $res = $db->query("SELECT `login` FROM `user` WHERE `login` = ?;", [$login]);
     if ($res) {
         $db->response(409, "Такой логин уже занят");
     }

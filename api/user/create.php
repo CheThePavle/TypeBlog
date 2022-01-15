@@ -85,7 +85,7 @@
     $code = validate($_POST['code']);
     if ($code) {
         if ($code == $_SESSION['verifyCode']) {
-            $res = $db->make("INSERT INTO `user` (`email`, `login`, `password`, `about`, `updated_at`) VALUES (?, ?, ?, ?, ?)",
+            $res = $db->make("INSERT INTO `user` (`email`, `login`, `password`, `about`, `updated_at`) VALUES (?, ?, ?, ?, ?);",
                 [
                     $email,
                     $login,

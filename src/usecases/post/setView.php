@@ -12,26 +12,26 @@
         $checkView = true;
 
         // учет просмотров только для публичных постов
-        $checkPublic = $db->query("SELECT id_post FROM post WHERE id_post = ? AND id_status = ?", [$getIdPost, 2]);
+        $checkPublic = $db->query("SELECT id_post FROM post WHERE id_post = ? AND id_status = ?;", [$getIdPost, 2]);
         if ($checkPublic) {
             if ($idLooked) {
                 // запрос нужен для учета просмотра - когда кто-то авторизован и постоянно меняет ip-просмотры или меняет аккаунта с одного ip не будут учитываться
                 $checkView = $db->query("SELECT `id_view`, `id_looked`, `id_post` FROM `view` WHERE id_view = 
-                                            (SELECT max(id_view) FROM `view` WHERE (id_looked = ? AND id_post = ?) OR (ip_address = INET_ATON(?) AND id_post = ?))",[
+                                            (SELECT max(id_view) FROM `view` WHERE (id_looked = ? AND id_post = ?) OR (ip_address = INET_ATON(?) AND id_post = ?));",[
                     $idLooked,
                     $getIdPost,
                     $ip,
                     $getIdPost
                 ]);
                 if (!$checkView[0]['id_looked']) {
-                    $db->make("UPDATE `view` SET `id_looked` = ? WHERE `view`.`id_view` = ?",[$idLooked, $checkView[0]['id_view']]);
+                    $db->make("UPDATE `view` SET `id_looked` = ? WHERE `view`.`id_view` = ?;",[$idLooked, $checkView[0]['id_view']]);
                 }
             } else {
-                $checkView = $db->query("SELECT `id_post`, `ip_address` FROM `view` WHERE ip_address = INET_ATON(?) AND id_post = ?",[$ip, $getIdPost]);
+                $checkView = $db->query("SELECT `id_post`, `ip_address` FROM `view` WHERE ip_address = INET_ATON(?) AND id_post = ?;",[$ip, $getIdPost]);
             }
 
             if (!$checkView) {
-                $res = $db->make("INSERT INTO `view` (`id_post`, `ip_address`, `id_looked`, `created_at`) VALUES (?, INET_ATON(?), ?, ?)", [
+                $res = $db->make("INSERT INTO `view` (`id_post`, `ip_address`, `id_looked`, `created_at`) VALUES (?, INET_ATON(?), ?, ?);", [
                     $getIdPost,
                     $ip,
                     $idLooked,
@@ -51,25 +51,25 @@
         $checkView = true;
 
         // учет просмотров только для публичных постов
-        $checkPublic = $db->query("SELECT id_post FROM post WHERE id_post = ? AND id_status = ?", [$getIdPost, 2]);
+        $checkPublic = $db->query("SELECT id_post FROM post WHERE id_post = ? AND id_status = ?;", [$getIdPost, 2]);
         if ($checkPublic) {
             if ($idLooked) {
                 $checkView = $db->query("SELECT `id_view`, `id_looked`, `id_post` FROM `view` WHERE id_view = 
-                                            (SELECT max(id_view) FROM `view` WHERE (id_looked = ? AND id_post = ?) OR (ip_address = INET6_ATON(?) AND id_post = ?))",[
+                                            (SELECT max(id_view) FROM `view` WHERE (id_looked = ? AND id_post = ?) OR (ip_address = INET6_ATON(?) AND id_post = ?));",[
                     $idLooked,
                     $getIdPost,
                     $ip,
                     $getIdPost
                 ]);
                 if (!$checkView[0]['id_looked']) {
-                    $db->make("UPDATE `view` SET `id_looked` = ? WHERE `view`.`id_view` = ?",[$idLooked, $checkView[0]['id_view']]);
+                    $db->make("UPDATE `view` SET `id_looked` = ? WHERE `view`.`id_view` = ?;",[$idLooked, $checkView[0]['id_view']]);
                 }
             } else {
-                $checkView = $db->query("SELECT `id_post`, `ip_address` FROM `view` WHERE ip_address = INET6_ATON(?) AND id_post = ?",[$ip, $getIdPost]);
+                $checkView = $db->query("SELECT `id_post`, `ip_address` FROM `view` WHERE ip_address = INET6_ATON(?) AND id_post = ?;",[$ip, $getIdPost]);
             }
 
             if (!$checkView) {
-                $res = $db->make("INSERT INTO `view` (`id_post`, `ip_address`, `id_looked`, `created_at`) VALUES (?, INET6_ATON(?), ?, ?)", [
+                $res = $db->make("INSERT INTO `view` (`id_post`, `ip_address`, `id_looked`, `created_at`) VALUES (?, INET6_ATON(?), ?, ?);", [
                     $getIdPost,
                     $ip,
                     $idLooked,

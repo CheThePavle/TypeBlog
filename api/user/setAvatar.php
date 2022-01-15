@@ -34,7 +34,7 @@
                 $db->response(409, "Расширение изображения должно быть png, jpg или gif!");
         }
 
-        $getFolder = $db->query("SELECT folder FROM user WHERE id_user = ?", [$_SESSION['id']]);
+        $getFolder = $db->query("SELECT folder FROM user WHERE id_user = ?;", [$_SESSION['id']]);
         $getFolder = $getFolder[0]['folder'];
         if ($getFolder) {
             $uniqUrl = $getFolder;
@@ -55,7 +55,7 @@
 
         $id = $_SESSION['id'];
 
-        $res = $db->make("UPDATE `user` SET `folder` = ?, `img_type` = ? WHERE `user`.`id_user` = ?", [$uniqUrl, $typeImg, $id]);
+        $res = $db->make("UPDATE `user` SET `folder` = ?, `img_type` = ? WHERE `user`.`id_user` = ?;", [$uniqUrl, $typeImg, $id]);
         if (!$res) {
             RDir($newDir);
             $db->response(409, "Что-то пошло не так, невозможно поменять аватарку!");

@@ -44,7 +44,6 @@
                 ?>
                 </tbody>
             </table>
-            <div class="notify"></div>
         </div>
     </div>
 </div>

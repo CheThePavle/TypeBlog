@@ -14,10 +14,10 @@
     }
 
     if ($id_author) {
-        $res = $db->query("SELECT * FROM comment_like WHERE id_comment = ? AND id_author = ?", [$getIdComment, $id_author]);
+        $res = $db->query("SELECT * FROM comment_like WHERE id_comment = ? AND id_author = ?;", [$getIdComment, $id_author]);
         if ($res) {
             if ($res[0]['mark'] == '0') {
-                $check = $db->make("UPDATE `comment_like` SET `id_comment` = ?, `id_author` = ?, `mark` = ? WHERE `comment_like`.`id_like` = ?", [
+                $check = $db->make("UPDATE `comment_like` SET `id_comment` = ?, `id_author` = ?, `mark` = ? WHERE `comment_like`.`id_like` = ?;", [
                     $getIdComment,
                     $id_author,
                     NULL,
@@ -29,7 +29,7 @@
                     $db->response(200, "Дизлайк отменен");
                 }
             } elseif ($res[0]['mark'] == '1') {
-                $check = $db->make("UPDATE `comment_like` SET `id_comment` = ?, `id_author` = ?, `mark` = b? WHERE `comment_like`.`id_like` = ?", [
+                $check = $db->make("UPDATE `comment_like` SET `id_comment` = ?, `id_author` = ?, `mark` = b? WHERE `comment_like`.`id_like` = ?;", [
                     $getIdComment,
                     $id_author,
                     0,
@@ -41,7 +41,7 @@
                     $db->response(200, "Лайк заменился дизлайком");
                 }
             } else {
-                $check = $db->make("UPDATE `comment_like` SET `id_comment` = ?, `id_author` = ?, `mark` = b? WHERE `comment_like`.`id_like` = ?", [
+                $check = $db->make("UPDATE `comment_like` SET `id_comment` = ?, `id_author` = ?, `mark` = b? WHERE `comment_like`.`id_like` = ?;", [
                     $getIdComment,
                     $id_author,
                     0,
@@ -54,7 +54,7 @@
                 }
             }
         } else {
-            $check = $db->make("INSERT INTO `comment_like` (`id_comment`, `id_author`, `mark`) VALUES (?, ?, b?)", [
+            $check = $db->make("INSERT INTO `comment_like` (`id_comment`, `id_author`, `mark`) VALUES (?, ?, b?);", [
                 $getIdComment,
                 $id_author,
                 0

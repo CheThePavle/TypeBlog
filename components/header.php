@@ -24,6 +24,8 @@
             </div>
         </div>
 
+        <div class="notify"></div>
+
         <?php require_once "headerMenu.php" ?>
 
         <div class="container">

@@ -4,7 +4,6 @@
 ?>
 
 <div class="tabbable">
-    <div class="notify"></div>
     <ul class="nav nav-tabs">
         <li><a href="/lk">Профиль</a></li>
         <li><a href="/post/create">Создать пост</a></li>
@@ -130,7 +129,6 @@
                 ?>
                 </tbody>
             </table>
-            <div class="notify"></div>
         </div>
     </div>
 </div>

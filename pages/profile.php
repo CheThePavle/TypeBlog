@@ -5,7 +5,6 @@
 
     <div class="tab-pane active" id="tab1">
         <div class="bg_shapka_lk">
-            <div class="notify"></div>
             <br><br>
             <div class="prfole_block">
                 <div class="ava_block">

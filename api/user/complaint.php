@@ -23,7 +23,7 @@
         $db->response(409, "Жаловаться на себя же нельзя :)");
     }
 
-    $check = $db->query("SELECT id_complaint FROM user_complaint WHERE id_accused = ? AND id_witness = ?", [
+    $check = $db->query("SELECT id_complaint FROM user_complaint WHERE id_accused = ? AND id_witness = ?;", [
         $idUserAccused,
         $idUserWitness
     ]);
@@ -32,7 +32,7 @@
         $db->response(409, "Жалобу можно отправлять один раз на одного пользователя");
     }
 
-    $res = $db->make("INSERT INTO `user_complaint` (`id_accused`, `id_witness`, `body_complaint`) VALUES (?, ?, ?)", [
+    $res = $db->make("INSERT INTO `user_complaint` (`id_accused`, `id_witness`, `body_complaint`) VALUES (?, ?, ?);", [
         $idUserAccused,
         $idUserWitness,
         $body_complaint

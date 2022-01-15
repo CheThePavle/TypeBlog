@@ -18,16 +18,17 @@
     $getLikes = [];
     $getYourLike = [];
     $getYourComment = [];
+    $getDeleteComment = [];
 
     // оптимизировать ?
     foreach ($res as $el) {
         $get = $db->query("SELECT COUNT(cl.mark) as 'like' FROM comment_like as cl WHERE cl.id_comment = ? AND cl.mark = ?
-                                UNION SELECT COUNT(cl.mark) FROM comment_like as cl WHERE cl.id_comment = ? AND cl.mark = ?", [$el['id_comment'], 1, $el['id_comment'], 0]);
+                                UNION SELECT COUNT(cl.mark) FROM comment_like as cl WHERE cl.id_comment = ? AND cl.mark = ?;", [$el['id_comment'], 1, $el['id_comment'], 0]);
         $get = $get[0]['like'] - $get[1]['like'];
         array_push($getLikes, $get);
 
         if ($_SESSION['id']) {
-            $get = $db->query("SELECT mark FROM comment_like WHERE id_author = ? AND id_comment = ?", [$_SESSION['id'], $el['id_comment']]);
+            $get = $db->query("SELECT mark FROM comment_like WHERE id_author = ? AND id_comment = ?;", [$_SESSION['id'], $el['id_comment']]);
             if ($get[0]['mark'] == '0') {
                 array_push($getYourLike, false);
             } elseif ($get[0]['mark'] == '1') {
@@ -36,11 +37,15 @@
                 array_push($getYourLike, NULL);
             }
 
-            $get = $db->query("SELECT id_comment FROM comments WHERE id_comment = ? AND id_author = ?", [$el['id_comment'], $_SESSION['id']]);
+            $get = $db->query("SELECT id_comment FROM comments WHERE id_comment = ? AND id_author = ?;", [$el['id_comment'], $_SESSION['id']]);
             if ($get) {
                 array_push($getYourComment, true);
             } else {
                 array_push($getYourComment, false);
+            }
+
+            if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
+                array_push($getDeleteComment, true);
             }
         }
 
@@ -50,6 +55,7 @@
         $res[$i]['like'] = $getLikes[$i];
         $res[$i]['myLike'] = $getYourLike[$i];
         $res[$i]['myComment'] = $getYourComment[$i];
+        $res[$i]['deleteComment'] = $getDeleteComment[$i];
     }
 
     $db->response(200, "", $res);

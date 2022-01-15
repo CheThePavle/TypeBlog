@@ -18,7 +18,6 @@
             <div class="tab-pane active">
                 <div class="bg_shapka_lk">
                     <br><br>
-                    <div class="notify"></div>
                     <div class="prfole_block">
                         <div class="ava_block">
                             <div class="block_ava_img">

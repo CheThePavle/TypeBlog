@@ -296,6 +296,32 @@ $(function() { // normalizeSpace()
             })
         });
 
+        //удалить комментарий
+        commentsHTML.on( "click", ".delete", function() {
+            let getHTML = $(this).closest('.id_comment');
+            let getId = getHTML.data('id');
+
+            $.ajax({
+                url: '../api/comment/delete.php',
+                method: 'POST',
+                data: {
+                    idComment: getId
+                },
+                success: function (d) {
+                    notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000)
+                    getComments(1);
+                },
+                error: function (d) {
+                    notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000)
+                }
+            })
+        });
 
         //изменение комментария
         const activeBtnChange = (disabled) => {
@@ -485,7 +511,6 @@ $(function() { // normalizeSpace()
         });
 
 
-
         // отправка комментария
         const activeBtn = (disabled) => {
             $('#btn_send_comment').prop('disabled', disabled);
@@ -590,7 +615,8 @@ $(function() { // normalizeSpace()
                     let $list = $('<ul></ul>');
 
                     array.forEach(function(li_obj) {
-                        let $li = $(`<li>
+                        let $li = $(`
+                                        <li>
                                             <div class="media-block id_comment" data-id="${li_obj.value?.id_comment}">
                                                 <a class="media-left" target="_blank" href="/profile/${li_obj.value?.id_author}">
                                                     <img class="img-circle img-sm" alt="Аватар ${li_obj.value?.login}"
@@ -607,8 +633,8 @@ $(function() { // normalizeSpace()
                                                             ${+li_obj.value?.like > 0 ? '+' +li_obj.value?.like : +li_obj.value?.like}
                                                         </span>
                                                         ${li_obj.value?.updated_at
-                            ? `<span class="text-muted text-sm"><i class="fa fa-lg"></i>Изменен (${li_obj.value?.updated_at})</span>`
-                            : ''}
+                                                            ? `<span class="text-muted text-sm"><i class="fa fa-lg"></i>Изменен (${li_obj.value?.updated_at})</span>`
+                                                            : ''}
                                                         <p class="text-muted text-sm"><i class="fa fa-lg"></i>${li_obj.value?.created_at}</p>
                                                     </div>
                                                     <p class="val_comment">${li_obj.value?.body_comment}</p>
@@ -622,8 +648,11 @@ $(function() { // normalizeSpace()
                                                             </span>
                                                         </div>
                                                         ${li_obj.value?.myComment
-                            ? `<span class="btn btn-sm btn-default btn-hover-primary change">Изменить</span>`
-                            : `<span class="btn btn-sm btn-default btn-hover-primary reply">Ответить</span>`}
+                                                            ? `<span class="btn btn-sm btn-default btn-hover-primary change">Изменить</span>`
+                                                            : `<span class="btn btn-sm btn-default btn-hover-primary reply">Ответить</span>`}
+                                                        ${li_obj.value?.deleteComment || li_obj.value?.myComment
+                                                            ? `<span class='btn btn-sm btn-default btn-hover-primary delete'>Удалить</span>`
+                                                            : ``}
                                                     </div>
                                                     <br>
                                                     ${li_obj.value?.myComment === true

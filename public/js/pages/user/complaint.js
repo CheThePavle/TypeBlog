@@ -54,7 +54,6 @@ $(function() {
                     }, 3000)
                 },
                 error: function (d) {
-                    console.log(d)
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
                     setTimeout(function () {
                         notify.html(``);
