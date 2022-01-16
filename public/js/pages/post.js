@@ -14,7 +14,7 @@ $(function() { // normalizeSpace()
             let dislikePost = $(`.dislikePost`);
 
             $.ajax({
-                url: '../api/post/like.php',
+                url: '/api/post/like.php',
                 method: 'POST',
                 data: {
                     id
@@ -41,7 +41,7 @@ $(function() { // normalizeSpace()
             let likePost = $(`.likePost`);
 
             $.ajax({
-                url: '../api/post/dislike.php',
+                url: '/api/post/dislike.php',
                 method: 'POST',
                 data: {
                     id
@@ -65,7 +65,7 @@ $(function() { // normalizeSpace()
         });
 
         $.ajax({
-            url: '../api/post/findById.php',
+            url: '/api/post/findById.php',
             data: {
                 id
             },
@@ -206,7 +206,7 @@ $(function() { // normalizeSpace()
             }
 
             $.ajax({
-                url: '../api/comment/findByPostId.php',
+                url: '/api/comment/findByPostId.php',
                 method: 'POST',
                 data: {
                     id
@@ -241,7 +241,7 @@ $(function() { // normalizeSpace()
             let dislike = $(`.dislike`);
 
             $.ajax({
-                url: '../api/comment/like.php',
+                url: '/api/comment/like.php',
                 method: 'POST',
                 data: {
                     idComment: getId
@@ -272,7 +272,7 @@ $(function() { // normalizeSpace()
             let like = $(`.like`);
 
             $.ajax({
-                url: '../api/comment/dislike.php',
+                url: '/api/comment/dislike.php',
                 method: 'POST',
                 data: {
                     idComment: getId
@@ -302,7 +302,7 @@ $(function() { // normalizeSpace()
             let getId = getHTML.data('id');
 
             $.ajax({
-                url: '../api/comment/delete.php',
+                url: '/api/comment/delete.php',
                 method: 'POST',
                 data: {
                     idComment: getId
@@ -391,7 +391,7 @@ $(function() { // normalizeSpace()
             let getChangeId = getHTML.data('id');
 
             $.ajax({
-                url: '../api/comment/change.php',
+                url: '/api/comment/change.php',
                 method: 'POST',
                 data: th.serialize() + '&idComment=' + getChangeId,
                 success: function (d) {
@@ -485,7 +485,7 @@ $(function() { // normalizeSpace()
             let getReplyId = getHTML.data('id');
 
             $.ajax({
-                url: '../api/comment/createReply.php',
+                url: '/api/comment/createReply.php',
                 method: 'POST',
                 data: th.serialize() + '&idPost=' + id + '&idParentComment=' + getReplyId,
                 success: function (d) {
@@ -549,7 +549,7 @@ $(function() { // normalizeSpace()
             let msgComment = $('.msgComment');
 
             $.ajax({
-                url: '../api/comment/create.php',
+                url: '/api/comment/create.php',
                 method: 'POST',
                 data: th.serialize() + '&idPost=' + id,
                 success: function (d) {

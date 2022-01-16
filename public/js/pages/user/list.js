@@ -8,7 +8,7 @@ $(function() {
             let id = getHTML.data('id');
 
             $.ajax({
-                url: '../api/user/unblocked.php',
+                url: '/api/user/unblocked.php',
                 method: 'POST',
                 data: {
                     id
@@ -35,7 +35,7 @@ $(function() {
             let id = getHTML.data('id');
 
             $.ajax({
-                url: '../api/user/blocked.php',
+                url: '/api/user/blocked.php',
                 method: 'POST',
                 data: {
                     id

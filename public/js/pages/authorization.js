@@ -35,7 +35,7 @@ $(function() {
             let msg = $('.msg');
 
             $.ajax({
-                url: '../api/user/auth.php',
+                url: '/api/user/auth.php',
                 method: 'POST',
                 data: th.serialize(),
                 success: function (d) {

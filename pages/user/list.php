@@ -10,6 +10,8 @@
         <li><a href="/post/list/all">Список постов</a></li>
         <li><a href="/user/complaint">Жалобы на пользователей</a></li>
         <li class="active"><a href="/user/list" data-toggle="tab">Список пользователей</a></li>
+        <li><a href="/category/list">Категории</a></li>
+        <li><a href="/tag/list">Теги</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active table-responsive">

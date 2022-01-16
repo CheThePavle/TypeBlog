@@ -2,7 +2,7 @@ $(function() { // normalizeSpace()
     if (window?.XMLHttpRequest) {
         $(".randomPost").click(function () {
             $.ajax({
-                url: "../../../api/post/random.php",
+                url: "/api/post/random.php",
                 success: function(d) {
                     window.location.href = '/post/' + d?.result?.data;
                 }
@@ -22,7 +22,7 @@ $(function() { // normalizeSpace()
             else {
                 $.ajax({
                     method: "POST",
-                    url: "../../../api/postUser/search.php",
+                    url: "/api/postUser/search.php",
                     data: {
                         searchPostAndUser: searchVal
                     },

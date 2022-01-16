@@ -8,7 +8,7 @@ $(function() {
             let id = getHTML.data('id');
 
             $.ajax({
-                url: '../../api/post/published.php',
+                url: '/api/post/published.php',
                 method: 'POST',
                 data: {
                     id
@@ -35,7 +35,7 @@ $(function() {
             let id = getHTML.data('id');
 
             $.ajax({
-                url: '../../api/post/rejected.php',
+                url: '/api/post/rejected.php',
                 method: 'POST',
                 data: {
                     id
@@ -62,7 +62,7 @@ $(function() {
             let id = getHTML.data('id');
 
             $.ajax({
-                url: '../../api/post/delete.php',
+                url: '/api/post/delete.php',
                 method: 'POST',
                 data: {
                     id

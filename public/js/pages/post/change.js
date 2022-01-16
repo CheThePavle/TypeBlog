@@ -1,5 +1,7 @@
 $(function() {
     if (window?.XMLHttpRequest) {
+        const id = window?.location?.pathname?.substr(13);
+
         const activeBtn = (disabled) => {
             $('.btn-send').prop('disabled', disabled);
         }
@@ -60,6 +62,26 @@ $(function() {
             // "forbidden-words-callback": ''
         };
         $("#tagBox").tagging(myOptionsTagging);
+
+        $.ajax({
+            url: '/api/tag/findByPostId.php',
+            method: 'POST',
+            data: {
+                id
+            },
+            success: function (d) {
+                let arr = d?.result?.data;
+                let newArr = [];
+                arr.map(function(el) {
+                    newArr.push(el?.name_tag);
+                });
+                $("#tagBox").tagging("add", newArr);
+            },
+            error: function (d) {
+                alert(JSON.stringify(d));
+            }
+        })
+
         $(".type-zone").keyup(function () {
             let getLengthTags = $('#tagBox .tag').length;
             if (getLengthTags > 10) {
@@ -97,113 +119,129 @@ $(function() {
 
         });
 
-        const editor = new EditorJS({
-            autofocus: true,
-            tools: {
-                image: {
-                    class: SimpleImage,
-                    inlineToolbar: true,
-                    config: {
-                        placeholder: 'Paste image URL'
-                    }
-                },
-                checklist: { // ошибки валяться в консоль?
-                    class: Checklist,
-                    inlineToolbar: true,
-                },
-                textVariant: TextVariantTune,
-                paragraph: {
-                    class: Paragraph,
-                    inlineToolbar: true,
-                    tunes: ['textVariant']
-                },
-                underline: {
-                    class: Underline,
-                    shortcut: 'SHIFT+B'
-                },
-                list: {
-                    class: NestedList,
-                    inlineToolbar: true,
-                },
-                inlineCode: {
-                    class: InlineCode,
-                    shortcut: 'SHIFT+C',
-                },
-                quote: {
-                    class: Quote,
-                    inlineToolbar: true,
-                    shortcut: 'SHIFT+O',
-                    config: {
-                        quotePlaceholder: 'Enter a quote',
-                        captionPlaceholder: 'Quote\'s author',
+        $.ajax({
+            url: '/api/post/findBodyById.php',
+            method: 'POST',
+            data: {
+                id
+            },
+            success: function (d) {
+                let body = d?.result?.data;
+                body = JSON.parse(body);
+                const editor = new EditorJS({
+                    autofocus: true,
+                    tools: {
+                        image: {
+                            class: SimpleImage,
+                            inlineToolbar: true,
+                            config: {
+                                placeholder: 'Paste image URL'
+                            }
+                        },
+                        checklist: { // ошибки валяться в консоль?
+                            class: Checklist,
+                            inlineToolbar: true,
+                        },
+                        textVariant: TextVariantTune,
+                        paragraph: {
+                            class: Paragraph,
+                            inlineToolbar: true,
+                            tunes: ['textVariant']
+                        },
+                        underline: {
+                            class: Underline,
+                            shortcut: 'SHIFT+B'
+                        },
+                        list: {
+                            class: NestedList,
+                            inlineToolbar: true,
+                        },
+                        inlineCode: {
+                            class: InlineCode,
+                            shortcut: 'SHIFT+C',
+                        },
+                        quote: {
+                            class: Quote,
+                            inlineToolbar: true,
+                            shortcut: 'SHIFT+O',
+                            config: {
+                                quotePlaceholder: 'Enter a quote',
+                                captionPlaceholder: 'Quote\'s author',
+                            },
+                        },
+                        table: {
+                            class: Table,
+                            inlineToolbar: true,
+                            config: {
+                                rows: 2,
+                                cols: 3,
+                            },
+                        },
+                        delimiter: Delimiter,
+                        Marker: {
+                            class: Marker,
+                            shortcut: 'SHIFT+M',
+                        },
+                        warning: {
+                            class: Warning,
+                            inlineToolbar: true,
+                            shortcut: 'SHIFT+W',
+                            config: {
+                                titlePlaceholder: 'Title',
+                                messagePlaceholder: 'Message',
+                            },
+                        },
+                        header: {
+                            class: Header,
+                            shortcut: 'SHIFT+H', //при нажатии клавиш будет создан заголовок
+                            // levels: [2, 3, 4],
+                            // defaultLevel: 3
+                        }
                     },
-                },
-                table: {
-                    class: Table,
-                    inlineToolbar: true,
-                    config: {
-                        rows: 2,
-                        cols: 3,
-                    },
-                },
-                delimiter: Delimiter,
-                Marker: {
-                    class: Marker,
-                    shortcut: 'SHIFT+M',
-                },
-                warning: {
-                    class: Warning,
-                    inlineToolbar: true,
-                    shortcut: 'SHIFT+W',
-                    config: {
-                        titlePlaceholder: 'Title',
-                        messagePlaceholder: 'Message',
-                    },
-                },
-                header: {
-                    class: Header,
-                    shortcut: 'SHIFT+H', //при нажатии клавиш будет создан заголовок
-                    // levels: [2, 3, 4],
-                    // defaultLevel: 3
-                }
+                    data: body
+                });
+
+                $('#formChangePost').submit(function (e) {
+                    e.preventDefault();
+
+                    let formData = new FormData(this);
+                    let msg = $('.msg');
+
+                    editor.save().then(savedData => {
+                        // возможно тут ограничение передачи body в php 27 000 байт
+                        formData.append('body', JSON.stringify(savedData));
+                        formData.append('idPost', id);
+                        formData.set('tags', $("#tagBox").tagging( "getTags" ));
+
+                        $.ajax({
+                            url: '/api/post/change.php',
+                            method: 'POST',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: formData,
+                            success: function (d) {
+                                activeBtn(true);
+                                msg.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                                setTimeout(function(){
+                                    window.location.href = '/';
+                                }, 2000);
+                            },
+                            error: function (d) {
+                                activeBtn(true);
+                                msg.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg || 'Что-то пошло не так!'}</div>`);
+                                setTimeout(function(){
+                                    activeBtn(false);
+                                }, 1000);
+                            }
+                        })
+                    })
+                });
+            },
+            error: function (d) {
+                alert(JSON.stringify(d));
             }
-        });
-
-        $('#forCreatePost').submit(function (e) {
-            e.preventDefault();
-
-            let formData = new FormData(this);
-            let msg = $('.msg');
-
-            editor.save().then(savedData => {
-                // возможно тут ограничение передачи body в php 27 000 байт
-                formData.append('body', JSON.stringify(savedData));
-                formData.set('tags', $("#tagBox").tagging( "getTags" ));
-
-                $.ajax({
-                    url: '../../api/post/create.php',
-                    method: 'POST',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: formData,
-                    success: function (d) {
-                        activeBtn(true);
-                        msg.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                        setTimeout(function(){
-                            window.location.href = '/';
-                        }, 2000);
-                    },
-                    error: function (d) {
-                        activeBtn(true);
-                        msg.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg || 'Что-то пошло не так!'}</div>`);
-                        setTimeout(function(){
-                            activeBtn(false);
-                        }, 1000);
-                    }
-                })
-            })
-        });
+        })
     } else {
         alert('Ваша версия браузера устарела, поддержки не будет)');
     }

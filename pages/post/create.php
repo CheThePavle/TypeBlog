@@ -12,13 +12,15 @@
                 echo '<li><a href="/post/list/all">Список постов</a></li>';
             }
             if ($_SESSION['code_role'] === 'moderator') {
-                echo '<li><a href="/post/list">Список отправленных постов</a></li>';
+                echo '<li><a href="/post/list">Отправленные посты</a></li>';
             }
             if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
                 echo '<li><a href="/user/complaint">Жалобы на пользователей</a></li>';
             }
             if ($_SESSION['code_role'] === 'admin') {
                 echo '<li><a href="/user/list">Список пользователей</a></li>';
+                echo '<li><a href="/category/list">Категории</a></li>';
+                echo '<li><a href="/tag/list">Теги</a></li>';
             }
         ?>
     </ul>

@@ -7,11 +7,13 @@
     <ul class="nav nav-tabs">
         <li><a href="/lk">Профиль</a></li>
         <li><a href="/post/create">Создать пост</a></li>
-        <li class="active"><a href="/post/list" data-toggle="tab">Список отправленных постов</a></li>
+        <li class="active"><a href="/post/list" data-toggle="tab">Отправленные посты</a></li>
         <li><a href="/user/complaint">Жалобы на пользователей</a></li>
         <?php
             if ($_SESSION['code_role'] === 'admin') {
                 echo '<li><a href="/user/list">Список пользователей</a></li>';
+                echo '<li><a href="/category/list">Категории</a></li>';
+                echo '<li><a href="/tag/list">Теги</a></li>';
             }
         ?>
     </ul>
@@ -43,7 +45,8 @@
                         echo "<td><a href='/profile/$creatorIdPost' target='_blank'>$creatorPost</a></td>";
                         echo "<td>$dataCreated</td>";
                         echo "<td><button type='button' class='btn btn-success published'>Опубликовать</button></td>";
-                        echo "<td><button type='button' class='btn btn-danger rejected'>Отклонить</button></td>";
+                        echo "<td><a href='/post/change/$idPost' target='_blank'><button type='button' class='btn btn-primary changed'>Изменить</button></a></td>";
+                        echo "<td><button type='button' class='btn btn-warning rejected'>Отклонить</button></td>";
                         echo "</tr>";
                     }
                 ?>

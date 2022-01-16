@@ -12,13 +12,15 @@
                 echo '<li><a href="/post/list/all">Список постов</a></li>';
             }
             if ($_SESSION['code_role'] === 'moderator') {
-                echo '<li><a href="/post/list">Список отправленных постов</a></li>';
+                echo '<li><a href="/post/list">Отправленные посты</a></li>';
             }
         ?>
         <li class="active"><a href="/user/complaint" data-toggle="tab">Жалобы на пользователей</a></li>
         <?php
             if ($_SESSION['code_role'] === 'admin') {
                 echo '<li><a href="/user/list">Список пользователей</a></li>';
+                echo '<li><a href="/category/list">Категории</a></li>';
+                echo '<li><a href="/tag/list">Теги</a></li>';
             }
         ?>
     </ul>
@@ -51,8 +53,8 @@
                         echo "<td><a href='/profile/$idAccused' target='_blank'>$loginAccused</td>";
                         echo "<td></td>";
                         echo "<td></td>";
-                        echo "<td><button type='button' class='btn btn-success blocked'>Заблокировать</button></td>";
-                        echo "<td><button type='button' class='btn btn-danger rejected'>Отклонить</button></td>";
+                        echo "<td><button type='button' class='btn btn-danger blocked'>Заблокировать</button></td>";
+                        echo "<td><button type='button' class='btn btn-success rejected'>Отклонить</button></td>";
                         echo "</tr>";
 
                         foreach ($el as $item) {

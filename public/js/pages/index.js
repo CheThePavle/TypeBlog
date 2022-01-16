@@ -28,7 +28,7 @@ $(function() {
         const getPosts = (start) => {
             let msg = $(".msg");
             return $.ajax({
-                url: '../api/post/search.php',
+                url: '/api/post/search.php',
                 data: getUrlParams  + start,
                 success: function (d) {
                     d = d?.result?.data;

@@ -10,6 +10,8 @@
         <li class="active"><a href="/post/list/all" data-toggle="tab">Список постов</a></li>
         <li><a href="/user/complaint">Жалобы на пользователей</a></li>
         <li><a href="/user/list">Список пользователей</a></li>
+        <li><a href="/category/list">Категории</a></li>
+        <li><a href="/tag/list">Теги</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active table-responsive">
@@ -43,8 +45,9 @@
                         echo "<td>$statusPost</td>";
                         echo "<td>$dataCreated</td>";
                         echo $statusCodePost == 'published'
-                            ? "<td class='rejectedTd'><button type='button' class='btn btn-primary rejected'>Отклонить</button></td>"
+                            ? "<td class='rejectedTd'><button type='button' class='btn btn-warning rejected'>Отклонить</button></td>"
                             : "<td class='publishedTd'><button type='button' class='btn btn-success published'>Опубликовать</button></td>";
+                        echo "<td><a href='/post/change/$idPost' target='_blank'><button type='button' class='btn btn-primary changed'>Изменить</button></a></td>";
                         echo "<td><button type='button' class='btn btn-danger deleted'>Удалить</button></td>";
                         echo "</tr>";
                     }

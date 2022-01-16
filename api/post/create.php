@@ -106,7 +106,8 @@
             if ($getUrlBase64[0] === 'data:image/'.$getTypeEndImgBase64[0].';base64') {
                 if (isBase64($getUrlBase64[1])) {
                     file_put_contents('../../data/posts/'.$uniqUrl.'/'.$el["id"].'.'.$getTypeEndImgBase64[0], file_get_contents($el["data"]["url"]));
-                    $el['data']['url'] = $uniqUrl.'/'.$el["id"].'.'.$getTypeEndImgBase64[0];
+                    // расположение временное, изменить потом при выводе поста
+                    $el['data']['url'] = "/data/posts/" . $uniqUrl.'/'.$el["id"].'.'.$getTypeEndImgBase64[0];
                 } else {
                     $db->response(409, "Изображение не является base64!");
                 }

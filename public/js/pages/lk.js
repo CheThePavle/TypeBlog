@@ -31,7 +31,7 @@ $(function() {
             let formData = new FormData(this);
 
             $.ajax({
-                url: '../api/user/setAvatar.php',
+                url: '/api/user/setAvatar.php',
                 method: 'POST',
                 cache: false,
                 contentType: false,
@@ -73,7 +73,7 @@ $(function() {
         const getPosts = (start) => {
             let msg = $(".msg");
             return $.ajax({
-                url: '../api/post/searchPostLk.php',
+                url: '/api/post/searchPostLk.php',
                 data: getUrlParams  + start + '&lk=true',
                 success: function (d) {
                     d = d?.result?.data;
