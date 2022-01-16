@@ -7,7 +7,14 @@
     <ul class="nav nav-tabs">
         <li><a href="/lk">Профиль</a></li>
         <li><a href="/post/create">Создать пост</a></li>
-        <li><a href="/post/list">Список постов</a></li>
+        <?php
+            if ($_SESSION['code_role'] === 'admin') {
+                echo '<li><a href="/post/list/all">Список постов</a></li>';
+            }
+            if ($_SESSION['code_role'] === 'moderator') {
+                echo '<li><a href="/post/list">Список отправленных постов</a></li>';
+            }
+        ?>
         <li class="active"><a href="/user/complaint" data-toggle="tab">Жалобы на пользователей</a></li>
         <?php
             if ($_SESSION['code_role'] === 'admin') {

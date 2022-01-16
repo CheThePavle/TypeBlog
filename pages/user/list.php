@@ -7,7 +7,7 @@
     <ul class="nav nav-tabs">
         <li><a href="/lk">Профиль</a></li>
         <li><a href="/post/create">Создать пост</a></li>
-        <li><a href="/post/list">Список постов</a></li>
+        <li><a href="/post/list/all">Список постов</a></li>
         <li><a href="/user/complaint">Жалобы на пользователей</a></li>
         <li class="active"><a href="/user/list" data-toggle="tab">Список пользователей</a></li>
     </ul>

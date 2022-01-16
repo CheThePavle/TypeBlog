@@ -82,13 +82,21 @@
         exit();
     }
 
-    if ($urls[0] === 'post' && $urls[1] === 'change' && sizeof($urls) == 2){
-        if (!$_SESSION['id']) {header("Location: /");exit();}
-        $setStyleAndScript = '
-            <title>TypeBlog - Изменение поста</title>
-        ';
-        include_once 'pages/post/change.php'; // Изменение поста страница
-        exit();
+    if ($urls[0] === 'post' && $urls[1] === 'change' && sizeof($urls) == 3){
+        if (!$_SESSION['id']) {
+            header("Location: /");exit();
+        }
+        if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
+            $setStyleAndScript = '
+                <title>TypeBlog - Изменение поста</title>
+                <link rel="stylesheet" href="../public/styles/pages/post/change.css">
+                <script src="../public/js/pages/post/change.js"></script>
+            ';
+            include_once 'pages/post/change.php'; // Изменение поста страница для модеров и админов
+            exit();
+        } else {
+            header("Location: /");exit();
+        }
     }
 
     if ($urls[0] === 'post' && $urls[1] === 'list' && sizeof($urls) == 2){
@@ -97,11 +105,28 @@
         }
         if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
             $setStyleAndScript = '
-                <title>TypeBlog - Список постов</title>
+                <title>TypeBlog - Список отправленных постов</title>
                 <link rel="stylesheet" href="../public/styles/pages/post/list.css">
                 <script src="../public/js/pages/post/list.js"></script>
             ';
-            include_once 'pages/post/list.php'; // Список постов страница для админов и модеров
+            include_once 'pages/post/list.php'; // Список отправленных постов страница для модеров и админов
+            exit();
+        } else {
+            header("Location: /");exit();
+        }
+    }
+
+    if ($urls[0] === 'post' && $urls[1] === 'list' && $urls[2] === 'all' && sizeof($urls) == 3){
+        if (!$_SESSION['id']) {
+            header("Location: /");exit();
+        }
+        if ($_SESSION['code_role'] === 'admin') {
+            $setStyleAndScript = '
+                    <title>TypeBlog - Список постов</title>
+                    <link rel="stylesheet" href="../../public/styles/pages/post/list/all.css">
+                    <script src="../../public/js/pages/post/list/all.js"></script>
+                ';
+            include_once 'pages/post/list/all.php'; // Список постов страница для админов
             exit();
         } else {
             header("Location: /");exit();

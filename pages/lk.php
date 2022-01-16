@@ -8,8 +8,13 @@
             <li class="active"><a href="/lk" data-toggle="tab">Профиль</a></li>
             <li><a href="/post/create">Создать пост</a></li>
             <?php
+                if ($_SESSION['code_role'] === 'admin') {
+                    echo '<li><a href="/post/list/all">Список постов</a></li>';
+                }
+                if ($_SESSION['code_role'] === 'moderator') {
+                    echo '<li><a href="/post/list">Список отправленных постов</a></li>';
+                }
                 if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
-                    echo '<li><a href="/post/list">Список постов</a></li>';
                     echo '<li><a href="/user/complaint">Жалобы на пользователей</a></li>';
                 }
                 if ($_SESSION['code_role'] === 'admin') {
