@@ -9,6 +9,11 @@
         <li><a href="/post/create">Создать пост</a></li>
         <li><a href="/post/list">Список постов</a></li>
         <li class="active"><a href="/user/complaint" data-toggle="tab">Жалобы на пользователей</a></li>
+        <?php
+            if ($_SESSION['code_role'] === 'admin') {
+                echo '<li><a href="/user/list">Список пользователей</a></li>';
+            }
+        ?>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active table-responsive">

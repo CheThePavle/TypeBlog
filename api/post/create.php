@@ -5,6 +5,7 @@
     require_once "../../src/RDir.php";
     require_once "../../src/isBase64.php";
 
+    $id_creator = $_SESSION['id'];
     $heading = validate($_POST['heading']);
     $description = validate($_POST['description']);
     $category = validate($_POST['category']);
@@ -12,6 +13,9 @@
     $img_main = $_FILES['image'];
     $tags = explode(",", $_POST['tags']);
 
+    if (!$id_creator) {
+        $db->response(409, "Вы должны быть авторизованы, чтобы создать пост!");
+    }
     if (!$heading) {
         $db->response(409, "Название обязательное поле!");
     }
@@ -117,8 +121,6 @@
         $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
     }
 
-    $id_creator = $_SESSION['id'];
-
     $res = $db->make("INSERT INTO `post` (`id_category`, `id_creator`, `heading`, `description`, `main_folder`, `main_img_type`, `body`, `id_status`, `updated_at`) 
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
         [
@@ -129,7 +131,7 @@
             $uniqUrl,
             $typeMainImg,
             json_encode($body),
-            1, // status отправлен
+            $_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator' ? 2 : 1,
             NULL
         ]);
     if (!$res) {
@@ -156,4 +158,4 @@
         }
     }
 
-    $db->response(200, "Пост был отправлен на проверку");
+    $db->response(200, "Пост был успешно создан");

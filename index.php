@@ -108,6 +108,23 @@
         }
     }
 
+    if ($urls[0] === 'user' && $urls[1] === 'list' && sizeof($urls) == 2){
+        if (!$_SESSION['id']) {
+            header("Location: /");exit();
+        }
+        if ($_SESSION['code_role'] === 'admin') {
+            $setStyleAndScript = '
+                    <title>TypeBlog - Список пользователей</title>
+                    <link rel="stylesheet" href="../public/styles/pages/user/list.css">
+                    <script src="../public/js/pages/user/list.js"></script>
+                ';
+            include_once 'pages/user/list.php'; // Список пользователей страница для админов
+            exit();
+        } else {
+            header("Location: /");exit();
+        }
+    }
+
     if ($urls[0] === 'user' && $urls[1] === 'complaint' && sizeof($urls) == 2){
         if (!$_SESSION['id']) {
             header("Location: /");exit();
