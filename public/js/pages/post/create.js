@@ -181,7 +181,7 @@ $(function() {
                 formData.set('tags', $("#tagBox").tagging( "getTags" ));
 
                 $.ajax({
-                    url: '../../api/post/create.php',
+                    url: '/api/post/create.php',
                     method: 'POST',
                     cache: false,
                     contentType: false,

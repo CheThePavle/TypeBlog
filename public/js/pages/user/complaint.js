@@ -14,7 +14,7 @@ $(function() {
             let id = getHTML.data('id');
 
             $.ajax({
-                url: '../api/user/blockedComplaint.php',
+                url: '/api/user/blockedComplaint.php',
                 method: 'POST',
                 data: {
                     id
@@ -40,7 +40,7 @@ $(function() {
             let id = getHTML.data('id');
 
             $.ajax({
-                url: '../api/user/rejectedComplaint.php',
+                url: '/api/user/rejectedComplaint.php',
                 method: 'POST',
                 data: {
                     id

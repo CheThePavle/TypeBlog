@@ -19,7 +19,7 @@ $(function() {
 
             activeBtn(false);
             $.ajax({
-                url: '../api/user/findLogin.php',
+                url: '/api/user/findLogin.php',
                 method: 'POST',
                 data: th.serialize(),
                 error: function (d) {
@@ -44,7 +44,7 @@ $(function() {
 
             activeBtn(false);
             $.ajax({
-                url: '../api/user/findEmail.php',
+                url: '/api/user/findEmail.php',
                 method: 'POST',
                 data: th.serialize(),
                 error: function (d) {
@@ -124,7 +124,7 @@ $(function() {
             let msg = $('.msg');
 
             $.ajax({
-                url: '../api/user/create.php',
+                url: '/api/user/create.php',
                 method: 'POST',
                 data: th.serialize(),
                 success: function (d) {

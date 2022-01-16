@@ -5,6 +5,7 @@
     require_once "../../src/RDir.php";
     require_once "../../src/isBase64.php";
 
+    $id_creator = $_SESSION['id'];
     $heading = validate($_POST['heading']);
     $description = validate($_POST['description']);
     $category = validate($_POST['category']);
@@ -12,6 +13,9 @@
     $img_main = $_FILES['image'];
     $tags = explode(",", $_POST['tags']);
 
+    if (!$id_creator) {
+        $db->response(409, "Вы должны быть авторизованы, чтобы создать пост!");
+    }
     if (!$heading) {
         $db->response(409, "Название обязательное поле!");
     }
@@ -102,7 +106,8 @@
             if ($getUrlBase64[0] === 'data:image/'.$getTypeEndImgBase64[0].';base64') {
                 if (isBase64($getUrlBase64[1])) {
                     file_put_contents('../../data/posts/'.$uniqUrl.'/'.$el["id"].'.'.$getTypeEndImgBase64[0], file_get_contents($el["data"]["url"]));
-                    $el['data']['url'] = $uniqUrl.'/'.$el["id"].'.'.$getTypeEndImgBase64[0];
+                    // расположение временное, изменить потом при выводе поста
+                    $el['data']['url'] = "/data/posts/" . $uniqUrl.'/'.$el["id"].'.'.$getTypeEndImgBase64[0];
                 } else {
                     $db->response(409, "Изображение не является base64!");
                 }
@@ -117,8 +122,6 @@
         $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
     }
 
-    $id_creator = $_SESSION['id'];
-
     $res = $db->make("INSERT INTO `post` (`id_category`, `id_creator`, `heading`, `description`, `main_folder`, `main_img_type`, `body`, `id_status`, `updated_at`) 
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
         [
@@ -129,7 +132,7 @@
             $uniqUrl,
             $typeMainImg,
             json_encode($body),
-            1, // status отправлен
+            $_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator' ? 2 : 1,
             NULL
         ]);
     if (!$res) {
@@ -156,4 +159,4 @@
         }
     }
 
-    $db->response(200, "Пост был отправлен на проверку");
+    $db->response(200, "Пост был успешно создан");

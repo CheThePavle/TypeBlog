@@ -35,7 +35,7 @@ $(function() {
         const getPosts = (start) => {
             let msg = $(".msg");
             return $.ajax({
-                url: '../api/post/searchPostProfile.php',
+                url: '/api/post/searchPostProfile.php',
                 data: getUrlParams  + start + '&id_user=' + getIdUser,
                 success: function (d) {
                     d = d?.result?.data;
@@ -122,7 +122,7 @@ $(function() {
             let notify = $('.notify');
 
             $.ajax({
-                url: '../api/user/complaint.php',
+                url: '/api/user/complaint.php',
                 method: 'POST',
                 data: th.serialize() + '&idUserAccused=' + getIdUser,
                 success: function (d) {
