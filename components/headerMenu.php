@@ -28,7 +28,7 @@
                 <?php
                     if ($_SESSION['id']) {
                         echo '<li '.$lk.'><a href="/lk">Привет, '.$_SESSION['login'].'</a></li>';
-                        echo '<li><a href="../api/user/out.php">Выход</a></li>';
+                        echo '<li><a href="/api/user/out.php">Выход</a></li>';
                     } else {
                 ?>
                         <li <?=$urls[0] === 'authorization' ? 'class="active"' : ''?>><a href="/authorization">Вход</a></li>

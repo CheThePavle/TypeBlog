@@ -25,7 +25,10 @@
     margin-left: 10px;
     color: white;
 }
-.change_profile_btn{
+.aboutField{
+    color: #0f0f0f;
+}
+.change_profile_btn, .save_profile_btn{
     margin-top: 14px;
 }
 .img_post{

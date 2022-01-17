@@ -8,6 +8,71 @@ $(function() {
         let postsHTML = $('.posts');
         let loadPost = true;
         let notify = $(".notify");
+        let change_info = $(".change_info");
+
+        let change_profile_btn = $('.change_profile_btn');
+        let emailField = $(".emailField");
+        let valEmail = emailField.text();
+        let aboutField = $(".aboutField");
+        let valAbout = aboutField.text();
+        change_profile_btn.click(function () {
+            let change_info = $(".change_info");
+            change_info.html(`
+                <form id="formChangeProfile">
+                    <input maxlength="100" class="form-control" name="changeEmail" type="text" value="${valEmail}">
+                    <textarea maxlength="1000" class="form-control" name="changeAbout">${valAbout}</textarea>
+                    <input type="button" class="btn btn-danger closed_save_profile" value="Отмена">
+                    <input type="submit" class="btn btn-success" id="saveProfile" value="Сохранить">
+                </form>
+            `);
+
+            change_profile_btn.toggleClass('btn-primary btn-success');
+            change_profile_btn.toggleClass('change_profile_btn save_profile_btn');
+            change_profile_btn.hide();
+        });
+
+        change_info.on( "click", ".closed_save_profile", function() {
+            change_profile_btn.toggleClass('btn-success btn-primary');
+            change_profile_btn.toggleClass('save_profile_btn change_profile_btn');
+            change_profile_btn.show();
+
+            change_info.html("");
+            change_info.html(`
+                <p class="emailField">${valEmail}</p>
+                <p class="aboutField">${valAbout}</p>
+            `);
+        });
+
+        change_info.on("submit", "#formChangeProfile", function (e) {
+            e.preventDefault();
+            let th = $(this);
+
+            $.ajax({
+                url: '/api/user/changeEmailAndAbout.php',
+                method: 'POST',
+                data: th.serialize(),
+                success: function (d) {
+                    change_profile_btn.toggleClass('btn-success btn-primary');
+                    change_profile_btn.show();
+                    valEmail = d?.result?.data?.email;
+                    valAbout = d?.result?.data?.about;
+                    change_info.html(`
+                        <p class="emailField">${valEmail}</p>
+                        <p class="aboutField">${valAbout}</p>
+                    `);
+                    notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000);
+                },
+                error: function (d) {
+                    notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
+                    setTimeout(function () {
+                        notify.html(``);
+                    }, 3000);
+                }
+            })
+        });
 
         const readURL = (input) => {
             if (input.files && input.files[0]) {

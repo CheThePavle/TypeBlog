@@ -7,6 +7,7 @@
     <ul class="nav nav-tabs">
         <li><a href="/lk">Профиль</a></li>
         <li><a href="/post/create">Создать пост</a></li>
+        <li><a href="/user/change/password">Изменить пароль</a></li>
         <li><a href="/post/list/all">Список постов</a></li>
         <li><a href="/user/complaint">Жалобы на пользователей</a></li>
         <li><a href="/user/list">Список пользователей</a></li>
@@ -17,7 +18,9 @@
         <div class="tab-pane active table-responsive">
             <form id="formCreateCategory">
                 <br>
-                <input type="text" name="name_category" maxlength="30">
+                <div class="form-group col-md-3">
+                    <input class="form-control" type="text" name="name_category" maxlength="30">
+                </div>
                 <button type='submit' class='btn btn-success changed'>Добавить</button>
                 <br>
             </form>

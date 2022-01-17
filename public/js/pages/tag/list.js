@@ -68,7 +68,7 @@ $(function() {
                 },
                 success: function (d) {
                     let btnChange = getHTML.find(".publishedTd");
-                    btnChange.html("<button type='button' class='btn btn-primary unpublished'>Скрыть</button>");
+                    btnChange.html("<button type='button' class='btn btn-warning unpublished'>Скрыть</button>");
                     btnChange.toggleClass("publishedTd unpublishedTd");
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
                     setTimeout(function () {

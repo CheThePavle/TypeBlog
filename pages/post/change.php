@@ -6,7 +6,8 @@
 <div class="tabbable">
     <ul class="nav nav-tabs">
         <li><a href="/lk">Профиль</a></li>
-        <li><a href="/lk">Создать пост</a></li>
+        <li><a href="/post/create">Создать пост</a></li>
+        <li><a href="/user/change/password">Изменить пароль</a></li>
         <?php
         if ($_SESSION['code_role'] === 'admin') {
             echo '<li><a href="/post/list/all">Список постов</a></li>';
@@ -19,6 +20,8 @@
         }
         if ($_SESSION['code_role'] === 'admin') {
             echo '<li><a href="/user/list">Список пользователей</a></li>';
+            echo '<li><a href="/category/list">Категории</a></li>';
+            echo '<li><a href="/tag/list">Теги</a></li>';
         }
         ?>
         <li class="active"><a href="/post/change/<?= $urls[2] ?>" data-toggle="tab">Изменение поста</a></li>
@@ -95,7 +98,6 @@
 
                         <div class="col-md-12">
                             <input type="submit" class="btn btn-success btn-send" value="Изменить">
-                            <!--                    <pre id="output"></pre>-->
                         </div>
                     </div>
                 </div>
