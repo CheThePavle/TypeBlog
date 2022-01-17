@@ -40,15 +40,35 @@
             $db->response(409, "Содержание должно быть заполнено!");
         }
 
-        $res = $db->query("SELECT main_folder FROM post WHERE id_post = ?", [$idPost]);
+        $res = $db->query("SELECT id_status, main_folder, main_img_type FROM post WHERE id_post = ?;", [$idPost]);
         if (!$res) {
             $db->response(409, "Папка с постом не найдена на сервере!");
         }
+        if ($res[0]['id_status'] != '1' && $_SESSION['code_role'] === 'moderator') {
+            $db->response(409, "Извините, модератору доступно изменять только посты со статусом - Отправлен!");
+        }
 
-        if ($img_main['type']) {
-            if (!$img_main['type']) {
-                $db->response(409, "Загрузите главную картинку для поста!");
+        if ($category) {
+            $resCategory = $db->query("SELECT * FROM `category` WHERE id_category = ?;", [$category]);
+            if (!$resCategory) {
+                $db->response(409, "Такой категории не существует!");
             }
+        } else {
+            $db->response(409, "Выберите категорию поста!");
+        }
+
+        $uniqUrl = md5(uniqid(rand(), true));
+        $newDir = '../../data/posts/'.$uniqUrl;
+        if(!is_dir($newDir)){
+            mkdir($newDir);
+        } else {
+            $db->response(409, "Что-то пошло не так невозможно создать папку для изображений! Попробуйте перезапустить страницу");
+        }
+
+        $typeMainImg = false;
+        if (!$img_main['type']) {
+            copy('../../data/posts/' . $res[0]['main_folder'] . '/main_img.' . $res[0]['main_img_type'], $newDir.'/main_img.'.$res[0]['main_img_type']);
+        } else {
             if ($img_main['size'] > 5000000) {
                 $db->response(409, "Главное изображение не должно превышать 5 Мегабайт!");
             }
@@ -68,20 +88,10 @@
                     $db->response(409, "Расширение изображения должно быть png, jpg или gif!");
             }
 
-            $newDir = '../../data/posts/'.$res[0]['main_folder'];
             if (!move_uploaded_file($img_main['tmp_name'], $newDir.'/main_img.'.$typeMainImg)) {
-//            RDir($newDir);
+                RDir($newDir);
                 $db->response(409, "Что-то пошло не так главное изображение не было загружено на сервер!");
             }
-        }
-
-        if ($category) {
-            $resCategory = $db->query("SELECT * FROM `category` WHERE id_category = ?;", [$category]);
-            if (!$resCategory) {
-                $db->response(409, "Такой категории не существует!");
-            }
-        } else {
-            $db->response(409, "Выберите категорию поста!");
         }
 
         foreach ($body["blocks"] as &$el) {
@@ -90,12 +100,6 @@
                 $getUrlBase64 = explode(",", $el["data"]["url"]);
                 $getTypeImgBase64 = explode("/", $getUrlBase64[0]);
                 $getTypeEndImgBase64 = explode(";", $getTypeImgBase64[1]);
-
-//            Придумать, как вы сжимать картинку base64 до определенного размера
-//            $getSizeImg = mb_strlen($el["data"]["url"], '8bit');
-//            while ($getSizeImg > 5000000) {
-//
-//            }
 
                 if ($getUrlBase64[0] === 'data:image/'.$getTypeEndImgBase64[0].';base64') {
                     if (isBase64($getUrlBase64[1])) {
@@ -107,28 +111,31 @@
                     }
                 }
             }
-
-//            $getSizeBody = mb_strlen(json_encode($body), '8bit');
-//            if ($getSizeBody > 27000) {
-////                RDir($newDir);
-//                $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
-//            }
         }
 
-        $res = $db->make("UPDATE `post` SET `id_category` = ?, `heading` = ?, `description` = ?, `body` = ? WHERE `post`.`id_post` = ?;",
-            [
-                $category,
-                $heading,
-                $description,
-                json_encode($body),
-                $idPost
-            ]);
-        if (!$res) {
-//            RDir($newDir);
-            $db->response(409, "Что-то пошло не так, невозможно изменить пост!");
+        $getSizeBody = mb_strlen(json_encode($body), '8bit');
+        if ($getSizeBody > 27000) {
+            RDir($newDir);
+            $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
         }
 
-        //  возможно есть лучше способ записи в бд
+        $change = $db->make("UPDATE `post` SET `id_category` = ?, `heading` = ?, `description` = ?, `main_folder` = ?, `main_img_type` = ?, `body` = ? 
+                                    WHERE `post`.`id_post` = ?;",
+        [
+            $category,
+            $heading,
+            $description,
+            $uniqUrl,
+            $typeMainImg ? $typeMainImg : $res[0]['main_img_type'],
+            json_encode($body),
+            $idPost
+        ]);
+        if (!$change) {
+            RDir($newDir);
+            $db->response(409, "Что-то пошло не так, невозможно изменить пост");
+        }
+
+        $db->make("DELETE FROM `post_tag` WHERE `post_tag`.`id_post` = ?", [$idPost]);
         if ($tags) {
             if (count($tags) > 10) {
                 $n = array_keys($tags);
@@ -137,7 +144,8 @@
             }
             foreach ($tags as $el) {
                 $resTag = $db->query("SELECT `id_tag`, `name_tag` FROM `tag` WHERE `name_tag` = ?;", [$el]);
-                if (!$resTag) {
+//                $checkTag = $db->query("SELECT * FROM post_tag WHERE id_post = ? AND id_tag = ?;", [$resTag[0]['id_tag'], $idPost]);
+                if (!$resTag ) {
                     $resTag = $db->make("INSERT INTO `tag` (`name_tag`) VALUES (?);", [$el]);
                     $resTag = $db->query("SELECT `id_tag` FROM `tag` WHERE id_tag=(SELECT max(`id_tag`) FROM `tag`);");
                 }
@@ -145,6 +153,7 @@
             }
         }
 
+        RDir('../../data/posts/' . $res[0]['main_folder']);
         $db->response(200, "Пост был успешно изменен");
     } else {
         $db->response(409, "Нет доступа!");

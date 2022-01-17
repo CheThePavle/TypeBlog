@@ -82,6 +82,17 @@
         exit();
     }
 
+    if ($urls[0] === 'user' && $urls[1] === 'change' && $urls[2] === 'password' && sizeof($urls) == 3){
+        if (!$_SESSION['id']) {header("Location: /");exit();}
+        $setStyleAndScript = '
+                <title>TypeBlog - Изменение пароля</title>
+                <link rel="stylesheet" href="/public/styles/pages/user/change/password.css">
+                <script src="/public/js/pages/user/change/password.js"></script>
+            ';
+        include_once 'pages/user/change/password.php'; // Изменение пароля страница
+        exit();
+    }
+
     if ($urls[0] === 'post' && $urls[1] === 'change' && sizeof($urls) == 3){
         if (!$_SESSION['id']) {
             header("Location: /");exit();
@@ -248,6 +259,8 @@
             <script src="/libs/EditorJS/blocks/paragraph.js"></script>
             <script src="/libs/EditorJS/blocks/text-variant-tune.js"></script>
             <script src="/libs/EditorJS/blocks/checklist.js"></script>
+            
+            <script src="https://yastatic.net/share2/share.js"></script>
                     
             <link rel="stylesheet" href="/public/styles/pages/post.css">
             <script src="/public/js/pages/post.js"></script>

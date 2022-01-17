@@ -6,7 +6,8 @@
 <div class="tabbable">
     <ul class="nav nav-tabs">
         <li><a href="/lk">Профиль</a></li>
-        <li class="active"><a href="/lk" data-toggle="tab">Создать пост</a></li>
+        <li class="active"><a href="/post/create" data-toggle="tab">Создать пост</a></li>
+        <li><a href="/user/change/password">Изменить пароль</a></li>
         <?php
             if ($_SESSION['code_role'] === 'admin') {
                 echo '<li><a href="/post/list/all">Список постов</a></li>';

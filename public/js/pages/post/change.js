@@ -127,7 +127,8 @@ $(function() {
             },
             success: function (d) {
                 let body = d?.result?.data;
-                body = JSON.parse(body);
+                console.log(d)
+
                 const editor = new EditorJS({
                     autofocus: true,
                     tools: {
@@ -223,9 +224,9 @@ $(function() {
                             success: function (d) {
                                 activeBtn(true);
                                 msg.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                                setTimeout(function(){
-                                    window.location.href = '/';
-                                }, 2000);
+                                // setTimeout(function(){
+                                //     window.location.href = '/';
+                                // }, 2000);
                             },
                             error: function (d) {
                                 activeBtn(true);

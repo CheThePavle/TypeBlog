@@ -15,7 +15,7 @@ $(function() {
                 },
                 success: function (d) {
                     let btnChange = getHTML.find(".publishedTd");
-                    btnChange.html("<button type='button' class='btn btn-primary rejected'>Отклонить</button>");
+                    btnChange.html("<button type='button' class='btn btn-warning rejected'>Отклонить</button>");
                     btnChange.toggleClass("publishedTd rejectedTd");
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
                     setTimeout(function () {
