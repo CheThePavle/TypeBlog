@@ -1,5 +1,7 @@
 $(function() {
     if (window?.XMLHttpRequest) {
+        let timerId = 0;
+
         const activeBtn = (disabled) => {
             $('.btn-send').prop('disabled', disabled);
         }
@@ -188,16 +190,18 @@ $(function() {
                     processData: false,
                     data: formData,
                     success: function (d) {
+                        clearTimeout(timerId);
                         activeBtn(true);
                         msg.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                        setTimeout(function(){
-                            window.location.href = '/';
+                        timerId = setTimeout(function(){
+                            window.location.href = '/lk';
                         }, 2000);
                     },
                     error: function (d) {
+                        clearTimeout(timerId);
                         activeBtn(true);
                         msg.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg || 'Что-то пошло не так!'}</div>`);
-                        setTimeout(function(){
+                        timerId = setTimeout(function(){
                             activeBtn(false);
                         }, 1000);
                     }

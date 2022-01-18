@@ -2,6 +2,7 @@ $(function() {
     if (window?.XMLHttpRequest) {
         let categoryHTML = $(".body_category");
         let notify = $(".notify");
+        let timerId = 0;
 
         categoryHTML.on( "click", ".changed", function() {
             let body_change_category = $('.body_change_category');
@@ -39,19 +40,21 @@ $(function() {
                 method: 'POST',
                 data: th.serialize() + '&id=' + id,
                 success: function (d) {
+                    clearTimeout(timerId);
                     let val = th.serializeArray();
                     getHTML.find(".val_category").text(val[0]['value']);
                     getHTML.find(".body_change_category").html("");
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000);
+                    }, 4000);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000);
+                    }, 4000);
                 }
             })
         });
@@ -66,18 +69,20 @@ $(function() {
                 method: 'POST',
                 data: th.serialize(),
                 success: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         // добавить динамический вывод в таблицу без перезагрузки
                         window.location.href = '/category/list';
                         notify.html(``);
-                    }, 3000);
+                    }, 4000);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000);
+                    }, 4000);
                 }
             })
         });
@@ -94,17 +99,19 @@ $(function() {
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     getHTML.remove();
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 }
             })
         });

@@ -150,9 +150,18 @@
             $tags = array_slice($tags, 0, $count + 1, true);
         }
         foreach ($tags as $el) {
-            $resTag = $db->query("SELECT `id_tag`, `name_tag` FROM `tag` WHERE `name_tag` = ?;", [$el]);
+            $resTag = $db->query("SELECT `id_tag`, `name_tag`, `public_tag` FROM `tag` WHERE `name_tag` = ?;", [$el]);
+            if ($resTag[0]['public_tag'] == '0') {
+                if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
+                    $changeStatus = $db->make("UPDATE `tag` SET `public_tag` = b? WHERE `id_tag`.`id_user` = ?;", [1, $resTag[0]['id_tag']]);
+                }
+            }
             if (!$resTag) {
-                $resTag = $db->make("INSERT INTO `tag` (`name_tag`) VALUES (?);", [$el]);
+                if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
+                    $resTag = $db->make("INSERT INTO `tag` (`name_tag`, `public_tag`) VALUES (?, b?);", [$el, 1]);
+                } else {
+                    $resTag = $db->make("INSERT INTO `tag` (`name_tag`) VALUES (?);", [$el]);
+                }
                 $resTag = $db->query("SELECT `id_tag` FROM `tag` WHERE id_tag=(SELECT max(`id_tag`) FROM `tag`);");
             }
             $db->make("INSERT INTO `post_tag` (`id_post`, `id_tag`) VALUES (?, ?);", [$getIdPost[0]['id_post'], $resTag[0]['id_tag']]);

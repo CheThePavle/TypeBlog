@@ -9,7 +9,7 @@
         private function connect(){
             $driver = 'mysql';
             $host = 'localhost';
-            $db_name = 'typeblog';
+            $db_name = 'diplom';
             $db_user = 'root';
             $db_password = 'root';
             $charset = 'utf8';

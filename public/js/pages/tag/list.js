@@ -2,6 +2,7 @@ $(function() {
     if (window?.XMLHttpRequest) {
         let tagHTML = $(".body_tag");
         let notify = $(".notify");
+        let timerId = 0;
 
         tagHTML.on( "click", ".changed", function() {
             let body_change_tag = $('.body_change_tag');
@@ -39,17 +40,19 @@ $(function() {
                 method: 'POST',
                 data: th.serialize() + '&id=' + id,
                 success: function (d) {
+                    clearTimeout(timerId);
                     let val = th.serializeArray();
                     getHTML.find(".val_tag").text(val[0]['value']);
                     getHTML.find(".body_change_tag").html("");
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000);
                 }
@@ -67,19 +70,21 @@ $(function() {
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     let btnChange = getHTML.find(".publishedTd");
                     btnChange.html("<button type='button' class='btn btn-warning unpublished'>Скрыть</button>");
                     btnChange.toggleClass("publishedTd unpublishedTd");
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 }
             })
         });
@@ -95,19 +100,21 @@ $(function() {
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     let btnChange = getHTML.find(".unpublishedTd");
                     btnChange.html("<button type='button' class='btn btn-success published'>Опубликовать</button>");
                     btnChange.toggleClass("unpublishedTd publishedTd");
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 }
             })
         });
@@ -123,17 +130,19 @@ $(function() {
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     getHTML.remove();
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 }
             })
         });

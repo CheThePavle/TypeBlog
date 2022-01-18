@@ -2,6 +2,7 @@ $(function() { // normalizeSpace()
     if (window?.XMLHttpRequest) {
         // возможно можно просто сразу в php выполнять запрос и выводить на страницу
         const id = window?.location?.pathname?.substr(6);
+        let timerId = 0;
 
         let msgPost = $(".msg");
         let headingPost = $("#heading");
@@ -20,17 +21,19 @@ $(function() { // normalizeSpace()
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     likePost.toggleClass('activeLike')
                     dislikePost.removeClass('activeDislike')
 
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 }
@@ -47,17 +50,19 @@ $(function() { // normalizeSpace()
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     dislikePost.toggleClass('activeDislike')
                     likePost.removeClass('activeLike')
 
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 }
@@ -247,18 +252,20 @@ $(function() { // normalizeSpace()
                     idComment: getId
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     like.toggleClass('activeLike')
                     dislike.removeClass('activeDislike')
 
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                     getComments(1);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 }
@@ -278,18 +285,20 @@ $(function() { // normalizeSpace()
                     idComment: getId
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     dislike.toggleClass('activeDislike')
                     like.removeClass('activeLike')
 
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                     getComments(1);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 }
@@ -308,15 +317,17 @@ $(function() { // normalizeSpace()
                     idComment: getId
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                     getComments(1);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 }
@@ -395,21 +406,23 @@ $(function() { // normalizeSpace()
                 method: 'POST',
                 data: th.serialize() + '&idComment=' + getChangeId,
                 success: function (d) {
+                    clearTimeout(timerId);
                     activeBtnChange(true);
                     msgCommentChange.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
                     text_change_comment.val('');
                     text_change_comment.css({
                         height: "auto"
                     });
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         msgCommentChange.html(``);
                     }, 3000);
                     getComments(1);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     activeBtnChange(true);
                     msgCommentChange.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         msgCommentChange.html(``);
                     }, 3000);
                 }
@@ -489,21 +502,23 @@ $(function() { // normalizeSpace()
                 method: 'POST',
                 data: th.serialize() + '&idPost=' + id + '&idParentComment=' + getReplyId,
                 success: function (d) {
+                    clearTimeout(timerId);
                     activeBtnReply(true);
                     msgCommentReply.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
                     text_parent_comment.val('');
                     text_parent_comment.css({
                         height: "auto"
                     });
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         msgCommentReply.html(``);
                     }, 3000);
                     getComments(1);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     activeBtnReply(true);
                     msgCommentReply.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         msgCommentReply.html(``);
                     }, 3000);
                 }
@@ -553,21 +568,23 @@ $(function() { // normalizeSpace()
                 method: 'POST',
                 data: th.serialize() + '&idPost=' + id,
                 success: function (d) {
+                    clearTimeout(timerId);
                     activeBtn(true);
                     msgComment.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
                     text_comment.val('');
                     text_comment.css({
                         height: "auto"
                     });
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         msgComment.html(``);
                     }, 3000);
                     getComments(1);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     activeBtn(true);
                     msgComment.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         msgComment.html(``);
                     }, 3000);
                 }

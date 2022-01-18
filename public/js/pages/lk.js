@@ -2,6 +2,7 @@ $(function() {
     if (window?.XMLHttpRequest) {
         let start = 0;
         let getUrlParams = window.location.search.replace( '?', '') + '&start=';
+        let timerId = 0;
 
         let nextHTML = $('#nextPosts');
         let showmoreHTML = $('#showmore-triger');
@@ -52,6 +53,7 @@ $(function() {
                 method: 'POST',
                 data: th.serialize(),
                 success: function (d) {
+                    clearTimeout(timerId);
                     change_profile_btn.toggleClass('btn-success btn-primary');
                     change_profile_btn.show();
                     valEmail = d?.result?.data?.email;
@@ -61,13 +63,14 @@ $(function() {
                         <p class="aboutField">${valAbout}</p>
                     `);
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000);
                 }
@@ -103,15 +106,17 @@ $(function() {
                 processData: false,
                 data: formData,
                 success: function (d) {
+                    clearTimeout(timerId);
                     readURL(uploadimage[0]);
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 }

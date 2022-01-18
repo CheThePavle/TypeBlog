@@ -3,6 +3,7 @@ $(function() {
         let start = 0;
         let getUrlParams = window.location.search.replace( '?', '') + '&start=';
         let getIdUser = window?.location?.pathname?.substr(9);
+        let timerId = 0;
 
         let nextHTML = $('#nextPosts');
         let showmoreHTML = $('#showmore-triger');
@@ -126,15 +127,17 @@ $(function() {
                 method: 'POST',
                 data: th.serialize() + '&idUserAccused=' + getIdUser,
                 success: function (d) {
+                    clearTimeout(timerId);
                     modal_complaint.hide();
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000);
                 }
