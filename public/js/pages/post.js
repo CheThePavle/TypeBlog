@@ -201,6 +201,10 @@ $(function() { // normalizeSpace()
         function getComments(refresh) {
             let msgComment = $('.msgEmptyComments');
 
+            if (msgComment) {
+                msgComment.html("");
+            }
+
             if (refresh) {
                 let heightComments = commentsHTML.height();
                 msgComment.css(({

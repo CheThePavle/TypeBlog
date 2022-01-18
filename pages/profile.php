@@ -1,6 +1,5 @@
 <?php
     require_once "components/header.php";
-    require_once "src/usecases/profile.php";
 ?>
 
     <div class="tab-pane active" id="tab1">
@@ -9,15 +8,15 @@
             <div class="prfole_block">
                 <div class="ava_block">
                     <div class="block_ava_img">
-                        <img class="ava_img" src="<?= $getUser[0]['folder'] && $getUser[0]['img_type'] ? '../data/users/' . $getUser[0]['folder'] . '/' . 'avatar.' . $getUser[0]['img_type'] : '../public/imgs/profile.png' ?>" alt="avatar">
+                        <img class="ava_img" src="<?= $getUser['folder'] && $getUser['img_type'] ? '../data/users/' . $getUser['folder'] . '/' . 'avatar.' . $getUser['img_type'] : '../public/imgs/profile.png' ?>" alt="avatar">
                     </div>
                     <input id="btn-auth" type="submit" class="btn btn-danger complaint_profile_btn" value="Пожаловаться">
                 </div>
                 <div class="info_user">
                     <br><br>
-                    <h2><?= $getUser[0]['login'] ?></h2>
-                    <p>Статус: <?= $getUser[0]['name'] ?></p>
-                    <p><?= $getUser[0]['about'] ?></p>
+                    <h2><?= $login ?></h2>
+                    <p>Статус: <?= $getUser['name'] ?></p>
+                    <p><?= $getUser['about'] ?></p>
                 </div>
             </div>
             <div class="modal modal_complaint" tabindex="-1" role="dialog">
