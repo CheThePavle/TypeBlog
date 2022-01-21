@@ -32,3 +32,22 @@
     position: absolute;
     top: 15px;
 }
+.btn_search{
+    margin-right: 5px;
+}
+.header_sidebar{
+    margin-top: 0px;
+}
+label{
+    cursor: pointer;
+    font-weight: normal;
+}
+.labelTag{
+    display: inline-block;
+}
+.labelCategory{
+    display: block;
+}
+select{
+    cursor: pointer;
+}

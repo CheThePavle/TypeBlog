@@ -8,12 +8,16 @@ $(function() {
         let postsHTML = $('.posts');
         let loadPost = true;
 
+        $(".reset_btn").click(function () {
+            window.location.href = '/';
+        });
+
         let window_scrolled;
         $(window).scroll(function() {
             window_scrolled = ($(document).height()/100)*90;
             if($(window).scrollTop() + $(window).height() >= window_scrolled) {
                 if (loadPost) {
-                    start += 5; //fixme
+                    start += 3; //fixme
                     loadPost = false;
                     getPosts(start);
                 }
@@ -21,7 +25,7 @@ $(function() {
         });
 
         nextHTML.click(function (e) {
-            start += 5; //fixme
+            start += 3; //fixme
             getPosts(start);
         });
 
@@ -99,7 +103,7 @@ $(function() {
         }
         getPosts(start);
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 
 // let getParams = window

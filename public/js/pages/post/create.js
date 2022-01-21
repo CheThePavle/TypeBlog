@@ -36,19 +36,22 @@ $(function() {
 
         // http://verstaemvse.ru/plagin-sozdaniya-polya-dlya-vvoda-tegov-taggingjs.html
         let myOptionsTagging = {
+            "no-comma": true, // убрать создание тега при нажатии , и б
             "case-sensitive": false, // нижний регистр
             "no-duplicate": true,
             "forbidden-chars-text": '',
             "forbidden-chars-callback": function(el){
+                clearTimeout(timerId);
                 $(".errorTags").html('<div class="alert alert-warning">Такой символ запрещен - '+el+'</div>');
-                setTimeout(() => {
+                timerId = setTimeout(() => {
                     $(".errorTags").html('')
                 }, 3000)
             },
             "no-duplicate-text": '',
             "no-duplicate-callback": function(el){
+                clearTimeout(timerId);
                 $(".errorTags").html('<div class="alert alert-warning">Такой тег уже написан - '+el+'</div>');
-                setTimeout(() => {
+                timerId = setTimeout(() => {
                     $(".errorTags").html('')
                 }, 3000)
             },
@@ -65,14 +68,18 @@ $(function() {
         $(".type-zone").keyup(function () {
             let getLengthTags = $('#tagBox .tag').length;
             if (getLengthTags > 10) {
+                clearTimeout(timerId);
                 $('#tagBox .tag:last').remove();
                 let errorTags = $(".errorTags");
-                errorTags.html('<div class="alert alert-warning">Можно только не более 10 тегов!</div>');
-                setTimeout(() => {
+                errorTags.html('<div class="alert alert-warning">Можно задать не более 10 тегов!</div>');
+                timerId = setTimeout(() => {
                     errorTags.html('')
                 }, 3000)
             }
         })
+        $('.type-zone').on('keyup paste', function() {
+            $(this).val(function(i, value) { return value.substr(0, 25); });
+        });
 
         const readURL = (input) => {
             if (input.files && input.files[0]) {
@@ -209,6 +216,6 @@ $(function() {
             })
         });
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });

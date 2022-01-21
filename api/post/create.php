@@ -17,13 +17,13 @@
         $db->response(409, "Вы должны быть авторизованы, чтобы создать пост!");
     }
     if (!$heading) {
-        $db->response(409, "Название обязательное поле!");
+        $db->response(409, "Заголовок обязательное поле!");
     }
     if (iconv_strlen($heading) > 200) {
-        $db->response(409, "Название не может быть больше 200 символов!");
+        $db->response(409, "Заголовок не может быть больше 200 символов!");
     }
     if (iconv_strlen($heading) < 6) {
-        $db->response(409, "Название не может быть меньше 6 символов!");
+        $db->response(409, "Заголовок не может быть меньше 6 символов!");
     }
     if (!$description) {
         $db->response(409, "Описание обязательное поле!");
@@ -116,11 +116,11 @@
     }
 
 //  можно ли обойти ограничение на размер body?
-    $getSizeBody = mb_strlen(json_encode($body), '8bit');
-    if ($getSizeBody > 27000) {
-        RDir($newDir);
-        $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
-    }
+//    $getSizeBody = mb_strlen(json_encode($body), '8bit');
+//    if ($getSizeBody > 27000) {
+//        RDir($newDir);
+//        $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
+//    }
 
     $res = $db->make("INSERT INTO `post` (`id_category`, `id_creator`, `heading`, `description`, `main_folder`, `main_img_type`, `body`, `id_status`, `updated_at`) 
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
@@ -168,4 +168,7 @@
         }
     }
 
-    $db->response(200, "Пост был успешно создан");
+    if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
+        $db->response(200, "Пост был успешно опубликован");
+    }
+    $db->response(200, "Пост был отправлен на проверку");

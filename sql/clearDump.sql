@@ -32,6 +32,8 @@ CREATE TABLE `category` (
   `name_category` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `category` (`id_category`, `name_category`) VALUES
+(1, 'Все категории');
 
 -- --------------------------------------------------------
 

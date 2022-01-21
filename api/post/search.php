@@ -31,7 +31,7 @@
 
     if ($category) {
         // array_push($params, $category);
-        if ($category != 'all') {
+        if ($category != '1') {
             $where = $where . "WHERE p.id_category = ".$category." ";
         }
     }
@@ -52,7 +52,7 @@
             break;
     }
 
-    $count = 5; //fixme
+    $count = 3; //fixme
 
     $where = $where . "AND p.id_status = 2"; //fixme
 

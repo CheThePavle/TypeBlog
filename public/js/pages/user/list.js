@@ -4,6 +4,35 @@ $(function() {
         let notify = $(".notify");
         let timerId = 0;
 
+        usersHTML.on( "change", ".change_role", function() {
+            let getHTML = $(this).closest('.id_user');
+            let idUser = getHTML.data('id');
+            let idRole = $(this).val();
+
+            $.ajax({
+                url: '/api/user/changeRoleById.php',
+                method: 'POST',
+                data: {
+                    idUser,
+                    idRole
+                },
+                success: function (d) {
+                    clearTimeout(timerId);
+                    notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
+                    timerId = setTimeout(function () {
+                        notify.html(``);
+                    }, 3000)
+                },
+                error: function (d) {
+                    clearTimeout(timerId);
+                    notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
+                    timerId = setTimeout(function () {
+                        notify.html(``);
+                    }, 3000)
+                }
+            })
+        });
+
         usersHTML.on( "click", ".unblocked", function() {
             let getHTML = $(this).closest('.id_user');
             let id = getHTML.data('id');
@@ -63,6 +92,6 @@ $(function() {
             })
         });
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });

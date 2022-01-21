@@ -96,6 +96,12 @@ $(function() {
         $('#formAvatar').submit(function (e) {
             e.preventDefault();
 
+            let ava_img = $('.ava_img');
+            let oldSrc = ava_img.attr('src');
+            ava_img.removeClass('ava_img');
+            ava_img.addClass('loader');
+            ava_img.attr('src', '/public/imgs/loader.gif');
+
             let formData = new FormData(this);
 
             $.ajax({
@@ -107,6 +113,9 @@ $(function() {
                 data: formData,
                 success: function (d) {
                     clearTimeout(timerId);
+                    ava_img.addClass('ava_img');
+                    ava_img.removeClass('loader');
+                    ava_img.attr('src', oldSrc);
                     readURL(uploadimage[0]);
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
                     timerId = setTimeout(function () {
@@ -115,6 +124,9 @@ $(function() {
                 },
                 error: function (d) {
                     clearTimeout(timerId);
+                    ava_img.addClass('ava_img');
+                    ava_img.removeClass('loader');
+                    ava_img.attr('src', oldSrc);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
                     timerId = setTimeout(function () {
                         notify.html(``);
@@ -128,7 +140,7 @@ $(function() {
             window_scrolled = ($(document).height()/100)*90;
             if($(window).scrollTop() + $(window).height() >= window_scrolled) {
                 if (loadPost) {
-                    start += 5; //fixme
+                    start += 3; //fixme
                     loadPost = false;
                     getPosts(start);
                 }
@@ -136,7 +148,7 @@ $(function() {
         });
 
         nextHTML.click(function (e) {
-            start += 5; //fixme
+            start += 3; //fixme
             getPosts(start);
         });
 
@@ -199,7 +211,7 @@ $(function() {
                                     <br>
                                     <p>
                                         <a href="/post/${el?.id_post}" class="btn btn-primary btn-large">
-                                            Читать дальше
+                                            Посмотреть
                                         </a>
                                     </p>
                                 </div>
@@ -215,6 +227,6 @@ $(function() {
         }
         getPosts(start);
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });

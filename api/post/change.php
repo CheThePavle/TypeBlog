@@ -13,19 +13,18 @@
     $img_main = $_FILES['image'];
     $tags = explode(",", $_POST['tags']);
 
-    // доделать проверить разные условия fixme
     if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
         if (!$idPost) {
             $db->response(409, "Пост не передан!");
         }
         if (!$heading) {
-            $db->response(409, "Название обязательное поле!");
+            $db->response(409, "Заголовок обязательное поле!");
         }
         if (iconv_strlen($heading) > 200) {
-            $db->response(409, "Название не может быть больше 200 символов!");
+            $db->response(409, "Заголовок не может быть больше 200 символов!");
         }
         if (iconv_strlen($heading) < 6) {
-            $db->response(409, "Название не может быть меньше 6 символов!");
+            $db->response(409, "Заголовок не может быть меньше 6 символов!");
         }
         if (!$description) {
             $db->response(409, "Описание обязательное поле!");
@@ -113,11 +112,11 @@
             }
         }
 
-        $getSizeBody = mb_strlen(json_encode($body), '8bit');
-        if ($getSizeBody > 27000) {
-            RDir($newDir);
-            $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
-        }
+//        $getSizeBody = mb_strlen(json_encode($body), '8bit');
+//        if ($getSizeBody > 27000) {
+//            RDir($newDir);
+//            $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
+//        }
 
         $change = $db->make("UPDATE `post` SET `id_category` = ?, `heading` = ?, `description` = ?, `main_folder` = ?, `main_img_type` = ?, `body` = ? 
                                     WHERE `post`.`id_post` = ?;",

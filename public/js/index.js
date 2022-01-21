@@ -1,5 +1,9 @@
-$(function() { // normalizeSpace()
+$(function() {
     if (window?.XMLHttpRequest) {
+        $('.navbar-toggle').click(function () {
+            $('#slidemenu').toggleClass("hide show");
+        });
+
         $(".randomPost").click(function () {
             $.ajax({
                 url: "/api/post/random.php",
@@ -64,6 +68,6 @@ $(function() { // normalizeSpace()
             }, 200)
         })
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });

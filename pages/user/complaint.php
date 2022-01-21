@@ -40,108 +40,59 @@
                 </tr>
                 </thead>
                 <tbody>
+                    <?php
+                        foreach($treeComplaint as $el) {
+                            if (count($el) === 1) {
+                                $idComplaint = $el[0]['id_complaint'];
+                                $bodyComplaint = $el[0]['body_complaint'];
+                                $idAccused = $el[0]['id_accused'];
+                                $loginAccused = $el[0]['accused'];
+                                $idWitness = $el[0]['id_witness'];
+                                $loginWitness = $el[0]['witness'];
+                                $createdAt = $el[0]['created_at'];
 
+                                echo "<tr class='id_complaint' data-id='$idComplaint'>";
+                                echo "<th>$idComplaint</th>";
+                                echo "<td>$bodyComplaint</td>";
+                                echo "<td><a href='/profile/$idAccused' target='_blank'>$loginAccused</a></td>";
+                                echo "<td><a href='/profile/$idWitness' target='_blank'>$loginWitness</a></td>";
+                                echo "<td>$createdAt</td>";
+                                echo "<td><button type='button' class='btn btn-danger blocked'>Заблокировать</button></td>";
+                                echo "<td><button type='button' class='btn btn-success rejected'>Отклонить</button></td>";
+                                echo "</tr>";
+                            } else {
+                                $idComplaint = $el[0]['id_complaint'];
+                                $idAccused = $el[0]['id_accused'];
+                                $loginAccused = $el[0]['accused'];
 
-                <?php
-                    foreach($treeComplaint as $el) {
-                        $idComplaint = $el[0]['id_complaint'];
-                        $idAccused = $el[0]['id_accused'];
-                        $loginAccused = $el[0]['accused'];
+                                echo "<tr class='more id_complaint' data-id='$idComplaint'>";
+                                echo "<td><i class='glyphicon glyphicon-plus glyphicon$idComplaint'></i></td>";
+                                echo "<td></td>";
+                                echo "<td><a href='/profile/$idAccused' target='_blank'>$loginAccused</td>";
+                                echo "<td></td>";
+                                echo "<td></td>";
+                                echo "<td><button type='button' class='btn btn-danger blocked'>Заблокировать</button></td>";
+                                echo "<td><button type='button' class='btn btn-success rejected'>Отклонить</button></td>";
+                                echo "</tr>";
 
-                        echo "<tr class='more id_complaint' data-id='$idComplaint'>";
-                        echo "<td><i class='glyphicon glyphicon-plus glyphicon$idComplaint'></i></td>";
-                        echo "<td></td>";
-                        echo "<td><a href='/profile/$idAccused' target='_blank'>$loginAccused</td>";
-                        echo "<td></td>";
-                        echo "<td></td>";
-                        echo "<td><button type='button' class='btn btn-danger blocked'>Заблокировать</button></td>";
-                        echo "<td><button type='button' class='btn btn-success rejected'>Отклонить</button></td>";
-                        echo "</tr>";
+                                foreach ($el as $item) {
+                                    $childIdComplaint = $item['id_complaint'];
+                                    $idWitness = $item['id_witness'];
+                                    $loginWitness = $item['witness'];
+                                    $bodyComplaint = $item['body_complaint'];
+                                    $createdAt = $item['created_at'];
 
-                        foreach ($el as $item) {
-                            $childIdComplaint = $item['id_complaint'];
-                            $idWitness = $item['id_witness'];
-                            $loginWitness = $item['witness'];
-                            $bodyComplaint = $item['body_complaint'];
-                            $createdAt = $item['created_at'];
-
-                            echo "<tr class='collapse row$idComplaint'>";
-                            echo "<th>$childIdComplaint</a></th>";
-                            echo "<td>$bodyComplaint</td>";
-                            echo "<td></td>";
-                            echo "<td><a href='/profile/$idWitness' target='_blank'>$loginWitness</a></td>";
-                            echo "<td>$createdAt</td>";
-                            echo "</tr>";
+                                    echo "<tr class='collapse row$idComplaint'>";
+                                    echo "<th>$childIdComplaint</a></th>";
+                                    echo "<td>$bodyComplaint</td>";
+                                    echo "<td></td>";
+                                    echo "<td><a href='/profile/$idWitness' target='_blank'>$loginWitness</a></td>";
+                                    echo "<td>$createdAt</td>";
+                                    echo "</tr>";
+                                }
+                            }
                         }
-                    }
-                ?>
-
-
-
-<!--                <tr class="more" data-id="1">-->
-<!--                    <td><i class="glyphicon glyphicon-plus glyphicon1"></i></td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                </tr>-->
-<!--                <tr class="collapse row1">-->
-<!--                    <td>- child row</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                </tr>-->
-<!--                <tr class="collapse row1">-->
-<!--                    <td>- child row</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                </tr>-->
-<!---->
-<!--                <tr class="more" data-id="2">-->
-<!--                    <td><i class="glyphicon glyphicon-plus glyphicon2"></i></td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                </tr>-->
-<!--                <tr class="collapse row2">-->
-<!--                    <td>- child row</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                </tr>-->
-<!--                <tr class="collapse row2">-->
-<!--                    <td>- child row</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                    <td>data</td>-->
-<!--                </tr>-->
-
-
-                <?php
-//                    foreach ($getComplaint as $el) {
-//                        $idComplaint = $el['id_complaint'];
-//                        $idAccused = $el['id_accused'];
-//                        $loginAccused = $el['accused'];
-//                        $idWitness = $el['id_witness'];
-//                        $loginWitness = $el['witness'];
-//                        $bodyComplaint = $el['body_complaint'];
-//                        $createdAt = $el['created_at'];
-//
-//                        echo "<tr class='id_complaint' data-id='$idComplaint'>";
-//                        echo "<th scope='row'>$idComplaint</a></th>";
-//                        echo "<td>$bodyComplaint</td>";
-//                        echo "<td><a href='/profile/$idAccused' target='_blank'>$loginAccused</td>";
-//                        echo "<td><a href='/profile/$idWitness' target='_blank'>$loginWitness</a></td>";
-//                        echo "<td>$createdAt</td>";
-//                        echo "<td><button type='button' class='btn btn-success blocked'>Заблокировать</button></td>";
-//                        echo "<td><button type='button' class='btn btn-danger rejected'>Отклонить</button></td>";
-//                        echo "</tr>";
-//                    }
-                ?>
+                    ?>
                 </tbody>
             </table>
         </div>

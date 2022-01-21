@@ -32,7 +32,7 @@
                     <div class="prfole_block">
                         <div class="ava_block">
                             <div class="block_ava_img">
-                                <img class="ava_img" src="<?= $getInfoUser[0]['folder'] && $getInfoUser[0]['img_type'] ? '../data/users/' . $getInfoUser[0]['folder'] . '/' . 'avatar.' . $getInfoUser[0]['img_type'] : '../public/imgs/profile.png' ?>" alt="avatar">
+                                <img class="ava_img" src="<?= $getInfoUser[0]['folder'] && $getInfoUser[0]['img_type'] ? '/data/users/' . $getInfoUser[0]['folder'] . '/' . 'avatar.' . $getInfoUser[0]['img_type'] : '../public/imgs/profile.png' ?>" alt="avatar">
                                 <label class="label" style="position: absolute">
                                     <i class="fas fa-image"></i>
                                     <span class="title">Сменить аватар</span>

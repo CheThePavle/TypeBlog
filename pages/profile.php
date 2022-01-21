@@ -27,7 +27,7 @@
                         </div>
                         <form id="formComplaint">
                             <div class="modal-body">
-                                <textarea maxlength="200" id="body_complaint" name="body_complaint" rows="1" placeholder="Что случилось?"></textarea>
+                                <textarea class="form-control" maxlength="200" id="body_complaint" name="body_complaint" rows="1" placeholder="Что случилось?"></textarea>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary send_complaint">Отправить</button>

@@ -12,7 +12,7 @@ $(function() {
             let getVal = getHTML.find('.val_category').text();
             getHTML.find('.body_change_category').html(`
                 <form id="formCategoryChange">
-                    <input type="text" value="${getVal}" maxlength="30" id="text_change_category" name="change_category">
+                    <input type="text" value="${getVal}" maxlength="30" id="text_change_category" name="change_category" class="form-control">
                     <div class="mar-top clearfix">
                         <button id="btn_send_category_change" class="btn btn-sm btn-primary pull-right" type="submit">
                             <i class="fa fa-pencil fa-fw"></i> Изменить
@@ -116,6 +116,6 @@ $(function() {
             })
         });
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });

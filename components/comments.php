@@ -1,8 +1,6 @@
 <br><br><br>
 
-<div class="container">
-    <div class="row">
-
+    <div class="row row_comments">
         <div class="col-md-12">
             <div class="panel">
                 <div class="panel-body">
@@ -26,5 +24,4 @@
             </div>
         </div>
 
-    </div>
 </div>

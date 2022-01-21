@@ -16,7 +16,7 @@
             array_push($params, $getIdUser);
             $where = $where . " WHERE p.id_creator = ?";
 
-            $count = 5; //fixme
+            $count = 3; //fixme
 
             $res = $db->query("SELECT * FROM `post` as p $where ORDER BY p.id_post DESC LIMIT $start, $count;", $params);
 

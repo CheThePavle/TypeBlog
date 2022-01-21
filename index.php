@@ -12,7 +12,7 @@
         $setStyleAndScript = "
             <title>$nameSite - Главная</title>
             <meta name='description' content='Все посты сайта $nameSite'>
-            <meta name='keywords'content='главная, посты, фильтры' />
+            <meta name='keywords' content='главная, посты, фильтры' />
             
             <link rel='stylesheet' href='/public/styles/pages/index.css'>
             <script src='/public/js/pages/index.js'></script>
@@ -27,7 +27,7 @@
         $setStyleAndScript = "
             <title>$nameSite - Регистрация</title>
             <meta name='description' content='Регистрация на сайте $nameSite'>
-            <meta name='keywords'content='регистрация, аккаунт' />
+            <meta name='keywords' content='регистрация, аккаунт' />
             
             <link rel='stylesheet' href='/public/styles/pages/register.css'>
             <script src='/public/js/pages/register.js'></script>
@@ -41,7 +41,7 @@
         $setStyleAndScript ="
             <title>$nameSite - Авторизация</title>
             <meta name='description' content='Авторизация на сайте $nameSite'>
-            <meta name='keywords'content='авторизация, вход' />
+            <meta name='keywords' content='авторизация, вход' />
             
             <link rel='stylesheet' href='/public/styles/pages/authorization.css'>
             <script src='/public/js/pages/authorization.js'></script>
@@ -55,7 +55,7 @@
         $setStyleAndScript = "
             <title>$nameSite - Личный кабинет</title>
             <meta name='description' content='Личный кабинет на сайте $nameSite'>
-            <meta name='keywords'content='лк, профиль, кабинет, личный' />
+            <meta name='keywords' content='лк, профиль, кабинет, личный' />
             
             <link rel='stylesheet' href='/public/styles/pages/lk.css'>
             <script src='/public/js/pages/lk.js'></script>
@@ -70,7 +70,7 @@
         $setStyleAndScript = "
             <title>$nameSite - Создание поста</title>
             <meta name='description' content='Создание поста на сайте $nameSite'>
-            <meta name='keywords'content='пост, создание, отправление, проверка' />
+            <meta name='keywords' content='пост, создание, отправление, проверка' />
             
             <script src='/libs/EditorJS/editorjs.js'></script>
             <script src='/libs/EditorJS/blocks/simple-image.js'></script>
@@ -103,7 +103,7 @@
         $setStyleAndScript = "
             <title>$nameSite - Изменение пароля</title>
             <meta name='description' content='Изменение пароля на сайте $nameSite'>
-            <meta name='keywords'content='пароль, изменение, редактирование, смена' />
+            <meta name='keywords' content='пароль, изменение, редактирование, смена' />
             
             <link rel='stylesheet' href='/public/styles/pages/user/change/password.css'>
             <script src='/public/js/pages/user/change/password.js'></script>
@@ -120,7 +120,7 @@
             $setStyleAndScript = "
                 <title>$nameSite - Изменение поста</title>
                 <meta name='description' content='Изменение поста на сайте $nameSite'>
-                <meta name='keywords'content='пост, изменение, редактирование' />
+                <meta name='keywords' content='пост, изменение, редактирование' />
                 
                 <script src='/libs/EditorJS/editorjs.js'></script>
                 <script src='/libs/EditorJS/blocks/simple-image.js'></script>
@@ -159,7 +159,7 @@
             $setStyleAndScript = "
                 <title>$nameSite - Список отправленных постов</title>
                 <meta name='description' content='Список постов на сайте $nameSite'>
-                <meta name='keywords'content='пост, посты, редактирование, изменение, удаление' />
+                <meta name='keywords' content='пост, посты, редактирование, изменение, удаление' />
                 
                 <link rel='stylesheet' href='/public/styles/pages/post/list.css'>
                 <script src='/public/js/pages/post/list.js'></script>
@@ -179,7 +179,7 @@
             $setStyleAndScript = "
                 <title>$nameSite - Список постов</title>
                 <meta name='description' content='Список постов на сайте $nameSite'>
-                <meta name='keywords'content='пост, посты, редактирование, изменение, список' />
+                <meta name='keywords' content='пост, посты, редактирование, изменение, список' />
                 
                 <link rel='stylesheet' href='/public/styles/pages/post/list/all.css'>
                 <script src='/public/js/pages/post/list/all.js'></script>
@@ -199,7 +199,7 @@
             $setStyleAndScript = "
                 <title>$nameSite - Список пользователей</title>
                 <meta name='description' content='Список пользователей на сайте $nameSite'>
-                <meta name='keywords'content='пользователь, пользователи, изменение, список, блокировка' />
+                <meta name='keywords' content='пользователь, пользователи, изменение, список, блокировка' />
                 
                 <link rel='stylesheet' href='/public/styles/pages/user/list.css'>
                 <script src='/public/js/pages/user/list.js'></script>
@@ -219,7 +219,7 @@
             $setStyleAndScript = "
                 <title>$nameSite - Жалобы на пользователей</title>
                 <meta name='description' content='Жалобы пользователей на сайте $nameSite'>
-                <meta name='keywords'content='пользователь, пользователи, изменение, список, блокировка, жалоба, жалобы' />
+                <meta name='keywords' content='пользователь, пользователи, изменение, список, блокировка, жалоба, жалобы' />
                 
                 <link rel='stylesheet' href='/public/styles/pages/user/complaint.css'>
                 <script src='/public/js/pages/user/complaint.js'></script>
@@ -239,7 +239,7 @@
             $setStyleAndScript = "
                 <title>$nameSite - Категории</title>
                 <meta name='description' content='Категории на сайте $nameSite'>
-                <meta name='keywords'content='категория, категории, изменение, удаление, добавление' />
+                <meta name='keywords' content='категория, категории, изменение, удаление, добавление' />
                 
                 <link rel='stylesheet' href='/public/styles/pages/category/list.css'>
                 <script src='/public/js/pages/category/list.js'></script>
@@ -259,7 +259,7 @@
             $setStyleAndScript = "
                 <title>$nameSite - Теги</title>
                 <meta name='description' content='Теги на сайте $nameSite'>
-                <meta name='keywords'content='тег, теги, изменение, удаление' />
+                <meta name='keywords' content='тег, теги, изменение, удаление' />
                 
                 <link rel='stylesheet' href='/public/styles/pages/tag/list.css'>
                 <script src='/public/js/pages/tag/list.js'></script>
@@ -282,7 +282,7 @@
         $setStyleAndScript = "
             <title>$nameSite - $getHeading</title>
             <meta name='description' content='$getDescription'>
-            <meta name='keywords'content='тег1, тег2, тег3' />
+            <meta name='keywords' content='$getTagsStr' />
             
             <meta property='og:title' content='$getHeading' />
             <meta property='og:description' content='$getDescription' />
@@ -295,6 +295,7 @@
             <meta name='twitter:description' content='$getDescription' />
 
             <script src='/libs/EditorJS/editorjs.js'></script>
+            
             <script src='/libs/EditorJS/blocks/simple-image.js'></script>
             <link rel='stylesheet' href='/libs/EditorJS/blocks/simple-image.css'>
             <script src='/libs/EditorJS/blocks/header.js'></script>
@@ -311,7 +312,7 @@
             <script src='/libs/EditorJS/blocks/checklist.js'></script>
             
             <script src='https://yastatic.net/share2/share.js'></script>
-                    
+
             <link rel='stylesheet' href='/public/styles/pages/post.css'>
             <script src='/public/js/pages/post.js'></script>
             
@@ -327,7 +328,7 @@
         $setStyleAndScript = "
             <title>$nameSite - Профиль пользователя ($login)</title>
             <meta name='description' content='Профиль пользователя на сайте $nameSite'>
-            <meta name='keywords'content='профиль, пользователь, жалоба, посты' />
+            <meta name='keywords' content='профиль, пользователь, жалоба, посты' />
             
             <link rel='stylesheet' href='/public/styles/pages/profile.css'>
             <script src='/public/js/pages/profile.js'></script>
@@ -340,7 +341,7 @@
     $setStyleAndScript = "
         <title>$nameSite - 404 page not found</title>
         <meta name='description' content='Не найденная странциа на сайте $nameSite'>
-        <meta name='keywords'content='страница, пустая, 404' />
+        <meta name='keywords' content='страница, пустая, 404' />
     ";
     http_response_code(404);
     include_once 'pages/404.php'; // 404 страница

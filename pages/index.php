@@ -29,6 +29,7 @@
         </div>
         <div class="col-md-4 sidebar">
             <form>
+                <h3 class="header_sidebar">Сортировка</h3>
                 <div class="btn-group">
                     <div class="btn-group">
                         <select name="order" >
@@ -40,13 +41,14 @@
                     </div>
                 </div>
                 <br><br>
+                <h3 class="header_sidebar">Фильтр</h3>
                 <p><b>Категория:</b></p>
-                <p><input checked name='category' type='radio' value='all'> Все</p>
                 <?php
                     if ($getCategory) {
                         foreach ($getCategory as $el) {
-                            $checked = $_GET['category'] === $el['id_category'] ? 'checked' : '';
-                            echo "<p><input ".$checked." name='category' type='radio' value='".$el['id_category']."'> ".$el['name_category']."</p>";
+                            $idCategory = $el['id_category'];
+                            $checked = ($_GET['category'] === $idCategory ? 'checked' : $idCategory == 1) ? 'checked' : '';
+                            echo "<label class='labelCategory' for='idC$idCategory'><input id='idC$idCategory' ".$checked." name='category' type='radio' value='".$idCategory."'> ".$el['name_category']."</label>";
                         }
                     }
                 ?>
@@ -61,15 +63,15 @@
                             }
                             foreach ($getTag as $el) {
                                 $checked = $el['checked'] ? 'checked' : '';
-                                echo "<input ".$checked." type='checkbox' name='tag[]' value='".$el['id_tag']."'> ".$el['name_tag']." ";
+                                $idTag = $el['id_tag'];
+                                $nameTag = $el['name_tag'];
+                                echo "<label class='labelTag' for='idT$idTag'><input id='idT$idTag' $checked type='checkbox' name='tag[]' value='$idTag'> $nameTag </label> ";
                             }
                         }
                     ?>
                 </p>
-                <button type="submit" class="btn btn-default">Применить</button>
-            </form>
-            <form action="/">
-                <input type="submit" class="btn btn-danger" value="Сбросить">
+                <button type="submit" class="btn btn-success btn_search">Применить</button>
+                <input type="button" class="btn btn-danger reset_btn" value="Сбросить">
             </form>
         </div>
     </div>

@@ -66,13 +66,13 @@
         $mail->setFrom('verify.email.blog@yandex.ru'); // от кого будет уходить письмо?
         $mail->addAddress($email); // Кому будет уходить письмо
         $mail->isHTML(true);
-        $mail->Subject = 'Код подтверждения регистрации';
+        $mail->Subject = "Код для подтверждения регистрации пользователя - $login";
         $mail->AltBody = '';
 
         $code = mt_rand(10000, 99999);
         $_SESSION['verifyCode'] = $code;
         $_SESSION['attempts'] = 4;
-        $mail->Body = $code . ' код подтверждения для регистрации.';
+        $mail->Body = "Ваш код $code";
 
         if(!$mail->send()) {
             deleteVerifySession();

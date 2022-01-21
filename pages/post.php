@@ -7,6 +7,7 @@
     <hr>
     <div class="row">
         <div class="col-md-12 body_post">
+            <div class="test"></div>
             <div class="msg"></div>
             <div class="prevPost"></div>
             <div id="editorjs"></div>

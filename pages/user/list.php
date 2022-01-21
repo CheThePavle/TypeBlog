@@ -29,6 +29,7 @@
                 </thead>
                 <tbody>
                 <?php
+                    $roleHTML = '';
                     foreach ($getList as $el) {
                         $idUser = $el['id_user'];
                         $emailUser = $el['email'];
@@ -36,13 +37,20 @@
                         $roleNameUser = $el['name'];
                         $createdAtUser = $el['created_at'];
                         $blockedUser = $el['blocked'];
-
+                        foreach ($getRole as $item) {
+                            $idRole = $item['id_role'];
+                            if ($item['id_role'] == $el['id_role']) {
+                                $roleHTML = $roleHTML . "<option value='$idRole' selected>". $item['name'] ."</option>";
+                            } else {
+                                $roleHTML = $roleHTML . "<option value='$idRole'>". $item['name'] ."</option>";
+                            }
+                        }
 
                         echo "<tr class='id_user' data-id='$idUser'>";
                         echo "<th scope='row'><a href='/profile/$idUser' target='_blank'>$idUser</a></th>";
                         echo "<td>$emailUser</td>";
                         echo "<td><a href='/profile/$idUser' target='_blank'>$loginUser</a></td>";
-                        echo "<td>$roleNameUser</td>";
+                        echo "<td><select class='change_role' name='role'>". $roleHTML ."</select></td>";
                         echo "<td>$createdAtUser</td>";
                         echo $blockedUser == '1'
                             ? "<td class='unblockedTd'><button type='button' class='btn btn-success unblocked'>Разблокировать</button></td>"

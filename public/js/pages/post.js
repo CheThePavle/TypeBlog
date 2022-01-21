@@ -77,9 +77,42 @@ $(function() { // normalizeSpace()
             success: function (d) {
                 d = d?.result?.data[0];
                 d.body = JSON.parse(d?.body);
-                // console.log(d);
+                let strTags = '';
+                d?.tags?.map(function(item) {
+                    strTags += `<a href="/?tag[]=${item?.id_tag}">${item?.name_tag + ', '}</a>`;
+                });
+                if (strTags) {
+                    strTags = strTags?.slice(0, strTags?.length - 6) + '</a>';
+                }
                 headingPost.html(`<h1 id="heading">${d?.heading}</h1>`);
+                $(".prevPost").html(`
+                    <div class="hero-unit prev_content">
+                        <p>Автор: <a href="/profile/${d?.id_creator}">${d?.login}</a>, ${d?.created_at}</p>
+                        <img src="../data/posts/${d?.main_folder}/main_img.${d?.main_img_type}" alt="Картинка для ${d?.heading}"">
+                        <br><br>
+                        <p>${d?.description}</p>
+                    </div>
+                    <h2>Содержание</h2>
+                `);
                 likesPost.html(`
+                    <p>Категория: <a href="/?category=${d?.id_category}">${d?.name_category}</a></p>
+                    ${strTags && `<p>Теги: ${strTags}</p>`}
+                    <div class="statistics_post">
+                        <div>
+                            <i class="fas fa-heart"></i>
+                            ${d?.likes > 0 ? '+' + d?.likes : d?.likes}
+                        </div>
+                        <div class="block_statistics_post">
+                            <i class="fas fa-eye"></i>
+                            ${d?.views} ${+d?.views_day == '0' || !d?.views_day ? '' : '(+' + d?.views_day + ')'}
+                        </div>
+                        <div class="block_statistics_post">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                            <a class="statistics_post_comment" href="/post/${d?.id_post}#redirect_comments">
+                                ${d?.comments_count}
+                            </a>
+                        </div>
+                    </div>
                     <h3>Понравился пост?</h3>
                     <div class="btn-group">
                         <span class="btn btn-sm btn-default btn-hover-success likePost ${d?.myLike == true ? 'activeLike' : ''}" >
@@ -90,92 +123,60 @@ $(function() { // normalizeSpace()
                         </span>
                     </div>
                 `);
-                $(".prevPost").html(`
-                   <div class="hero-unit prev_content">
-                        <img src="../data/posts/${d?.main_folder}/main_img.${d?.main_img_type}" alt="Картинка для ${d?.heading}"">
-                        <br><br>
-                        <p>${d?.description}</p>
-                   </div>
-                `);
 
                 new EditorJS({
+                    readOnly: true,
                     autofocus: true,
                     tools: {
                         checklist: {
-                            class: Checklist,
-                            inlineToolbar: true,
+                            class: Checklist
                         },
-                        //raw: RawTool,
                         textVariant: TextVariantTune,
                         paragraph: {
-                            class: Paragraph,
-                            inlineToolbar: true,
-                            tunes: ['textVariant']
+                            class: Paragraph
                         },
-                        // code: CodeTool,
                         underline: {
-                            class: Underline,
-                            shortcut: 'SHIFT+B'
+                            class: Underline
                         },
                         list: {
-                            class: NestedList,
-                            inlineToolbar: true,
+                            class: NestedList
                         },
                         inlineCode: {
-                            class: InlineCode,
-                            shortcut: 'SHIFT+C',
+                            class: InlineCode
                         },
                         quote: {
-                            class: Quote,
-                            inlineToolbar: true,
-                            shortcut: 'SHIFT+O',
-                            config: {
-                                quotePlaceholder: 'Enter a quote',
-                                captionPlaceholder: 'Quote\'s author',
-                            },
+                            class: Quote
                         },
                         table: {
-                            class: Table,
-                            inlineToolbar: true,
-                            config: {
-                                rows: 2,
-                                cols: 3,
-                            },
+                            class: Table
                         },
                         delimiter: Delimiter,
                         Marker: {
-                            class: Marker,
-                            shortcut: 'SHIFT+M',
+                            class: Marker
                         },
                         warning: {
-                            class: Warning,
-                            inlineToolbar: true,
-                            shortcut: 'SHIFT+W',
-                            config: {
-                                titlePlaceholder: 'Title',
-                                messagePlaceholder: 'Message',
-                            },
+                            class: Warning
                         },
                         header: {
-                            class: Header,
-                            shortcut: 'SHIFT+H', //при нажатии клавиш будет создан заголовок
-                            // levels: [2, 3, 4],
-                            // defaultLevel: 3
+                            class: Header
                         },
-                        image: { // кастомный компонент image
-                            class: SimpleImage,
-                            inlineToolbar: true,
-                            config: {
-                                placeholder: 'Paste image URL'
-                            }
+                        image: {
+                            class: SimpleImage
                         }
                     },
                     data: d.body
                 });
+
+                setTimeout(function () {
+                    let simpleImage = $('.simple-image > div');
+                    simpleImage.attr('contenteditable', false);
+                }, 1000)
             },
             error: function (d) {
                 msgPost.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
                 headingPost.html(`<h1 id="heading">Неизвестный заголовок</h1>`);
+                $('.repost').remove();
+                $('.row_comments').remove();
             }
         })
 
@@ -221,6 +222,7 @@ $(function() { // normalizeSpace()
                     id
                 },
                 success: function (d) {
+                    // console.log(d)
                     let comments = d?.result?.data;
                     if (comments?.length !== 0) {
                         renderComments(comments);
@@ -695,6 +697,6 @@ $(function() { // normalizeSpace()
             commentsHTML.appendList(hierarchy);
         }
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });
