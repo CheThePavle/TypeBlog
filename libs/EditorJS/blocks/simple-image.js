@@ -92,6 +92,10 @@ class SimpleImage {
     ];
   }
 
+  static get isReadOnlySupported() {
+    return true;
+  }
+
   /**
    * Return a Tool's UI
    * @return {HTMLElement}

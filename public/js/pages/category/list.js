@@ -2,6 +2,7 @@ $(function() {
     if (window?.XMLHttpRequest) {
         let categoryHTML = $(".body_category");
         let notify = $(".notify");
+        let timerId = 0;
 
         categoryHTML.on( "click", ".changed", function() {
             let body_change_category = $('.body_change_category');
@@ -11,7 +12,7 @@ $(function() {
             let getVal = getHTML.find('.val_category').text();
             getHTML.find('.body_change_category').html(`
                 <form id="formCategoryChange">
-                    <input type="text" value="${getVal}" maxlength="30" id="text_change_category" name="change_category">
+                    <input type="text" value="${getVal}" maxlength="30" id="text_change_category" name="change_category" class="form-control">
                     <div class="mar-top clearfix">
                         <button id="btn_send_category_change" class="btn btn-sm btn-primary pull-right" type="submit">
                             <i class="fa fa-pencil fa-fw"></i> Изменить
@@ -39,19 +40,21 @@ $(function() {
                 method: 'POST',
                 data: th.serialize() + '&id=' + id,
                 success: function (d) {
+                    clearTimeout(timerId);
                     let val = th.serializeArray();
                     getHTML.find(".val_category").text(val[0]['value']);
                     getHTML.find(".body_change_category").html("");
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000);
+                    }, 4000);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000);
+                    }, 4000);
                 }
             })
         });
@@ -66,18 +69,20 @@ $(function() {
                 method: 'POST',
                 data: th.serialize(),
                 success: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         // добавить динамический вывод в таблицу без перезагрузки
                         window.location.href = '/category/list';
                         notify.html(``);
-                    }, 3000);
+                    }, 4000);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000);
+                    }, 4000);
                 }
             })
         });
@@ -94,21 +99,23 @@ $(function() {
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     getHTML.remove();
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 }
             })
         });
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });

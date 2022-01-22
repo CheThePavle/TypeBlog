@@ -8,12 +8,16 @@ $(function() {
         let postsHTML = $('.posts');
         let loadPost = true;
 
+        $(".reset_btn").click(function () {
+            window.location.href = '/';
+        });
+
         let window_scrolled;
         $(window).scroll(function() {
             window_scrolled = ($(document).height()/100)*90;
             if($(window).scrollTop() + $(window).height() >= window_scrolled) {
                 if (loadPost) {
-                    start += 5; //fixme
+                    start += 3; //fixme
                     loadPost = false;
                     getPosts(start);
                 }
@@ -21,7 +25,7 @@ $(function() {
         });
 
         nextHTML.click(function (e) {
-            start += 5; //fixme
+            start += 3; //fixme
             getPosts(start);
         });
 
@@ -47,19 +51,11 @@ $(function() {
                             if (strTags) {
                                 strTags = strTags?.slice(0, strTags?.length - 6) + '</a>';
                             }
-                            el.body = JSON.parse(el?.body);
                             postsHTML.append(`
                                 <div class="hero-unit">
-                                    ${el?.read_post ? `
-                                        <div class="header_block">
-                                            <h2>${el?.heading}&nbsp;</h2>
-                                            <img src="../../../public/imgs/readPost.png" alt="Просмотрен">
-                                        </div>
-                                    ` : `
-                                        <h2>${el?.heading}</h2>
-                                    `}
+                                    <h2>${el?.heading} ${el?.read_post ? '<span class="readPost">(просмотрен)</span>' : ''}</h2>
                                     <p>Автор: <a href="/profile/${el?.id_creator}">${el?.user_login}</a>, ${el?.created_at}</p>
-                                    <img class="img_post" src="../data/posts/${el?.main_folder}/main_img.${el?.main_img_type}" alt="Картинка для ${el?.heading}">
+                                    <img class="img_post" src="/data/posts/${el?.main_folder}/main_img.${el?.main_img_type}" alt="Картинка для ${el?.heading}">
                                     <br><br>
                                     <p>${el?.description}</p>
                                     <p>Категория: <a href="/?category=${el?.id_category}">${el?.name_category}</a></p>
@@ -99,7 +95,7 @@ $(function() {
         }
         getPosts(start);
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 
 // let getParams = window

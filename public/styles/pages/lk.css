@@ -27,12 +27,13 @@
 }
 .aboutField{
     color: #0f0f0f;
+    margin-top: 24px;
 }
 .change_profile_btn, .save_profile_btn{
     margin-top: 14px;
 }
 .img_post{
-    max-width: 100%;
+    width: 100%;
 }
 .statistics_post{
     display: flex;
@@ -109,4 +110,15 @@
     bottom: 10px;
     left: 15px;
     font-size: 14px;
+}
+
+.loader{
+    margin-top: 10px;
+}
+.closed_save_profile{
+    margin-top: 1px;
+    margin-right: 10px;
+}
+.my_post_header{
+    margin-top: 30px;
 }

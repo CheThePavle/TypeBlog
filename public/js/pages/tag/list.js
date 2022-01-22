@@ -2,6 +2,7 @@ $(function() {
     if (window?.XMLHttpRequest) {
         let tagHTML = $(".body_tag");
         let notify = $(".notify");
+        let timerId = 0;
 
         tagHTML.on( "click", ".changed", function() {
             let body_change_tag = $('.body_change_tag');
@@ -11,7 +12,7 @@ $(function() {
             let getVal = getHTML.find('.val_tag').text();
             getHTML.find('.body_change_tag').html(`
                 <form id="formTagChange">
-                    <input type="text" value="${getVal}" maxlength="30" id="text_change_category" name="change_tag">
+                    <input type="text" value="${getVal}" maxlength="30" id="text_change_category" name="change_tag" class="form-control">
                     <div class="mar-top clearfix">
                         <button id="btn_send_tag_change" class="btn btn-sm btn-primary pull-right" type="submit">
                             <i class="fa fa-pencil fa-fw"></i> Изменить
@@ -39,17 +40,19 @@ $(function() {
                 method: 'POST',
                 data: th.serialize() + '&id=' + id,
                 success: function (d) {
+                    clearTimeout(timerId);
                     let val = th.serializeArray();
                     getHTML.find(".val_tag").text(val[0]['value']);
                     getHTML.find(".body_change_tag").html("");
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000);
                 }
@@ -67,19 +70,21 @@ $(function() {
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     let btnChange = getHTML.find(".publishedTd");
                     btnChange.html("<button type='button' class='btn btn-warning unpublished'>Скрыть</button>");
                     btnChange.toggleClass("publishedTd unpublishedTd");
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 }
             })
         });
@@ -95,19 +100,21 @@ $(function() {
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     let btnChange = getHTML.find(".unpublishedTd");
                     btnChange.html("<button type='button' class='btn btn-success published'>Опубликовать</button>");
                     btnChange.toggleClass("unpublishedTd publishedTd");
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 }
             })
         });
@@ -123,21 +130,23 @@ $(function() {
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     getHTML.remove();
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
-                    }, 3000)
+                    }, 4000)
                 }
             })
         });
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });

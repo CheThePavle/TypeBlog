@@ -1,5 +1,4 @@
 #editorjs{
-    max-width: 1000px;
     margin: 0 auto
 }
 
@@ -38,4 +37,24 @@ li {
 
 #btn_send_comment_reply_closed, #btn_send_comment_change_closed{
     margin-right: 5px;
+}
+.codex-editor__redactor{
+    padding-bottom: 15px !important;
+}
+.statistics_post{
+    display: flex;
+}
+
+.block_statistics_post{
+    margin-left: 10px;
+}
+
+.statistics_post_comment{
+    color: black;
+}
+
+#qrcode{
+    width: 50px;
+    height: 50px;
+    margin: 20px 0px;
 }

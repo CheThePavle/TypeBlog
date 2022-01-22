@@ -32,9 +32,9 @@
                 <div class="controls">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2>Превью поста</h2>
+                            <h2>Превью</h2>
                             <div class="form-group">
-                                <label>Название <span class="required">*</span></label>
+                                <label>Заголовок <span class="required">*</span></label>
                                 <input value="<?= $getPostInfo['heading']; ?>" id="heading" maxlength="200" type="text" name="heading" class="form-control" placeholder="Введите заголовок поста *" required="required">
                                 <div class="errorHeading"></div>
                             </div>
@@ -55,7 +55,7 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Кратко о чем пост <span class="required">*</span></label>
+                                <label>Краткое описание <span class="required">*</span></label>
                                 <textarea maxlength="1000" rows="10" id="description" name="description" class="form-control" placeholder="Опишите о чем будет пост *" required="required"><?= $getPostInfo['description']; ?></textarea>
                                 <div class="errorDescription"></div>
                             </div>
@@ -87,12 +87,12 @@
                             <br>
                             <label>Теги</label>
                             <br>
-                            <div data-tags-input-name="tag" id="tagBox"></div>
+                            <div data-tags-input-name="tag" id="tagBox" class="form-control"></div>
                             <div class="errorTags"></div>
                         </div>
 
                         <div class="col-md-12">
-                            <h2>Содержание поста</h2>
+                            <h2>Содержание</h2>
                             <div id="editorjs"></div>
                         </div>
 

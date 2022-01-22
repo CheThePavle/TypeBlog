@@ -5,6 +5,7 @@
 
     $login = validate($_POST['login']);
     $password = validate($_POST['password']);
+    $checkbox = validate($_POST['checkbox']);
 
     if ($login && $password) {
         $res = $db->query("SELECT u.id_user, u.login, u.password, ur.code, ur.name, u.blocked FROM user as u JOIN user_role as ur ON ur.id_role = u.id_role WHERE u.login = ?;", [$login]);
@@ -12,6 +13,17 @@
             if ($res[0]['blocked'] == '1') {
                 $db->response(409, "Ваш аккаунт был заблокирован :(");
                 exit();
+            }
+            if ($checkbox) {
+                session_destroy();
+                ini_set('session.gc_maxlifetime', 2678400);
+                ini_set('session.cookie_lifetime', 2678400);
+                session_start();
+            } else {
+                session_destroy();
+                ini_set('session.gc_maxlifetime', 86400);
+                ini_set('session.cookie_lifetime', 86400);
+                session_start();
             }
 
             $_SESSION['id'] = $res[0]['id_user'];

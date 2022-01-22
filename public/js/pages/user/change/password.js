@@ -1,5 +1,7 @@
 $(function() {
     if (window?.XMLHttpRequest) {
+        let timerId = 0;
+
         const activeBtn = (disabled) => {
             $('.btn_change_password').prop('disabled', disabled);
         }
@@ -81,17 +83,19 @@ $(function() {
                 method: 'POST',
                 data: th.serialize(),
                 success: function (d) {
+                    clearTimeout(timerId);
                     activeBtn(true);
                     msg.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function(){
+                    timerId = setTimeout(function(){
                         msg.html('');
                         activeBtn(false);
                     }, 3000);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     activeBtn(true);
                     msg.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function(){
+                    timerId = setTimeout(function(){
                         msg.html('');
                         activeBtn(false);
                     }, 3000);
@@ -99,6 +103,6 @@ $(function() {
             })
         });
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });

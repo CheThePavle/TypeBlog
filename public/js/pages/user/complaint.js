@@ -2,6 +2,7 @@ $(function() {
     if (window?.XMLHttpRequest) {
         let complaintsHTML = $(".body_complaints");
         let notify = $(".notify");
+        let timerId = 0;
 
         complaintsHTML.on( "click", ".more", function() {
             let getId = $(this).data('id');
@@ -20,16 +21,18 @@ $(function() {
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     $(".row"+id).remove();
                     getHTML.remove();
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 }
@@ -46,22 +49,24 @@ $(function() {
                     id
                 },
                 success: function (d) {
+                    clearTimeout(timerId);
                     $(".row"+id).remove();
                     getHTML.remove();
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 }
             })
         });
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });

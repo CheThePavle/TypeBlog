@@ -36,13 +36,13 @@
                 <?php
                     }
                 ?>
-                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ещё <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">test1</a></li>
-                        <li><a href="#">test2</a></li>
-                        <li><a href="#">test3</a></li>
-                    </ul>
-                </li>
+<!--                <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ещё <b class="caret"></b></a>-->
+<!--                    <ul class="dropdown-menu">-->
+<!--                        <li><a href="#">test1</a></li>-->
+<!--                        <li><a href="#">test2</a></li>-->
+<!--                        <li><a href="#">test3</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
             </ul>
         </div>
     </div>

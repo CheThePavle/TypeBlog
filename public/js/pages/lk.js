@@ -2,6 +2,7 @@ $(function() {
     if (window?.XMLHttpRequest) {
         let start = 0;
         let getUrlParams = window.location.search.replace( '?', '') + '&start=';
+        let timerId = 0;
 
         let nextHTML = $('#nextPosts');
         let showmoreHTML = $('#showmore-triger');
@@ -52,6 +53,7 @@ $(function() {
                 method: 'POST',
                 data: th.serialize(),
                 success: function (d) {
+                    clearTimeout(timerId);
                     change_profile_btn.toggleClass('btn-success btn-primary');
                     change_profile_btn.show();
                     valEmail = d?.result?.data?.email;
@@ -61,13 +63,14 @@ $(function() {
                         <p class="aboutField">${valAbout}</p>
                     `);
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000);
                 }
@@ -93,6 +96,12 @@ $(function() {
         $('#formAvatar').submit(function (e) {
             e.preventDefault();
 
+            let ava_img = $('.ava_img');
+            let oldSrc = ava_img.attr('src');
+            ava_img.removeClass('ava_img');
+            ava_img.addClass('loader');
+            ava_img.attr('src', '/public/imgs/loader.gif');
+
             let formData = new FormData(this);
 
             $.ajax({
@@ -103,15 +112,23 @@ $(function() {
                 processData: false,
                 data: formData,
                 success: function (d) {
+                    clearTimeout(timerId);
+                    ava_img.addClass('ava_img');
+                    ava_img.removeClass('loader');
+                    ava_img.attr('src', oldSrc);
                     readURL(uploadimage[0]);
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
+                    ava_img.addClass('ava_img');
+                    ava_img.removeClass('loader');
+                    ava_img.attr('src', oldSrc);
                     notify.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function () {
+                    timerId = setTimeout(function () {
                         notify.html(``);
                     }, 3000)
                 }
@@ -123,7 +140,7 @@ $(function() {
             window_scrolled = ($(document).height()/100)*90;
             if($(window).scrollTop() + $(window).height() >= window_scrolled) {
                 if (loadPost) {
-                    start += 5; //fixme
+                    start += 3; //fixme
                     loadPost = false;
                     getPosts(start);
                 }
@@ -131,7 +148,7 @@ $(function() {
         });
 
         nextHTML.click(function (e) {
-            start += 5; //fixme
+            start += 3; //fixme
             getPosts(start);
         });
 
@@ -157,20 +174,12 @@ $(function() {
                             if (strTags) {
                                 strTags = strTags?.slice(0, strTags?.length - 6) + '</a>';
                             }
-                            el.body = JSON.parse(el?.body);
                             postsHTML.append(`
                                 <div class="hero-unit">
-                                    ${el?.read_post ? `
-                                        <div class="header_block">
-                                            <h2>${el?.heading}&nbsp;</h2>
-                                            <img src="../../../public/imgs/readPost.png" alt="Просмотрен">
-                                        </div>
-                                    ` : `
-                                        <h2>${el?.heading}</h2>
-                                    `}
-                                    <p>Автор: <a href="/profile/${el?.id_creator}">${el?.user_login}</a>, ${el?.created_at}</p>
+                                    <h2>${el?.heading} ${el?.read_post ? '<span class="readPost">(просмотрен)</span>' : ''}</h2>
+                                    <p>Дата создания: ${el?.created_at}</p>
                                     <p>Статус: ${el?.name}</p>
-                                    <img class="img_post" src="../data/posts/${el?.main_folder}/main_img.${el?.main_img_type}" alt="Картинка для ${el?.heading}">
+                                    <img class="img_post" src="/data/posts/${el?.main_folder}/main_img.${el?.main_img_type}" alt="Картинка для ${el?.heading}">
                                     <br><br>
                                     <p>${el?.description}</p>
                                     <p>Категория: <a href="/?category=${el?.id_category}">${el?.name_category}</a></p>
@@ -194,7 +203,7 @@ $(function() {
                                     <br>
                                     <p>
                                         <a href="/post/${el?.id_post}" class="btn btn-primary btn-large">
-                                            Читать дальше
+                                            Посмотреть
                                         </a>
                                     </p>
                                 </div>
@@ -210,6 +219,6 @@ $(function() {
         }
         getPosts(start);
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });

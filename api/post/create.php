@@ -17,13 +17,13 @@
         $db->response(409, "Вы должны быть авторизованы, чтобы создать пост!");
     }
     if (!$heading) {
-        $db->response(409, "Название обязательное поле!");
+        $db->response(409, "Заголовок обязательное поле!");
     }
     if (iconv_strlen($heading) > 200) {
-        $db->response(409, "Название не может быть больше 200 символов!");
+        $db->response(409, "Заголовок не может быть больше 200 символов!");
     }
     if (iconv_strlen($heading) < 6) {
-        $db->response(409, "Название не может быть меньше 6 символов!");
+        $db->response(409, "Заголовок не может быть меньше 6 символов!");
     }
     if (!$description) {
         $db->response(409, "Описание обязательное поле!");
@@ -116,11 +116,11 @@
     }
 
 //  можно ли обойти ограничение на размер body?
-    $getSizeBody = mb_strlen(json_encode($body), '8bit');
-    if ($getSizeBody > 27000) {
-        RDir($newDir);
-        $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
-    }
+//    $getSizeBody = mb_strlen(json_encode($body), '8bit');
+//    if ($getSizeBody > 27000) {
+//        RDir($newDir);
+//        $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
+//    }
 
     $res = $db->make("INSERT INTO `post` (`id_category`, `id_creator`, `heading`, `description`, `main_folder`, `main_img_type`, `body`, `id_status`, `updated_at`) 
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
@@ -150,13 +150,25 @@
             $tags = array_slice($tags, 0, $count + 1, true);
         }
         foreach ($tags as $el) {
-            $resTag = $db->query("SELECT `id_tag`, `name_tag` FROM `tag` WHERE `name_tag` = ?;", [$el]);
+            $resTag = $db->query("SELECT `id_tag`, `name_tag`, `public_tag` FROM `tag` WHERE `name_tag` = ?;", [$el]);
+            if ($resTag[0]['public_tag'] == '0') {
+                if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
+                    $changeStatus = $db->make("UPDATE `tag` SET `public_tag` = b? WHERE `id_tag`.`id_user` = ?;", [1, $resTag[0]['id_tag']]);
+                }
+            }
             if (!$resTag) {
-                $resTag = $db->make("INSERT INTO `tag` (`name_tag`) VALUES (?);", [$el]);
+                if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
+                    $resTag = $db->make("INSERT INTO `tag` (`name_tag`, `public_tag`) VALUES (?, b?);", [$el, 1]);
+                } else {
+                    $resTag = $db->make("INSERT INTO `tag` (`name_tag`) VALUES (?);", [$el]);
+                }
                 $resTag = $db->query("SELECT `id_tag` FROM `tag` WHERE id_tag=(SELECT max(`id_tag`) FROM `tag`);");
             }
             $db->make("INSERT INTO `post_tag` (`id_post`, `id_tag`) VALUES (?, ?);", [$getIdPost[0]['id_post'], $resTag[0]['id_tag']]);
         }
     }
 
-    $db->response(200, "Пост был успешно создан");
+    if ($_SESSION['code_role'] === 'admin' || $_SESSION['code_role'] === 'moderator') {
+        $db->response(200, "Пост был успешно опубликован");
+    }
+    $db->response(200, "Пост был отправлен на проверку");

@@ -15,7 +15,7 @@
 }
 
 .simple-image img {
-    max-width: 100%;
+    width: 100%;
     margin-bottom: 15px;
 }
 
@@ -32,4 +32,8 @@
     display: block;
     max-width: 60%;
     margin: 0 auto 15px;
+}
+/* временно */
+.simple-image > div{
+    display: none;
 }

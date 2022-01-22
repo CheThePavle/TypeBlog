@@ -1,5 +1,7 @@
 $(function() {
     if (window?.XMLHttpRequest) {
+        let timerId = 0;
+
         const activeBtn = (disabled) => {
             $('.btn-send').prop('disabled', disabled);
         }
@@ -34,19 +36,22 @@ $(function() {
 
         // http://verstaemvse.ru/plagin-sozdaniya-polya-dlya-vvoda-tegov-taggingjs.html
         let myOptionsTagging = {
+            "no-comma": true, // убрать создание тега при нажатии , и б
             "case-sensitive": false, // нижний регистр
             "no-duplicate": true,
             "forbidden-chars-text": '',
             "forbidden-chars-callback": function(el){
+                clearTimeout(timerId);
                 $(".errorTags").html('<div class="alert alert-warning">Такой символ запрещен - '+el+'</div>');
-                setTimeout(() => {
+                timerId = setTimeout(() => {
                     $(".errorTags").html('')
                 }, 3000)
             },
             "no-duplicate-text": '',
             "no-duplicate-callback": function(el){
+                clearTimeout(timerId);
                 $(".errorTags").html('<div class="alert alert-warning">Такой тег уже написан - '+el+'</div>');
-                setTimeout(() => {
+                timerId = setTimeout(() => {
                     $(".errorTags").html('')
                 }, 3000)
             },
@@ -63,14 +68,18 @@ $(function() {
         $(".type-zone").keyup(function () {
             let getLengthTags = $('#tagBox .tag').length;
             if (getLengthTags > 10) {
+                clearTimeout(timerId);
                 $('#tagBox .tag:last').remove();
                 let errorTags = $(".errorTags");
-                errorTags.html('<div class="alert alert-warning">Можно только не более 10 тегов!</div>');
-                setTimeout(() => {
+                errorTags.html('<div class="alert alert-warning">Можно задать не более 10 тегов!</div>');
+                timerId = setTimeout(() => {
                     errorTags.html('')
                 }, 3000)
             }
         })
+        $('.type-zone').on('keyup paste', function() {
+            $(this).val(function(i, value) { return value.substr(0, 25); });
+        });
 
         const readURL = (input) => {
             if (input.files && input.files[0]) {
@@ -98,16 +107,75 @@ $(function() {
         });
 
         const editor = new EditorJS({
+            i18n: {
+                messages: {
+                    ui: {
+                        "blockTunes": {
+                            "toggler": {
+                                "Click to tune": "Нажмите, чтобы настроить",
+                                "or drag to move": "или перетащите"
+                            },
+                        },
+                        "inlineToolbar": {
+                            "converter": {
+                                "Convert to": "Конвертировать в"
+                            }
+                        },
+                        "toolbar": {
+                            "toolbox": {
+                                "Add": "Добавить"
+                            }
+                        }
+                    },
+                    toolNames: {
+                        "Text": "Параграф",
+                        "Heading": "Заголовок",
+                        "List": "Список",
+                        "Warning": "Примечание",
+                        "Checklist": "Чеклист",
+                        "Quote": "Цитата",
+                        "Code": "Код",
+                        "Delimiter": "Разделитель",
+                        "Raw HTML": "HTML-фрагмент",
+                        "Table": "Таблица",
+                        "Link": "Ссылка",
+                        "Marker": "Маркер",
+                        "Bold": "Полужирный",
+                        "Italic": "Курсив",
+                        "InlineCode": "Моноширинный",
+                        "Image": "Картинка"
+                    },
+                    tools: {
+                        "link": {
+                            "Add a link": "Вставьте ссылку"
+                        },
+                        "stub": {
+                            'The block can not be displayed correctly.': 'Блок не может быть отображен'
+                        }
+                    },
+                    blockTunes: {
+                        "delete": {
+                            "Delete": "Удалить"
+                        },
+                        "moveUp": {
+                            "Move up": "Переместить вверх"
+                        },
+                        "moveDown": {
+                            "Move down": "Переместить вниз"
+                        }
+                    },
+                }
+            },
             autofocus: true,
             tools: {
                 image: {
                     class: SimpleImage,
                     inlineToolbar: true,
                     config: {
-                        placeholder: 'Paste image URL'
+                        placeholder: 'Вставте URL или перетащите картинку'
                     }
                 },
-                checklist: { // ошибки валяться в консоль?
+                checklist: {
                     class: Checklist,
                     inlineToolbar: true,
                 },
@@ -134,9 +202,9 @@ $(function() {
                     inlineToolbar: true,
                     shortcut: 'SHIFT+O',
                     config: {
-                        quotePlaceholder: 'Enter a quote',
-                        captionPlaceholder: 'Quote\'s author',
-                    },
+                        quotePlaceholder: 'Напишите цитату',
+                        captionPlaceholder: 'Автор цитаты',
+                    }
                 },
                 table: {
                     class: Table,
@@ -144,7 +212,7 @@ $(function() {
                     config: {
                         rows: 2,
                         cols: 3,
-                    },
+                    }
                 },
                 delimiter: Delimiter,
                 Marker: {
@@ -156,9 +224,9 @@ $(function() {
                     inlineToolbar: true,
                     shortcut: 'SHIFT+W',
                     config: {
-                        titlePlaceholder: 'Title',
-                        messagePlaceholder: 'Message',
-                    },
+                        titlePlaceholder: 'Название',
+                        messagePlaceholder: 'Сообщение',
+                    }
                 },
                 header: {
                     class: Header,
@@ -188,16 +256,18 @@ $(function() {
                     processData: false,
                     data: formData,
                     success: function (d) {
+                        clearTimeout(timerId);
                         activeBtn(true);
                         msg.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                        setTimeout(function(){
-                            window.location.href = '/';
+                        timerId = setTimeout(function(){
+                            window.location.href = '/lk';
                         }, 2000);
                     },
                     error: function (d) {
+                        clearTimeout(timerId);
                         activeBtn(true);
                         msg.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg || 'Что-то пошло не так!'}</div>`);
-                        setTimeout(function(){
+                        timerId = setTimeout(function(){
                             activeBtn(false);
                         }, 1000);
                     }
@@ -205,6 +275,6 @@ $(function() {
             })
         });
     } else {
-        alert('Ваша версия браузера устарела, поддержки не будет)');
+        alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
 });
