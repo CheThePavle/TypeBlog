@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Янв 21 2022 г., 19:56
+-- Время создания: Янв 22 2022 г., 12:45
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.14
 
@@ -145,6 +145,13 @@ CREATE TABLE `post_like` (
   `id_author` int NOT NULL,
   `mark` bit(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `post_like`
+--
+
+INSERT INTO `post_like` (`id_like`, `id_post`, `id_author`, `mark`) VALUES
+(1, 4, 1, b'1');
 
 -- --------------------------------------------------------
 
@@ -329,7 +336,11 @@ INSERT INTO `view` (`id_view`, `id_post`, `ip_address`, `id_looked`, `created_at
 (2, 3, 0x32313330373036343333000000000000, 2, '2022-01-21 19:42:54'),
 (3, 4, 0x32313330373036343333000000000000, 1, '2022-01-21 19:46:58'),
 (4, 6, 0x32313330373036343333000000000000, 6, '2022-01-21 19:54:38'),
-(5, 1, 0x32313330373036343333000000000000, 6, '2022-01-21 19:55:12');
+(5, 1, 0x32313330373036343333000000000000, 6, '2022-01-21 19:55:12'),
+(6, 5, 0x32313330373036343333000000000000, 1, '2022-01-21 20:58:01'),
+(7, 1, 0x32314330373036343333000000000000, 5, '2022-01-22 11:31:46'),
+(8, 1, 0x32313330373036343388000000000000, 6, '2022-01-22 11:32:22'),
+(9, 2, 0x32313330373036343843000000000000, 5, '2022-01-22 11:33:06');
 
 --
 -- Индексы сохранённых таблиц
@@ -458,7 +469,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT для таблицы `post_like`
 --
 ALTER TABLE `post_like`
-  MODIFY `id_like` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_like` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `post_status`
@@ -494,7 +505,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT для таблицы `view`
 --
 ALTER TABLE `view`
-  MODIFY `id_view` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_view` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

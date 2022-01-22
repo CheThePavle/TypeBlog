@@ -16,6 +16,7 @@
                 <h3>Поделиться в соц. сетях</h3>
                 <div class="ya-share2" data-curtain data-shape="round" data-limit="5" data-services="vkontakte,telegram,odnoklassniki,twitter,whatsapp,facebook,messenger,viber,moimir,skype,tumblr,evernote,linkedin,lj,blogger,delicious,digg,reddit,pocket,qzone,renren,sinaWeibo,surfingbird,tencentWeibo"></div>
             </div>
+            <div id="qrcode"></div>
         </div>
     </div>
 

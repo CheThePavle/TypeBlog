@@ -57,7 +57,7 @@
                 </div>
                 <div class="bg_shapka2_lk"></div>
                 <div>
-                    <h2>Мои посты</h2>
+                    <h1 class="my_post_header">Мои посты</h1>
                     <hr>
                     <div class="posts"></div>
                     <div class="msg"></div>

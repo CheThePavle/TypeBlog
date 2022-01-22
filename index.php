@@ -312,6 +312,7 @@
             <script src='/libs/EditorJS/blocks/checklist.js'></script>
             
             <script src='https://yastatic.net/share2/share.js'></script>
+            <script src='/libs/qrcode/qrcode.min.js'></script>
 
             <link rel='stylesheet' href='/public/styles/pages/post.css'>
             <script src='/public/js/pages/post.js'></script>

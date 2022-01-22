@@ -88,7 +88,7 @@ $(function() { // normalizeSpace()
                 $(".prevPost").html(`
                     <div class="hero-unit prev_content">
                         <p>Автор: <a href="/profile/${d?.id_creator}">${d?.login}</a>, ${d?.created_at}</p>
-                        <img src="../data/posts/${d?.main_folder}/main_img.${d?.main_img_type}" alt="Картинка для ${d?.heading}"">
+                        <img src="/data/posts/${d?.main_folder}/main_img.${d?.main_img_type}" alt="Картинка для ${d?.heading}"">
                         <br><br>
                         <p>${d?.description}</p>
                     </div>
@@ -126,7 +126,6 @@ $(function() { // normalizeSpace()
 
                 new EditorJS({
                     readOnly: true,
-                    autofocus: true,
                     tools: {
                         checklist: {
                             class: Checklist
@@ -597,6 +596,12 @@ $(function() { // normalizeSpace()
             })
         });
 
+        let qrcode = new QRCode(document.getElementById("qrcode"), {
+            width : 110,
+            height : 110
+        });
+        qrcode.makeCode(document?.location?.href);
+
         function renderComments(comments) {
             function buildHierarchy(arry) {
                 let roots = [],
@@ -644,8 +649,8 @@ $(function() { // normalizeSpace()
                                                 <a class="media-left" target="_blank" href="/profile/${li_obj.value?.id_author}">
                                                     <img class="img-circle img-sm" alt="Аватар ${li_obj.value?.login}"
                                                         src="${li_obj.value?.folder && li_obj.value?.img_type 
-                                                            ? `../data/users/${li_obj.value?.folder}/avatar.${li_obj.value?.img_type}` 
-                                                            : '../public/imgs/profile.png'}">
+                                                            ? `/data/users/${li_obj.value?.folder}/avatar.${li_obj.value?.img_type}` 
+                                                            : '/public/imgs/profile.png'}">
                                                 </a>
                                                 <div class="media-body">
                                                     <div class="mar-btm">

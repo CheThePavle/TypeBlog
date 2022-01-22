@@ -27,6 +27,7 @@
 }
 .aboutField{
     color: #0f0f0f;
+    margin-top: 24px;
 }
 .change_profile_btn, .save_profile_btn{
     margin-top: 14px;
@@ -117,4 +118,7 @@
 .closed_save_profile{
     margin-top: 1px;
     margin-right: 10px;
+}
+.my_post_header{
+    margin-top: 30px;
 }

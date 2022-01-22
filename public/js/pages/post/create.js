@@ -107,16 +107,75 @@ $(function() {
         });
 
         const editor = new EditorJS({
+            i18n: {
+                messages: {
+                    ui: {
+                        "blockTunes": {
+                            "toggler": {
+                                "Click to tune": "Нажмите, чтобы настроить",
+                                "or drag to move": "или перетащите"
+                            },
+                        },
+                        "inlineToolbar": {
+                            "converter": {
+                                "Convert to": "Конвертировать в"
+                            }
+                        },
+                        "toolbar": {
+                            "toolbox": {
+                                "Add": "Добавить"
+                            }
+                        }
+                    },
+                    toolNames: {
+                        "Text": "Параграф",
+                        "Heading": "Заголовок",
+                        "List": "Список",
+                        "Warning": "Примечание",
+                        "Checklist": "Чеклист",
+                        "Quote": "Цитата",
+                        "Code": "Код",
+                        "Delimiter": "Разделитель",
+                        "Raw HTML": "HTML-фрагмент",
+                        "Table": "Таблица",
+                        "Link": "Ссылка",
+                        "Marker": "Маркер",
+                        "Bold": "Полужирный",
+                        "Italic": "Курсив",
+                        "InlineCode": "Моноширинный",
+                        "Image": "Картинка"
+                    },
+                    tools: {
+                        "link": {
+                            "Add a link": "Вставьте ссылку"
+                        },
+                        "stub": {
+                            'The block can not be displayed correctly.': 'Блок не может быть отображен'
+                        }
+                    },
+                    blockTunes: {
+                        "delete": {
+                            "Delete": "Удалить"
+                        },
+                        "moveUp": {
+                            "Move up": "Переместить вверх"
+                        },
+                        "moveDown": {
+                            "Move down": "Переместить вниз"
+                        }
+                    },
+                }
+            },
             autofocus: true,
             tools: {
                 image: {
                     class: SimpleImage,
                     inlineToolbar: true,
                     config: {
-                        placeholder: 'Paste image URL'
+                        placeholder: 'Вставте URL или перетащите картинку'
                     }
                 },
-                checklist: { // ошибки валяться в консоль?
+                checklist: {
                     class: Checklist,
                     inlineToolbar: true,
                 },
@@ -143,9 +202,9 @@ $(function() {
                     inlineToolbar: true,
                     shortcut: 'SHIFT+O',
                     config: {
-                        quotePlaceholder: 'Enter a quote',
-                        captionPlaceholder: 'Quote\'s author',
-                    },
+                        quotePlaceholder: 'Напишите цитату',
+                        captionPlaceholder: 'Автор цитаты',
+                    }
                 },
                 table: {
                     class: Table,
@@ -153,7 +212,7 @@ $(function() {
                     config: {
                         rows: 2,
                         cols: 3,
-                    },
+                    }
                 },
                 delimiter: Delimiter,
                 Marker: {
@@ -165,9 +224,9 @@ $(function() {
                     inlineToolbar: true,
                     shortcut: 'SHIFT+W',
                     config: {
-                        titlePlaceholder: 'Title',
-                        messagePlaceholder: 'Message',
-                    },
+                        titlePlaceholder: 'Название',
+                        messagePlaceholder: 'Сообщение',
+                    }
                 },
                 header: {
                     class: Header,
