@@ -8,17 +8,14 @@
 
     $params = [];
 
-    $where = 'JOIN category as c ON p.id_category = c.id_category ';
-
-    if ($id_user) {
-        array_push($params, $id_user);
-        array_push($params, 2);
-        $where = $where . " WHERE p.id_creator = ? AND p.id_status = ?";
+    if (!$id_user) {
+        $db->response(409, "Пользователь не передан");
     }
 
     $count = 3; //fixme
 
-    $res = $db->query("SELECT * FROM `post` as p $where ORDER BY p.id_post DESC LIMIT $start, $count;", $params);
+    $res = $db->query("SELECT * FROM `post` as p JOIN category as c ON p.id_category = c.id_category 
+                            WHERE p.id_creator = ? AND p.id_status = ? ORDER BY p.id_post DESC LIMIT $start, $count;", [$id_user, 2]);
 
     $getTags = [];
     $getNameUser = [];
@@ -28,9 +25,8 @@
     $getReadPost = [];
     $getCommentsCount = [];
 
-    // оптимизировать ?
+    // оптимизировать
     foreach ($res as $el) {
-        // array_push($jsonData, $el['body']);
         $get = $db->query("SELECT t.id_tag, t.name_tag FROM tag as t JOIN post_tag as pt ON t.id_tag = pt.id_tag WHERE pt.id_post = ?;", [$el['id_post']]);
         array_push($getTags, $get);
 
