@@ -158,7 +158,7 @@ CREATE TABLE `user` (
   `id_role` int NOT NULL DEFAULT '1',
   `email` varchar(100) NOT NULL,
   `login` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `about` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `folder` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `img_type` varchar(5) DEFAULT NULL,

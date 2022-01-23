@@ -85,28 +85,17 @@
         $db->response(409, "Что-то пошло не так главное изображение не было загружено на сервер!");
     }
 
-    //$body['uniqUrl'] = $uniqUrl;
-    //$body['typeMainImg'] = $typeMainImg;
-    $body['storage'] = 0; // место хранения данных поста
+    $body['storage'] = 0;
 
-//            добавить проверку на размер изображений в simple-image ??? а если изображение будет превышать столько то ... то урезаем качество до нужного размера
     foreach ($body["blocks"] as &$el) {
         if ($el["type"] == "image") {
-            // возможно можно упростить этот момент
             $getUrlBase64 = explode(",", $el["data"]["url"]);
             $getTypeImgBase64 = explode("/", $getUrlBase64[0]);
             $getTypeEndImgBase64 = explode(";", $getTypeImgBase64[1]);
 
-//            Придумать, как вы сжимать картинку base64 до определенного размера
-//            $getSizeImg = mb_strlen($el["data"]["url"], '8bit');
-//            while ($getSizeImg > 5000000) {
-//
-//            }
-
             if ($getUrlBase64[0] === 'data:image/'.$getTypeEndImgBase64[0].';base64') {
                 if (isBase64($getUrlBase64[1])) {
                     file_put_contents('../../data/posts/'.$uniqUrl.'/'.$el["id"].'.'.$getTypeEndImgBase64[0], file_get_contents($el["data"]["url"]));
-                    // расположение временное, изменить потом при выводе поста
                     $el['data']['url'] = "/data/posts/" . $uniqUrl.'/'.$el["id"].'.'.$getTypeEndImgBase64[0];
                 } else {
                     $db->response(409, "Изображение не является base64!");
@@ -114,13 +103,6 @@
             }
         }
     }
-
-//  можно ли обойти ограничение на размер body?
-//    $getSizeBody = mb_strlen(json_encode($body), '8bit');
-//    if ($getSizeBody > 27000) {
-//        RDir($newDir);
-//        $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
-//    }
 
     $res = $db->make("INSERT INTO `post` (`id_category`, `id_creator`, `heading`, `description`, `main_folder`, `main_img_type`, `body`, `id_status`, `updated_at`) 
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
@@ -140,7 +122,6 @@
         $db->response(409, "Что-то пошло не так, невозможно создать пост!");
     }
 
-//  возможно есть лучше способ записи в бд
     $getIdPost = $db->query("SELECT `id_post` FROM `post` WHERE id_post=(SELECT max(`id_post`) FROM `post` WHERE post.id_creator = ?);", [$id_creator]);
 
     if ($tags) {

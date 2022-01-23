@@ -19,7 +19,6 @@
         $db->response(409, "Что-то пошло не так, жалоба не найдена для этого пользователя!");
     }
 
-    // сделать через IN(1,2)
     foreach ($res as $el) {
         $db->make("DELETE FROM `user_complaint` WHERE `user_complaint`.`id_complaint` = ?;", [$el['id_complaint']]);
     }

@@ -40,7 +40,7 @@
         </div>
         <div class="bg_shapka2_lk"></div>
         <div>
-            <h2>Публичные посты</h2>
+            <h1 style="margin-top: 30px">Публичные посты</h1>
             <hr>
             <div class="posts"></div>
             <div class="msg"></div>

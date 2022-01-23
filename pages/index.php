@@ -9,12 +9,6 @@
                 case 1:
                     echo "Старые посты";
                     break;
-//                case 2:
-//                    echo "Популярные посты";
-//                    break;
-//                case 3:
-//                    echo "Лучшие посты";
-//                    break;
                 default:
                     echo "Последние посты";
             }
@@ -35,9 +29,6 @@
                         <select name="order" >
                             <option value="1" <?php echo $_GET['order'] == 1 ? 'selected' : '' ?>>Сначала старые</option>
                             <option value="0" <?php echo $_GET['order'] == 0 ? 'selected' : '' ?>>Сначала новые</option>
-<!--                            <option value="2" --><?php //echo $_GET['order'] == 2 ? 'selected' : '' ?><!-- disabled>По популярности</option>-->
-<!--                            <option value="3" --><?php //echo $_GET['order'] == 3 ? 'selected' : '' ?><!-- disabled>По рейтингу</option>-->
-<!--                            <option value="4" --><?php //echo $_GET['order'] == 4 ? 'selected' : '' ?><!-- disabled>В тренде</option>-->
                         </select>
                     </div>
                 </div>

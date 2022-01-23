@@ -8,17 +8,14 @@
 
     $params = [];
 
-    $where = 'JOIN category as c ON p.id_category = c.id_category JOIN post_status as ps ON ps.id_status = p.id_status ';
-
     if ($lk) {
         $getIdUser = $_SESSION['id'];
         if ($getIdUser) {
-            array_push($params, $getIdUser);
-            $where = $where . " WHERE p.id_creator = ?";
-
             $count = 3; //fixme
 
-            $res = $db->query("SELECT * FROM `post` as p $where ORDER BY p.id_post DESC LIMIT $start, $count;", $params);
+            $res = $db->query("SELECT * FROM `post` as p JOIN category as c ON p.id_category = c.id_category 
+                                    JOIN post_status as ps ON ps.id_status = p.id_status 
+                                    WHERE p.id_creator = ? ORDER BY p.id_post DESC LIMIT $start, $count;", [$getIdUser]);
 
             $getTags = [];
             $getNameUser = [];
@@ -28,9 +25,7 @@
             $getReadPost = [];
             $getCommentsCount = [];
 
-            // оптимизировать ?
             foreach ($res as $el) {
-                // array_push($jsonData, $el['body']);
                 $get = $db->query("SELECT t.id_tag, t.name_tag FROM tag as t JOIN post_tag as pt ON t.id_tag = pt.id_tag WHERE pt.id_post = ?;", [$el['id_post']]);
                 array_push($getTags, $get);
 

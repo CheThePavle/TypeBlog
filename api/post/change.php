@@ -95,7 +95,6 @@
 
         foreach ($body["blocks"] as &$el) {
             if ($el["type"] == "image") {
-                // возможно можно упростить этот момент
                 $getUrlBase64 = explode(",", $el["data"]["url"]);
                 $getTypeImgBase64 = explode("/", $getUrlBase64[0]);
                 $getTypeEndImgBase64 = explode(";", $getTypeImgBase64[1]);
@@ -103,7 +102,6 @@
                 if ($getUrlBase64[0] === 'data:image/'.$getTypeEndImgBase64[0].';base64') {
                     if (isBase64($getUrlBase64[1])) {
                         file_put_contents('../../data/posts/'.$uniqUrl.'/'.$el["id"].'.'.$getTypeEndImgBase64[0], file_get_contents($el["data"]["url"]));
-                        // расположение временное, изменить потом при выводе поста
                         $el['data']['url'] = "/data/posts/" . $uniqUrl.'/'.$el["id"].'.'.$getTypeEndImgBase64[0];
                     } else {
                         $db->response(409, "Изображение не является base64!");
@@ -111,12 +109,6 @@
                 }
             }
         }
-
-//        $getSizeBody = mb_strlen(json_encode($body), '8bit');
-//        if ($getSizeBody > 27000) {
-//            RDir($newDir);
-//            $db->response(409, "Превышен лимит содержания поста! (текущий ".$getSizeBody.", лимит 27000)");
-//        }
 
         $change = $db->make("UPDATE `post` SET `id_category` = ?, `heading` = ?, `description` = ?, `main_folder` = ?, `main_img_type` = ?, `body` = ? 
                                     WHERE `post`.`id_post` = ?;",
@@ -143,7 +135,6 @@
             }
             foreach ($tags as $el) {
                 $resTag = $db->query("SELECT `id_tag`, `name_tag` FROM `tag` WHERE `name_tag` = ?;", [$el]);
-//                $checkTag = $db->query("SELECT * FROM post_tag WHERE id_post = ? AND id_tag = ?;", [$resTag[0]['id_tag'], $idPost]);
                 if (!$resTag ) {
                     $resTag = $db->make("INSERT INTO `tag` (`name_tag`) VALUES (?);", [$el]);
                     $resTag = $db->query("SELECT `id_tag` FROM `tag` WHERE id_tag=(SELECT max(`id_tag`) FROM `tag`);");

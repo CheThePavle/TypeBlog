@@ -4,9 +4,9 @@
     require_once "../../src/validate.php";
 
     if ($_SESSION['code_role'] === 'admin') {
-        $idPost = validate($_POST['id']);
+        $idTag = validate($_POST['id']);
 
-        $res = $db->make("UPDATE `tag` SET `public_tag` = b? WHERE `tag`.`id_tag` = ?;", [1, $idPost]);
+        $res = $db->make("UPDATE `tag` SET `public_tag` = b? WHERE `tag`.`id_tag` = ?;", [1, $idTag]);
         if ($res) {
             $db->response(200, "Тег успешно опубликован!");
         } else {

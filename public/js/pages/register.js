@@ -1,5 +1,7 @@
 $(function() {
     if (window?.XMLHttpRequest) {
+        let timerId = 0;
+
         const activeBtn = (disabled) => {
             $('.btn-send').prop('disabled', disabled);
         }
@@ -132,7 +134,7 @@ $(function() {
                     if (d?.result?.data?.redirect) {
                         setTimeout(function(){
                             window.location.href = '/authorization';
-                        }, 3000);
+                        }, 2000);
                     }
 
                     activeBtn(false);
@@ -146,6 +148,7 @@ $(function() {
                             </div>
                         </div>
                     `);
+                    clearTimeout(timerId);
                     setTimeout(function(){
                         msg.html('');
                     }, 4000);
@@ -156,13 +159,18 @@ $(function() {
                     setTimeout(function(){
                         activeBtn(false);
                     }, 500);
-                    setTimeout(function(){
+                    clearTimeout(timerId);
+                    timerId = setTimeout(function(){
                         msg.html('');
                     }, 3000);
                     if (d?.responseJSON?.result?.data?.redirect) {
                         setTimeout(function(){
+                            activeBtn(true);
+                        }, 501);
+                        clearTimeout(timerId);
+                        timerId = setTimeout(function(){
                             window.location.href = '/register';
-                        }, 5000);
+                        }, 4000);
                     }
                 }
             })

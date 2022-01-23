@@ -1,5 +1,7 @@
 $(function() {
     if (window?.XMLHttpRequest) {
+        let timerId = 0;
+
         const activeBtn = (disabled) => {
             $('.btn-send').prop('disabled', disabled);
         }
@@ -39,16 +41,18 @@ $(function() {
                 method: 'POST',
                 data: th.serialize(),
                 success: function (d) {
+                    clearTimeout(timerId);
                     activeBtn(true);
                     msg.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
-                    setTimeout(function(){
+                    timerId = setTimeout(function(){
                         window.location.href = '/lk';
                     }, 2000);
                 },
                 error: function (d) {
+                    clearTimeout(timerId);
                     activeBtn(true);
                     msg.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
-                    setTimeout(function(){
+                    timerId = setTimeout(function(){
                         activeBtn(false);
                     }, 1000);
                 }

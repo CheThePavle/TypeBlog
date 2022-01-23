@@ -21,7 +21,7 @@
                 <div class="form-group col-md-3">
                     <input class="form-control" type="text" name="name_category" maxlength="30">
                 </div>
-                <button type='submit' class='btn btn-success changed'>Добавить</button>
+                <button type='submit' class='btn btn-success add'>Добавить</button>
                 <br>
             </form>
             <table class="table table-striped body_category">
