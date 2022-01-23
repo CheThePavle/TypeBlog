@@ -25,7 +25,6 @@
             $getReadPost = [];
             $getCommentsCount = [];
 
-            // оптимизировать
             foreach ($res as $el) {
                 $get = $db->query("SELECT t.id_tag, t.name_tag FROM tag as t JOIN post_tag as pt ON t.id_tag = pt.id_tag WHERE pt.id_post = ?;", [$el['id_post']]);
                 array_push($getTags, $get);

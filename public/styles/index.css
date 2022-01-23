@@ -9,7 +9,7 @@
     src: url("fonts/Roboto_regular.ttf");
 }
 
-p, .ce-paragraph{
+p, .ce-paragraph, .cdx-nested-list{
     word-wrap: break-word;
     font-size: 16px;
 }

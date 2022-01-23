@@ -13,7 +13,6 @@ $(function() {
             });
         })
 
-        // Поиск по постам и пользователям (поставить задержку отправки запросов)
         let searchHTML = $('#searchPostAndUser');
         let resultHTML = $(".resultSearch");
         const getResSearch = () => {

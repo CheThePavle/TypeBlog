@@ -1,5 +1,4 @@
 <?php
-    //print_r(session_save_path());
     if ($_SERVER['REQUEST_URI'] === '/index.php') {header("Location: /");}
 
     $url = (isset($_GET['q'])) ? $_GET['q'] : '';

@@ -34,10 +34,9 @@ $(function() {
             }
         })
 
-        // http://verstaemvse.ru/plagin-sozdaniya-polya-dlya-vvoda-tegov-taggingjs.html
         let myOptionsTagging = {
-            "no-comma": true, // убрать создание тега при нажатии , и б
-            "case-sensitive": false, // нижний регистр
+            "no-comma": true,
+            "case-sensitive": false,
             "no-duplicate": true,
             "forbidden-chars-text": '',
             "forbidden-chars-callback": function(el){
@@ -55,14 +54,12 @@ $(function() {
                     $(".errorTags").html('')
                 }, 3000)
             },
-            "edit-on-delete": false, // удалить тег сразу не изменяя его
+            "edit-on-delete": false,
             "forbidden-chars": [
                 "-", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
                 "=", "_", "+", "`", "~", "\"", "№", ";", "%", ":", "?",
                 "|", "{", "}", "[", "]", "\\", "\'", "<", ">", ",", ".", "/"],
-            "tag-char": "#",
-            // "forbidden-words": [], // массив запрещенных слов
-            // "forbidden-words-callback": ''
+            "tag-char": "#"
         };
         $("#tagBox").tagging(myOptionsTagging);
         $(".type-zone").keyup(function () {
@@ -230,9 +227,7 @@ $(function() {
                 },
                 header: {
                     class: Header,
-                    shortcut: 'SHIFT+H', //при нажатии клавиш будет создан заголовок
-                    // levels: [2, 3, 4],
-                    // defaultLevel: 3
+                    shortcut: 'SHIFT+H'
                 }
             }
         });
@@ -244,7 +239,6 @@ $(function() {
             let msg = $('.msg');
 
             editor.save().then(savedData => {
-                // возможно тут ограничение передачи body в php 27 000 байт
                 formData.append('body', JSON.stringify(savedData));
                 formData.set('tags', $("#tagBox").tagging( "getTags" ));
 

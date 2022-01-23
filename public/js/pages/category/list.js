@@ -4,6 +4,10 @@ $(function() {
         let notify = $(".notify");
         let timerId = 0;
 
+        const activeBtn = (disabled) => {
+            $('.add').prop('disabled', disabled);
+        }
+
         categoryHTML.on( "click", ".changed", function() {
             let body_change_category = $('.body_change_category');
             body_change_category.html('');
@@ -69,13 +73,14 @@ $(function() {
                 method: 'POST',
                 data: th.serialize(),
                 success: function (d) {
+                    activeBtn(true);
                     clearTimeout(timerId);
                     notify.html(`<div class="alert alert-success">${d?.result?.msg}</div>`);
                     timerId = setTimeout(function () {
                         // добавить динамический вывод в таблицу без перезагрузки
                         window.location.href = '/category/list';
                         notify.html(``);
-                    }, 4000);
+                    }, 3000);
                 },
                 error: function (d) {
                     clearTimeout(timerId);

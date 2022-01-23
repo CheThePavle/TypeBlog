@@ -12,12 +12,12 @@
             $db->response(409, "Эта категория уже используется в посте с id - $idPost (уберите её сначала у поста)");
         }
 
-        $res = $db->make("DELETE FROM `tag` WHERE `tag`.`id_tag` = ?;", [$idCategory]);
+        $res = $db->make("DELETE FROM `category` WHERE `category`.`id_category` = ?;", [$idCategory]);
         if (!$res) {
-            $db->response(409, "Не удалось удалить тег");
+            $db->response(409, "Не удалось удалить категорию");
         }
 
-        $db->response(200, "Тег успешно удален");
+        $db->response(200, "Категория успешно удалена");
     } else {
         $db->response(409, "Извините нет доступа.");
     }

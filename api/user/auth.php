@@ -38,10 +38,3 @@
     } else {
         $db->response(409, "Введите логин и пароль!");
     }
-
-
-//    if ($_POST['checkbox']) {
-//        // вечная сессия реализовать
-//    }
-//  ini_set('session.gc_maxlifetime', 2);
-//  ini_set('session.cookie_lifetime', 2);

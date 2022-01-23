@@ -56,6 +56,8 @@
                             ? "<td class='unblockedTd'><button type='button' class='btn btn-success unblocked'>Разблокировать</button></td>"
                             : "<td class='blockedTd'><button type='button' class='btn btn-danger blocked'>Заблокировать</button></td>";
                         echo "</tr>";
+
+                        $roleHTML = '';
                     }
                 ?>
                 </tbody>

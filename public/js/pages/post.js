@@ -1,6 +1,5 @@
 $(function() { // normalizeSpace()
     if (window?.XMLHttpRequest) {
-        // возможно можно просто сразу в php выполнять запрос и выводить на страницу
         const id = window?.location?.pathname?.substr(6);
         let timerId = 0;
 
@@ -175,6 +174,7 @@ $(function() { // normalizeSpace()
                 msgPost.html(`<div class="alert alert-danger">${d?.responseJSON?.result?.msg}</div>`);
                 headingPost.html(`<h1 id="heading">Неизвестный заголовок</h1>`);
                 $('.repost').remove();
+                $('#qrcode').remove();
                 $('.row_comments').remove();
             }
         })
@@ -443,8 +443,9 @@ $(function() { // normalizeSpace()
         commentsHTML.on( "click", ".reply", function() {
             let body_reply = $('.body_reply');
             if (body_reply?.length === 0) {
+                clearTimeout(timerId);
                 notify.html(`<div class="alert alert-danger">Отвечать на комментарии могут только зарегистрированные пользователи</div>`);
-                return setTimeout(function () {
+                return timerId = setTimeout(function () {
                     notify.html(``);
                 }, 3000);
             }

@@ -1,5 +1,5 @@
 $(function() {
-    if (window?.XMLHttpRequest) { // сомнительная проверка ошибки в firefox 5.0 - знаки вопроса и объявления переменных через let
+    if (window?.XMLHttpRequest) {
         let start = 0;
         let getUrlParams = window?.location?.search?.replace( '?', '') + '&start=';
 
@@ -97,33 +97,4 @@ $(function() {
     } else {
         alert('Ваша версия браузера устарела, к сожалению поддержки пока нет');
     }
-
-// let getParams = window
-//     .location
-//     .search
-//     .replace('?','')
-//     .split('&')
-//     .reduce(
-//         function(p,e){
-//             var a = e.split('=');
-//             p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
-//             return p;
-//         },
-//         {}
-//     );
-
-// if (window.location.pathname === '/posts' && getParams['']) {
-//     window.location.href = `/posts?number=${number}`;
-// }
-
-// function getRequests() {
-//     var s1 = location.search.substring(1, location.search.length).split('&'),
-//         r = {}, s2, i;
-//     for (i = 0; i < s1.length; i += 1) {
-//         s2 = s1[i].split('=');
-//         r[decodeURIComponent(s2[0]).toLowerCase()] = decodeURIComponent(s2[1]);
-//     }
-//     return r;
-// };
-// let QueryString = getRequests();
 });
