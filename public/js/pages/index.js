@@ -46,7 +46,7 @@ $(function() {
                         d?.map(function(el) {
                             let strTags = '';
                             el?.tags?.map(function(item) {
-                                strTags += `<a href="/?tag[]=${item?.id_tag}">${item?.name_tag + ', '}</a>`;
+                                strTags += `<a href="/?category=1&tag[]=${item?.id_tag}">${item?.name_tag + ', '}</a>`;
                             });
                             if (strTags) {
                                 strTags = strTags?.slice(0, strTags?.length - 6) + '</a>';

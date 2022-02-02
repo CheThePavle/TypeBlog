@@ -9,7 +9,7 @@
         $db->response(409, "Комментарии не могут загрузиться для этого поста!");
     }
 
-    $res = $db->query("SELECT c.id_comment, c.id_author, c.body_comment, c.id_parent_comment, c.created_at, c.updated_at, u.folder, u.img_type, u.login 
+    $res = $db->query("SELECT c.id_comment, c.id_author, c.body_comment, c.id_parent_comment, c.created_at, c.updated_at, u.folder, u.img_type, u.login, u.id_role
                             FROM comments as c JOIN post as p ON c.id_post = p.id_post JOIN user as u ON c.id_author = u.id_user 
                             WHERE c.id_post = ? ORDER BY c.created_at DESC",[
         $idPost

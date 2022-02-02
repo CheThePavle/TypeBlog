@@ -59,11 +59,11 @@
         $mail->isSMTP();
         $mail->Host = 'smtp.yandex.ru';
         $mail->SMTPAuth = true;
-        $mail->Username = 'verify.email.blog@yandex.ru'; // Ваш логин от почты с которой будут отправляться письма
-        $mail->Password = 'test123'; // Ваш пароль от почты с которой будут отправляться письма
+        $mail->Username = 'typeblog@yandex.ru'; // Ваш логин от почты с которой будут отправляться письма
+        $mail->Password = 'QwErTy123'; // Ваш пароль от почты с которой будут отправляться письма
         $mail->SMTPSecure = 'ssl';
         $mail->Port = 465;
-        $mail->setFrom('verify.email.blog@yandex.ru'); // от кого будет уходить письмо?
+        $mail->setFrom('typeblog@yandex.ru'); // от кого будет уходить письмо?
         $mail->addAddress($email); // Кому будет уходить письмо
         $mail->isHTML(true);
         $mail->Subject = "Код для подтверждения регистрации пользователя - $login";
@@ -76,7 +76,7 @@
 
         if(!$mail->send()) {
             deleteVerifySession();
-            $db->response(409, "Невозможно отправить письмо на не существующую почту");
+            $db->response(409, "Невозможно отправить письмо (что-то пошло не так или почта не найдена)");
         } else {
             $db->response(200, "На вашу почту отправлен код подтверждения регистрации!");
         }
