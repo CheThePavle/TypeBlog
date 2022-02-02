@@ -6,6 +6,19 @@
     width: 100%;
 }
 
+.status_admin{
+    color: red;
+    font-weight: bold;
+}
+.status_moder{
+    color: green;
+    font-weight: bold;
+}
+
+h2{
+    margin-top: 40px;
+}
+
 /*ul li li{*/
 /*    margin-left: 100px;*/
 /*}*/

@@ -655,7 +655,7 @@ $(function() { // normalizeSpace()
                                                 </a>
                                                 <div class="media-body">
                                                     <div class="mar-btm">
-                                                        <a href="/profile/${li_obj.value?.id_author}" class="btn-link text-semibold media-heading box-inline val_login" target="_blank">${li_obj.value?.login}</a>
+                                                        <a href="/profile/${li_obj.value?.id_author}" class="btn-link text-semibold media-heading box-inline val_login ${li_obj.value?.id_role == 2 ? 'status_moder' : li_obj.value?.id_role == 3 ? 'status_admin' : ''}" target="_blank">${li_obj.value?.login}</a>
                                                         <span 
                                                             class="comment_rating ${+li_obj.value?.like > 0 ? 'positiveRating' : +li_obj.value?.like < 0 ? 'negativeRating' : 'neutralRating'}"
                                                         >

@@ -10,7 +10,11 @@
     width: 100%;
 }
 
-
+select{
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
 /*Стилизация загрузки превью картинки*/
 .download_img_prev{

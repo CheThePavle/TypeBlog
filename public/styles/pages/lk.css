@@ -116,8 +116,11 @@
     margin-top: 10px;
 }
 .closed_save_profile{
-    margin-top: 1px;
+    margin-top: 2px;
     margin-right: 10px;
+}
+#saveProfile{
+    margin-top: 2px;
 }
 .my_post_header{
     margin-top: 30px;

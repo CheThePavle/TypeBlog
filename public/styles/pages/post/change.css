@@ -7,7 +7,15 @@
     width: 100%;
 }
 
+h2{
+    margin-top: 20px;
+}
 
+select{
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
 /*Стилизация загрузки превью картинки*/
 .download_img_prev{
